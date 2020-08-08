@@ -2,8 +2,11 @@
 
 NOTE:
 devops : Mumshad  mannambeth (udemy)
+
 aws and kafka : Stephane maarek(udemy)
+
 elastic search: Imtiaz ahmad(udemy)
+
 other:- bharat thippireddy(udemy)
 
 u can see in28minutes also in udemy
