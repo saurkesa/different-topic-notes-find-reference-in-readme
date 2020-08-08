@@ -1,6 +1,7 @@
 # different-topic-notes-find-reference-in-readme
 
 NOTE: notes are  not complete but u can go through it
+
 devops : Mumshad  mannambeth (udemy)
 
 aws and kafka : Stephane maarek(udemy)
