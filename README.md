@@ -1,5 +1,13 @@
 # different-topic-notes-find-reference-in-readme
 
+NOTE:
+devops : Mumshad  mannambeth (udemy)
+aws and kafka : Stephane maarek(udemy)
+elastic search: Imtiaz ahmad(udemy)
+other:- bharat thippireddy(udemy)
+
+u can see in28minutes also in udemy
+
 #Find reference of different topic ( All are super no boubt u will learn a lot)
 
 1)AWS  and kafka:            Stephane maarek
