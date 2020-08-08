@@ -9,9 +9,10 @@ elastic search: Imtiaz ahmad(udemy)
 
 other:- bharat thippireddy(udemy)
 
-u can see in28minutes also in udemy
+Most Important : for Programming practist
+https://www.youtube.com/results?search_query=aditya+verma+playlist
 
-#Find reference of different topic ( All are super no boubt u will learn a lot)
+#Find reference of different topic ( All are super no doubt u will learn a lot)
 
 1)AWS  and kafka:            Stephane maarek
 https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c02/
@@ -40,4 +41,8 @@ https://www.udemy.com/course/junitandmockitocrashcourse/
 
 8) Kubernetes by Mumshad mannambeth ( very good playlist for devops seriously)
 https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=udemyads&utm_campaign=LongTail_la.EN_cc.INDIA&utm_content=deal4584&utm_term=_._ag_77882236223_._ad_437477391720_._kw__._de_c_._dm__._pl__._ti_dsa-1007766171032_._li_9062031_._pd__._&matchtype=b&gclid=CjwKCAjwmrn5BRB2EiwAZgL9oq0DGJxGNtMsL5C045s45oqJjpnUwjcuMcFqv4yB6lX2-prlaAAwJxoCgesQAvD_BwE
+
+9) core java and java 8 ( durgasoft playlist)
+  https://www.youtube.com/playlist?list=PLd3UqWTnYXOmx_J1774ukG_rvrpyWczm0
+
    
