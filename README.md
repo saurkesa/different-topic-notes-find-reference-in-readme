@@ -22,6 +22,7 @@ https://www.udemy.com/course/kafka-streams/
 2) Angular  by javabrain and codevolution 
 
 a) Angular js  https://www.youtube.com/playlist?list=PLvZkOAgBYrsS_ugyamsNpCgLSmtIXZGiz
+
 b) angular 7:  https://www.youtube.com/playlist?list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ
 
 3)Docker : 
@@ -31,11 +32,13 @@ https://www.youtube.com/playlist?list=PLhW3qG5bs-L99pQsZ74f-LC-tOEsBp2rK
 4)Typescript:
 
    a) javabrain :  https://www.youtube.com/playlist?list=PLqq-6Pq4lTTanfgsbnFzfWUhhAz3tIezU
+   
    b)codevolution: https://www.youtube.com/playlist?list=PLC3y8-rFHvwhI0V5mE9Vu6Nm-nap8EcjV
    
 5) Elastic search and maven  by Imtiaz ahmad udemy
 
  https://www.udemy.com/course/complete-elasticsearch-masterclass-with-kibana-and-logstash/ 
+ 
  https://www.udemy.com/course/mavencrashcourse/
  
 6)Javascript  by javabrain
