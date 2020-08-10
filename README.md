@@ -13,6 +13,7 @@ other:- bharat thippireddy(udemy)
 Most Important : for Programming practist
 https://www.youtube.com/results?search_query=aditya+verma+playlist
 https://www.youtube.com/c/Pepcoding/playlists
+https://www.pepcoding.com/resources/
 
 #Find reference of different topic ( All are super no doubt u will learn a lot)
 
