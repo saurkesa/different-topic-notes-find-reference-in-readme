@@ -12,8 +12,12 @@ other:- bharat thippireddy(udemy)
 
 Most Important : for Programming practist
 https://www.youtube.com/results?search_query=aditya+verma+playlist
+
 https://www.youtube.com/c/Pepcoding/playlists
+
 https://www.pepcoding.com/resources/
+
+practice question for pepcoding : https://drive.google.com/drive/u/0/mobile/folders/15E9vAooWGtLv1UlzpkawUkM1f7_mFeJs
 
 #Find reference of different topic ( All are super no doubt u will learn a lot)
 
