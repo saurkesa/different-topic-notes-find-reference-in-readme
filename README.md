@@ -19,6 +19,8 @@ https://www.pepcoding.com/resources/
 
 practice question for pepcoding : https://drive.google.com/drive/u/0/mobile/folders/15E9vAooWGtLv1UlzpkawUkM1f7_mFeJs
 
+https://docs.google.com/spreadsheets/u/0/d/1XdXJbn9NC7fx1CeavItkxR0Yos8rQAC9xXjnH4-f6Eg/htmlview#gid=0
+
 #Find reference of different topic ( All are super no doubt u will learn a lot)
 
 1)AWS  and kafka:            Stephane maarek
