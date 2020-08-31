@@ -26,7 +26,9 @@ https://docs.google.com/spreadsheets/u/0/d/1XdXJbn9NC7fx1CeavItkxR0Yos8rQAC9xXjn
 1)AWS  and kafka:            Stephane maarek
 
 https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c02/
+
 https://www.udemy.com/course/kafka-streams/
+
 https://cisco.udemy.com/course/aws-certified-cloud-practitioner-new/
 
 2) Angular  by javabrain and codevolution 
