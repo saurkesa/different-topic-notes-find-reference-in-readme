@@ -69,4 +69,7 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 
   https://www.youtube.com/playlist?list=PLd3UqWTnYXOmx_J1774ukG_rvrpyWczm0
 
+10 python : very good:
+
+https://www.udemy.com/course/complete-python-bootcamp/
    
