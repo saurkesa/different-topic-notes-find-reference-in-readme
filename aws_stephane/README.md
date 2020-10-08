@@ -25,6 +25,11 @@ very important :https://www.whizlabs.com/blog/aws-certified-developer-associate-
 https://medium.com/bb-tutorials-and-thoughts/how-to-pass-the-aws-certified-developer-associate-exam-fa9de075ec20
 ====================
 
+cloud formation resources:-----------
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
+
+=======================================================
+
 ec2 user_data
 
 #!/bin/bash
