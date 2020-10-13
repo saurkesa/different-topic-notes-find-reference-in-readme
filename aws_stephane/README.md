@@ -9,6 +9,7 @@ https://github.com/mransbro/aws-developer-notes#iam
 https://github.com/mostafac0des/certified-aws-developer-associate-notes/blob/master/1-aws-fundamentals/iam.md
 
 https://digitalcloud.training/aws-developer-associate-exam/
+https://digitalcloud.training/aws-certified-developer-course-downloads/
 
 
 https://aws.amazon.com/certification/certification-prep/===================imp
