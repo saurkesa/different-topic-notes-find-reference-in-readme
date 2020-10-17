@@ -31,6 +31,10 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-reso
 
 =======================================================
 
+python aws SAM
+https://github.com/amazon-archives/serverless-app-examples/tree/master/python
+=============================
+
 ec2 user_data
 
 #!/bin/bash
