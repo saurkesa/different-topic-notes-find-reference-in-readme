@@ -1,4 +1,8 @@
 
+very important link:
+aws glossary:--
+https://docs.aws.amazon.com/general/latest/gr/glos-chap.html
+
 # aws_developer_certificate
 notes prepared by others
 
