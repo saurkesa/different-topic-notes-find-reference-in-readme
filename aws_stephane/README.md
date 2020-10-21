@@ -3,6 +3,15 @@ very important link:
 aws glossary:--
 https://docs.aws.amazon.com/general/latest/gr/glos-chap.html
 
+we can search notes like this :
+
+https://aws.amazon.com/lambda/faqs/
+
+https://aws.amazon.com/ec2/faqs
+
+https://aws.amazon.com/certification/certified-developer-associate/
+
+
 # aws_developer_certificate
 notes prepared by others
 
