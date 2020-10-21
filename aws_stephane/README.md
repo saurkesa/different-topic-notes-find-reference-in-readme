@@ -5,11 +5,21 @@ https://docs.aws.amazon.com/general/latest/gr/glos-chap.html
 
 we can search notes like this :
 
-https://aws.amazon.com/lambda/faqs/
-
-https://aws.amazon.com/ec2/faqs
+Section 26)  AWS Preparation
 
 https://aws.amazon.com/certification/certified-developer-associate/
+
+To learn about any topic
+https://aws.amazon.com/lambda/faqs/
+
+
+For certification
+
+https://www.aws.training/certification
+
+Certificate udemy
+https://cisco.udemy.com/certificate/UC-dcadfec4-f296-45d0-b71d-3344d37194e8/
+
 
 
 # aws_developer_certificate
