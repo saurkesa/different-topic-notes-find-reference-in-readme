@@ -35,9 +35,6 @@ https://digitalcloud.training/aws-developer-associate-exam/
 https://digitalcloud.training/aws-certified-developer-course-downloads/
 
 
-https://aws.amazon.com/certification/certification-prep/===================imp
-
-
 user experience
 
 https://www.soldevelo.com/blog/my-journey-to-becoming-aws-certified/
