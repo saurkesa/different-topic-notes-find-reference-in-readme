@@ -4,6 +4,8 @@ NOTE: notes are  not complete but u can go through it
 
 devops : Mumshad  mannambeth (udemy)
 
+for practist : https://www.katacoda.com/courses/kubernetes
+
 aws and kafka : Stephane maarek(udemy)
 
 elastic search: Imtiaz ahmad(udemy)
