@@ -76,7 +76,7 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 https://www.udemy.com/course/complete-python-bootcamp/
 
 
-| Attempt | #1  | #2  |
-| ------- | --- | --- |
-| Seconds | 301 | 283 |
+| Attributes | Tags | Data Type | Description |
+| ---------- | ---- | --------- | ----------- |
+| Product Name | Inventory | string | Product Name Field Value |
    
