@@ -78,5 +78,39 @@ https://www.udemy.com/course/complete-python-bootcamp/
 
 | Attributes | Tags | Data Type | Description |
 | ---------- | ---- | --------- | ----------- |
-| Product Name | Inventory | string | Product Name Field Value |
+| productName | Inventory | string | The product name reported by PCE.Examples: Cisco UCS B200 M4 Blade Server, UCS-IOM-2208XP, N20-FAN5 |
+| productDescription | Inventory |  |  |
+| address | Inventory |  |  |
+| latitude | Inventory |  |  |
+| longitude | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  | Inventory |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
    
