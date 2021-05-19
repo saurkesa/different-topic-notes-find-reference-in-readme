@@ -79,32 +79,32 @@ https://www.udemy.com/course/complete-python-bootcamp/
 | Attributes | Tags | Data Type | Description |
 | ---------- | ---- | --------- | ----------- |
 | productName | Inventory | string | The product name reported by PCE.Examples: Cisco UCS B200 M4 Blade Server, UCS-IOM-2208XP, N20-FAN5 |
-| productDescription | Inventory | string |  |
-| address | Inventory | string |  |
-| latitude | Inventory | double |  |
-| longitude | Inventory | double |  |
-| orgId | Inventory | string |  |
-| orgName | Inventory | string |  |
-| networkId | Inventory | string |  |
-| networkName | Inventory | string |  |
-| networkUrl | Inventory | string |  |
-| orgUrl | Inventory | string |  |
-| isPDL | Inventory | string |  |
-| licenseType | Inventory | string |  |
-| licenseExpirationDate | Inventory | long |  |
-| licenseActivationDate | Inventory | long |  |
-| sourceLicenseStatus | Inventory | string |  |
-| deviceLicenseEndDate | Inventory | long |  |
-| licenseLevel | Inventory | string |  |
-| licenseStatus | Inventory | string |  |
-| primaryDataRegion | Inventory | string |  |
-| licenseKey | Inventory | string |  |
-| claimedDate | Inventory | long |  |
-| inventoryDevicesModel | Inventory | string |  |
-| portalCustomerId | Inventory | string |  |
-| cxCustomerId | Inventory | string |  |
-| cxCustomerName | Inventory | string |  |
-| cxCustomerBuId | Inventory | string |  |
-| cxCustomerBuName | Inventory | string |  |
+| productDescription | Inventory | string | Brief description of the product (e.g. Cisco Catalyst 3650 24 Port PoE 4x1G Uplink IP Base) |
+| address | Inventory | string | Address field value |
+| latitude | Inventory | double | Latitude field value |
+| longitude | Inventory | double | Longitude field value |
+| orgId | Inventory | string | Organization ID field value |
+| orgName | Inventory | string | Organization name field value |
+| networkId | Inventory | string | Network ID field value |
+| networkName | Inventory | string | Network Name field value |
+| networkUrl | Inventory | string | Network Url field value |
+| orgUrl | Inventory | string | Organization Url field value |
+| isPDL | Inventory | string | is per-device licensing field value |
+| licenseType | Inventory | string | LicenseType field value |
+| licenseExpirationDate | Inventory | long | LicenseExpirationDate field value |
+| licenseActivationDate | Inventory | long | LicenseActivationDate field value |
+| sourceLicenseStatus | Inventory | string | SourceLicenseStatus field value |
+| deviceLicenseEndDate | Inventory | long | DeviceLicenseEndDate field value |
+| licenseLevel | Inventory | string | LicenseLevel field value |
+| licenseStatus | Inventory | string | LicenseStatus field value |
+| primaryDataRegion | Inventory | string | PrimaryDataRegion field value |
+| licenseKey | Inventory | string | License Key field value |
+| claimedDate | Inventory | long | claimed date field value |
+| inventoryDevicesModel | Inventory | string | Inventory Devices Model field value |
+| portalCustomerId | Inventory | string | Portal CustomerId field value |
+| cxCustomerId | Inventory | string | CX CustomerID field value |
+| cxCustomerName | Inventory | string | CX CustomerName field value |
+| cxCustomerBuId | Inventory | string | CX CustomerBuId field value |
+| cxCustomerBuName | Inventory | string | CX CustomerBuName field value |
 
    
