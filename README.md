@@ -79,38 +79,32 @@ https://www.udemy.com/course/complete-python-bootcamp/
 | Attributes | Tags | Data Type | Description |
 | ---------- | ---- | --------- | ----------- |
 | productName | Inventory | string | The product name reported by PCE.Examples: Cisco UCS B200 M4 Blade Server, UCS-IOM-2208XP, N20-FAN5 |
-| productDescription | Inventory |  |  |
-| address | Inventory |  |  |
-| latitude | Inventory |  |  |
-| longitude | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  | Inventory |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| productDescription | Inventory | string |  |
+| address | Inventory | string |  |
+| latitude | Inventory | double |  |
+| longitude | Inventory | double |  |
+| orgId | Inventory | string |  |
+| orgName | Inventory | string |  |
+| networkId | Inventory | string |  |
+| networkName | Inventory | string |  |
+| networkUrl | Inventory | string |  |
+| orgUrl | Inventory | string |  |
+| isPDL | Inventory | string |  |
+| licenseType | Inventory | string |  |
+| licenseExpirationDate | Inventory | long |  |
+| licenseActivationDate | Inventory | long |  |
+| sourceLicenseStatus | Inventory | string |  |
+| deviceLicenseEndDate | Inventory | long |  |
+| licenseLevel | Inventory | string |  |
+| licenseStatus | Inventory | string |  |
+| primaryDataRegion | Inventory | string |  |
+| licenseKey | Inventory | string |  |
+| claimedDate | Inventory | long |  |
+| inventoryDevicesModel | Inventory | string |  |
+| portalCustomerId | Inventory | string |  |
+| cxCustomerId | Inventory | string |  |
+| cxCustomerName | Inventory | string |  |
+| cxCustomerBuId | Inventory | string |  |
+| cxCustomerBuName | Inventory | string |  |
+
    
