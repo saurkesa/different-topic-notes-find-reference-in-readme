@@ -107,4 +107,29 @@ https://www.udemy.com/course/complete-python-bootcamp/
 | cxCustomerBuId | Inventory | string | CX CustomerBuId field value |
 | cxCustomerBuName | Inventory | string | CX CustomerBuName field value |
 
+# Data Model : DCC  
+Note : This section include new attributes added in avro schema for DCC  
+
+| Attributes | Tags | Data Type | Description |
+| ---------- | ---- | --------- | ----------- |
+| assetType | Inventory | string | Type of asset : Hardware / Software |
+| profileName | Inventory | string | Profile Name field value |
+| hclStatus | Inventory | string | Hcl Status field value |
+| ucsDomain | Inventory | string | Ucs Domain field value |
+| hxClusterName | Inventory | string | Hx Cluster field value |
+| portalUrl | Inventory | string | Portal Url field value |
+| managementMode | Inventory | string | Management mode of the device - UCSM, IntersightStandalone, Intersight |
+| modTime | Inventory | long | Mod time field value |
+| accountMoid | Inventory | string | Account Moid field value |
+| connectionStatus | Inventory | string | Connection Status field value |
+| connectionStatusChangeTime | Inventory | long | Connection status change time field value |
+| ucsdStatus | Inventory | string | Ucsd status licensing field value |
+| ucsdLicenseInfoMoid | Inventory | string | Ucsd License Info field value |
+| intersightLicenseStatus | Inventory | string | Intersight License Status field value |
+| intersightLicenseLevel | Inventory | long | Intersight License Level field value |
+| parentMoid | Inventory | string | Parent Moid field value |
+| moid | Inventory | string | Moid field value |
+| clusterMoid | Inventory | string | Cluster Moid field value |
+| platformType | Inventory | string | Platform Type field value |
+
    
