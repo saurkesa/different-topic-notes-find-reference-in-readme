@@ -107,7 +107,7 @@ https://www.udemy.com/course/complete-python-bootcamp/
 | cxCustomerBuId | Inventory | string | CX CustomerBuId field value |
 | cxCustomerBuName | Inventory | string | CX CustomerBuName field value |
 
-### Data Model : DCC  
+#### Data Model : DCC  
 Note : This section include new attributes added in avro schema for DCC  
 
 | Attributes | Tags | Data Type | Description |
