@@ -76,10 +76,10 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 https://www.udemy.com/course/complete-python-bootcamp/
 
 
-#### Data Model : DCC  
+### Data Model : DCC  
 Note : This section include new attributes added in parquet_ne.go and parquet_eq.go for DCC  
 
-### 1- parquet_ne.go
+#### 1- parquet_ne.go
 
 | Attributes | Data Type | Description |
 | ---------- | --------- | ----------- |
@@ -102,7 +102,7 @@ Note : This section include new attributes added in parquet_ne.go and parquet_eq
 | Guid | string | Guid Level field value |
 
 
-### 2- parquet_eq.go
+#### 2- parquet_eq.go
 
 | Attributes | Data Type | Description |
 | ---------- | --------- | ----------- |
@@ -110,4 +110,3 @@ Note : This section include new attributes added in parquet_ne.go and parquet_eq
 | Moid | string | Moid field value |
 | ClusterMoid | string | Cluster Moid field value |
 | PlatformType | string | Platform Type field value |
-
