@@ -76,60 +76,37 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 https://www.udemy.com/course/complete-python-bootcamp/
 
 
-| Attributes | Tags | Data Type | Description |
-| ---------- | ---- | --------- | ----------- |
-| productName | Inventory | string | The product name reported by PCE.Examples: Cisco UCS B200 M4 Blade Server, UCS-IOM-2208XP, N20-FAN5 |
-| productDescription | Inventory | string | Brief description of the product (e.g. Cisco Catalyst 3650 24 Port PoE 4x1G Uplink IP Base) |
-| address | Inventory | string | Address field value |
-| latitude | Inventory | double | Latitude field value |
-| longitude | Inventory | double | Longitude field value |
-| orgId | Inventory | string | Organization ID field value |
-| orgName | Inventory | string | Organization name field value |
-| networkId | Inventory | string | Network ID field value |
-| networkName | Inventory | string | Network Name field value |
-| networkUrl | Inventory | string | Network Url field value |
-| orgUrl | Inventory | string | Organization Url field value |
-| isPDL | Inventory | string | is per-device licensing field value |
-| licenseType | Inventory | string | LicenseType field value |
-| licenseExpirationDate | Inventory | long | LicenseExpirationDate field value |
-| licenseActivationDate | Inventory | long | LicenseActivationDate field value |
-| sourceLicenseStatus | Inventory | string | SourceLicenseStatus field value |
-| deviceLicenseEndDate | Inventory | long | DeviceLicenseEndDate field value |
-| licenseLevel | Inventory | string | LicenseLevel field value |
-| licenseStatus | Inventory | string | LicenseStatus field value |
-| primaryDataRegion | Inventory | string | PrimaryDataRegion field value |
-| licenseKey | Inventory | string | License Key field value |
-| claimedDate | Inventory | long | claimed date field value |
-| inventoryDevicesModel | Inventory | string | Inventory Devices Model field value |
-| portalCustomerId | Inventory | string | Portal CustomerId field value |
-| cxCustomerId | Inventory | string | CX CustomerID field value |
-| cxCustomerName | Inventory | string | CX CustomerName field value |
-| cxCustomerBuId | Inventory | string | CX CustomerBuId field value |
-| cxCustomerBuName | Inventory | string | CX CustomerBuName field value |
-
 #### Data Model : DCC  
-Note : This section include new attributes added in avro schema for DCC  
+Note : This section include new attributes added in parquet_ne.go and parquet_eq.go for DCC  
 
-| Attributes | Tags | Data Type | Description |
+### 1- parquet_ne.go
+
+| Attributes | Data Type | Description |
 | ---------- | ---- | --------- | ----------- |
-| assetType | Inventory | string | Type of asset : Hardware / Software |
-| profileName | Inventory | string | Profile Name field value |
-| hclStatus | Inventory | string | Hcl Status field value |
-| ucsDomain | Inventory | string | Ucs Domain field value |
-| hxClusterName | Inventory | string | Hx Cluster field value |
-| portalUrl | Inventory | string | Portal Url field value |
-| managementMode | Inventory | string | Management mode of the device - UCSM, IntersightStandalone, Intersight |
-| modTime | Inventory | long | Mod time field value |
-| accountMoid | Inventory | string | Account Moid field value |
-| connectionStatus | Inventory | string | Connection Status field value |
-| connectionStatusChangeTime | Inventory | long | Connection status change time field value |
-| ucsdStatus | Inventory | string | Ucsd status licensing field value |
-| ucsdLicenseInfoMoid | Inventory | string | Ucsd License Info field value |
-| intersightLicenseStatus | Inventory | string | Intersight License Status field value |
-| intersightLicenseLevel | Inventory | long | Intersight License Level field value |
-| parentMoid | Inventory | string | Parent Moid field value |
-| moid | Inventory | string | Moid field value |
-| clusterMoid | Inventory | string | Cluster Moid field value |
-| platformType | Inventory | string | Platform Type field value |
+| AssetType | string | Type of asset : Hardware / Software |
+| ProfileName | string | Profile Name field value |
+| HclStatus | string | Hcl Status field value |
+| UcsDomain | string | Ucs Domain field value |
+| HxClusterName | string | Hx Cluster field value |
+| PortalUrl | string | Portal Url field value |
+| ManagementMode | string | Management mode of the device - UCSM, IntersightStandalone, Intersight |
+| ModTime | long | Mod time field value |
+| AccountMoid | string | Account Moid field value |
+| ConnectionStatus | string | Connection Status field value |
+| ConnectionStatusChangeTime | long | Connection status change time field value |
+| UcsdStatus | string | Ucsd status licensing field value |
+| UcsdLicenseInfoMoid | string | Ucsd License Info field value |
+| IntersightLicenseStatus | string | Intersight License Status field value |
+| IntersightLicenseLevel | long | Intersight License Level field value |
+| AssetTag | string | AssetTag field value |
+| Guid | string | Guid Level field value |
 
-   
+
+### 2- parquet_eq.go
+
+| Attributes | Data Type | Description |
+| ---------- | ---- | --------- | ----------- |
+| ParentMoid | string | Parent Moid field value |
+| Moid | string | Moid field value |
+| ClusterMoid | string | Cluster Moid field value |
+| PlatformType | string | Platform Type field value |
