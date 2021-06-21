@@ -76,13 +76,10 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 https://www.udemy.com/course/complete-python-bootcamp/
 
 
-#### Data Model : DCC  
-Note : This section include new attributes added in parquet_ne.go and parquet_eq.go for DCC  
-
 ### 1- parquet_ne.go
 
 | Attributes | Data Type | Description |
-| ---------- | ---- | --------- | ----------- |
+| ---------- | --------- | ----------- |
 | AssetType | string | Type of asset : Hardware / Software |
 | ProfileName | string | Profile Name field value |
 | HclStatus | string | Hcl Status field value |
@@ -105,7 +102,7 @@ Note : This section include new attributes added in parquet_ne.go and parquet_eq
 ### 2- parquet_eq.go
 
 | Attributes | Data Type | Description |
-| ---------- | ---- | --------- | ----------- |
+| ---------- | --------- | ----------- |
 | ParentMoid | string | Parent Moid field value |
 | Moid | string | Moid field value |
 | ClusterMoid | string | Cluster Moid field value |
