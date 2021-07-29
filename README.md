@@ -23,6 +23,8 @@ practice question for pepcoding : https://drive.google.com/drive/u/0/mobile/fold
 
 https://docs.google.com/spreadsheets/u/0/d/1XdXJbn9NC7fx1CeavItkxR0Yos8rQAC9xXjnH4-f6Eg/htmlview#gid=0
 
+https://www.pepcoding.com/most-important-interview-questions-list-for-product-based-companies
+
 #Find reference of different topic ( All are super no doubt u will learn a lot)
 
 1)AWS  and kafka:            Stephane maarek
@@ -76,37 +78,3 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 https://www.udemy.com/course/complete-python-bootcamp/
 
 
-### Data Model : DCC  
-Note : This section include new attributes added in parquet_ne.go and parquet_eq.go for DCC  
-
-#### 1- parquet_ne.go
-
-| Attributes | Data Type | Description |
-| ---------- | --------- | ----------- |
-| AssetType | string | Type of asset : Hardware / Software |
-| ProfileName | string | Profile Name field value |
-| HclStatus | string | Hcl Status field value |
-| UcsDomain | string | Ucs Domain field value |
-| HxClusterName | string | Hx Cluster field value |
-| PortalUrl | string | Portal Url field value |
-| ManagementMode | string | Management mode of the device - UCSM, IntersightStandalone, Intersight |
-| ModTime | long | Mod time field value |
-| AccountMoid | string | Account Moid field value |
-| ConnectionStatus | string | Connection Status field value |
-| ConnectionStatusChangeTime | long | Connection status change time field value |
-| UcsdStatus | string | Ucsd status licensing field value |
-| UcsdLicenseInfoMoid | string | Ucsd License Info field value |
-| IntersightLicenseStatus | string | Intersight License Status field value |
-| IntersightLicenseLevel | long | Intersight License Level field value |
-| AssetTag | string | AssetTag field value |
-| Guid | string | Guid Level field value |
-
-
-#### 2- parquet_eq.go
-
-| Attributes | Data Type | Description |
-| ---------- | --------- | ----------- |
-| ParentMoid | string | Parent Moid field value |
-| Moid | string | Moid field value |
-| ClusterMoid | string | Cluster Moid field value |
-| PlatformType | string | Platform Type field value |
