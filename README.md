@@ -77,4 +77,18 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 
 https://www.udemy.com/course/complete-python-bootcamp/
 
+#### Data Model : IB
+Note : This section include new attributes added in avro schema for IB  
+
+| Attributes | Tags | Data Type | Description |
+| ---------- | ---- | --------- | ----------- |
+| EosFlag | Coverage | string | Eos Flag field value |
+| ldosFlag | Coverage | string | ldos Flag field value |
+| TelemetryDeviceSoftwareVersion | Coverage | string | Telemetry Device Software Version field value |
+| TelemetryProductType | Coverage | string | Telemetry Product Type field value |
+| TelemetryReferenceId | Coverage | string | Telemetry Reference Id field value |
+| TelemetryReferenceType | Coverage | string | Telemetry Reference Type field value |
+| TelemetryRole | Coverage | string | Telemetry Role field value |
+
+
 
