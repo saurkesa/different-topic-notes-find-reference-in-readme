@@ -82,6 +82,9 @@ microservice  best approach :--https://12factor.net/
 11- helm chart
  https://www.youtube.com/c/DeekshithSN/playlists
  
+ 12----java techie playlist
+ https://www.youtube.com/c/JavaTechie/playlists
+ 
 
 
 
