@@ -77,18 +77,11 @@ https://www.udemy.com/course/learn-kubernetes/?utm_source=adwords&utm_medium=ude
 
 https://www.udemy.com/course/complete-python-bootcamp/
 
-### Data Model : IB
-Note : This section include new attributes added in parquet_eq_contract.go
+microservice  best approach :--https://12factor.net/
 
-| Attributes | Data Type | Description |
-| ---------- | --------- | ----------- |
-| EosFlag | string | Eos Flag field value |
-| ldosFlag | string | ldos Flag field value |
-| TelemetryDeviceSoftwareVersion | string | Telemetry Device Software Version field value |
-| TelemetryProductType | string | Telemetry Product Type field value |
-| TelemetryReferenceId | string | Telemetry Reference Id field value |
-| TelemetryReferenceType | string | Telemetry Reference Type value |
-| TelemetryRole | string | Telemetry Role field value |
+11- helm chart
+ https://www.youtube.com/c/DeekshithSN/playlists
+ 
 
 
 
