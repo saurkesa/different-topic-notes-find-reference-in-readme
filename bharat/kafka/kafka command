@@ -1,0 +1,24 @@
+
+Zookeeper start
+C:\Users\saurakes>zookeeper-server-start C:\sw\kafkabharat\kafka_2.12-3.2.0\config\zookeeper.properties
+
+Broker start
+C:\Users\saurakes>kafka-server-start C:\sw\kafkabharat\kafka_2.12-3.2.0\config\server.properties
+
+Lis of topic
+kafka-topics --list --bootstrap-server localhost:9092
+
+Create topic
+kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic first-topic
+
+Describe topic
+kafka-topics --describe --bootstrap-server localhost:9092 --topic first-topic
+
+Create consumer
+kafka-console-consumer --bootstrap-server localhost:9092 --topic first-topic
+
+Create producer
+kafka-console-producer --broker-list localhost:9092 --topic first-topic
+
+Delete topic
+kafka-topics --delete --bootstrap-server localhost:9092 --topic first-topic   
