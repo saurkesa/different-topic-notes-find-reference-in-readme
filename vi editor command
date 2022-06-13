@@ -1,0 +1,18 @@
+									VI Editor
+
+Command mode 
+Insert mode  i
+Execute mode  :wq  write and quit
+
+
+
+Shift +I  :--- it will go in starting of line
+- a  :- we can append data where cursor is there
+Shift +A  :- it will go to end of current line
+Small o :- it will create a new line where cursor is there
+Shift o :- it will insert a new line before current line
+Small s :- it will remove cursor pointing data
+Dd - remove q entire line
+2dd :- remove 2 line
+Yy - copy a line
+p---paste
