@@ -1,0 +1,60 @@
+Important :  go get -u www-github3.cisco.com/cxe/cx-cloud-ibes-profiler
+
+
+
+
+
+
+
+Note : create branch from local master and first take pull from remote master
+
+From branch to go Local master :Git checkout master
+
+Pull from master branch:-
+Git fetch upstream  
+ git merge upstream/master
+
+Push to fork branch :---------Git push 
+
+Git checkout -b feature/circle_ci
+
+
+Git remote add upstream url
+
+To revert back file
+git checkout -- go.mod go.sum
+
+=============================
+
+Need to commit go.mod also
+==========================
+
+Setting environment go path
+ go get -u www-github3.cisco.com/cxe/cx-cloud-ibes-profiler
+$Env:GOPATH = "C:\cxe"
+
+Go mod vendor
+Go mod tidy
+Problem resolution of click in golang visual studio in latest version
+
+https://stackoverflow.com/questions/62022466/go-to-definition-ctrl-click-in-vs-code-v1-45-1-with-go-v1-14-1-and-ubuntu-20
+
+Run this
+go get -v github.com/rogpeppe/godef
+
+
+======================================================================
+
+
+To replace file with head revision
+Git reset file.go
+
+
+To switch other branch and set upstream
+
+git checkout -b branchName upstream/hotfix
+git checkout -b feature/Meraki_changes_IPE upstream/hotfix-v0.9.25
+Git branch -vv ( to check upstream)
+
+
+
