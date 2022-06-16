@@ -1,0 +1,21 @@
+What you'll learn
+Learn what Kafka is and why is is so popular
+Learn where and who uses Kafka
+Understand the architectural components of Kafka
+Learn how Kafka differs from traditional messaging systems
+Install Kafka on your machine
+Use the Kafka command line to create topics ,send/receive messages
+Learn the Kafka Producer Concepts , API and send messages
+Use the Kafka Consumer API and receive messages
+Create custom serializers and deserializers to work with object type
+Use Avros inbuilt serializers and deserializers
+Use Confluent Schema Registry
+Learn Advanced Producer configuration
+Master the concepts of Consumer Groups and Rebalancing
+Learn the different ways to commit offsets
+Understand advanced consumer configuration
+Learn the concepts of Kafka Streaming API
+Create a Streaming application while understanding the fundamentals of streaming
+Work on a small use case and lean more transformation methods from the Streaming API
+Use Springs Support for Kafka to create producers and consumers as well
+All in simple steps
