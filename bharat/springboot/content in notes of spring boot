@@ -1,0 +1,21 @@
+What you'll learn
+Create a Spring boot application from scratch
+Understand the structure of a spring boot project
+Test your spring boot application
+Learn how Spring boot simplifies application creation
+Perform CRUD operations against a in memory db using Spring Data JPA
+Perform CRUD operations against MYSQL Database
+Expose out REST APIs using Spring Web
+Understand how spring boot auto configures a spring project
+Enable health metrics for the application
+Customize health metrics endpoint with your own information
+Use Spring Boot Profiles
+Use Thymeleaf Templating Web Engine
+Configure database caching
+Use Spring Batching
+Write unit testing using SpringMockMVC
+Do messaging using SpringJMS
+Use Swagger to document your REST APIs
+Upload and Download files using REST
+Learn the fundamentals of Reactive Programming
+Use Project Reactor and Spring Web Flux
