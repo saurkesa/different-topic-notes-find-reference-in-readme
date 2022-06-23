@@ -1,0 +1,149 @@
+Linux
+Yum install docker
+Docker --version
+Docker info
+Service docker start ------will start daemon server
+Docker images
+Docker run -it ubuntu bash
+Docker pull mysql:5.7
+
+More docker command
+
+Docker run --help
+Docker run -I -d -t -p 80:80 nginx
+Docker run -Itd -p 80:80 nginx
+Docker ps :- will tell us process status of container and it will show those container which are up and running
+Docker ps -a  :-- will list out all the container
+Docker start container id :----------start container
+Docker stop container id------------------stop container
+docker rm container id ---------remove container
+Docker rmi image  id :- will remove images
+ docker pause container name : Temporarily pause a container 
+Docker unpause container name :--- it will unpause a container
+Docker commit <container id > image name :  save the current state of container into an image 
+Docker run -itd --name myweb mywebserver :----------running the images into container
+Docker exec -it myweb bash :----------------- entering into the container
+Service docker start :-----will start docker
+
+Mysql command
+docker run -d -p 6666:3306 --name=docker-mysql --env="MYSQL_ROOT_PASSWORD=test1234" --env="MYSQL_DATABASE=emp" mysql
+docker exec -it docker-mysql bash
+# mysql -uroot -p 
+test1234
+mysql> show databases;
+mysql> show tables; 
+
+Docker volume
+
+Docker volume ls : this will list all the volumes this docker is managing
+Docker volume create myvol : create volume
+Docker run -itd -v myvol:/tmp nginx : create volume on any container and map to docker volume
+Docker run -itd -v /root/mydata1:/tmp ubuntu : mapping a random directory /tmp once container is up bind 
+
+
+Docker network
+Docker network ls : this will list of all network by default
+Docker network inspect network name : To know the details of particular network we will use
+Docker network create demonw --subnet=172.19.0.0/16 : Create our own network
+To create newtork
+docker run --name webserver3  --net demonw --ip 172.19.0.2 -h web.saurabh.com -p 82:80 -it ubuntu /bin/bash
+
+
+Docker network connect bridge webserver3 :    connect container to network
+Docker  network disconnect demonw webserver3 :Disconnect container from network
+
+
+Dockerize m/s application
+
+Setup the mysql container:
+docker run -d -p 6666:3306 --name=docker-mysql --
+env="MYSQL_ROOT_PASSWORD=test1234" --env="MYSQL_DATABASE=mydb" mysql
+docker exec -it docker-mysql bash
+# mysql -uroot -p 
+test1234
+mysql> show databases;
+mysql> show tables; 
+Another Terminal:
+docker exec -i docker-mysql mysql -uroot -ptest1234 mydb <tables.sql
+Launch the Application Containers:
+docker build -f Dockerfile -t coupon_app .
+docker run -t --name=coupon-app --link docker-mysql:mysql -p 10555:9091 
+coupon_app
+docker build -f Dockerfile -t product_app .
+docker run -t --link docker-mysql:mysql -p 10666:9090 product_app
+docker run -t --link docker-mysql:mysql --link coupon-app:coupon_app -p 
+10666:9090 product_app
+Testing:
+http://localhost:10555/couponapiapi
+http://localhost:10666/productapi
+The --link command will allow the Container
+
+Docker prune
+
+Docker container prune :-- it will remove all image that are not being used
+
+Docker container prune -a :-- it will removed all container
+
+Docker prune image -a :-- will removed all the images
+
+Docker volume prune
+
+Docker compose
+
+
+Docker-compose up :----it will create and start the container
+Docker-compose restart :--- will  restart all the services or container
+Docker-compose build :-  will rebuild all the services again
+Docker-compose scale :-- will allow us to scale how many number of container we want for each service
+Docker-compose stop :--- will stop the service
+Docker-compose kill :--- will kill the service abruptly
+Docker-compose logs :-   want to check the output of each container we can issue the logs command and it will show the logs
+Docker-compose logs :--ps will list out all container up and running
+Docker-compose ps :-- it will show all the container through this file is running
+Docker-compose down :-- will down all the services that are running
+Docker-compose start web
+Docker-compose stop web  (web name of service)
+
+Docker swarm
+ service docker start
+Docker swarm init
+Docker node inspect self
+
+Create service
+Docker service create --name my-server nginx
+
+Delete service
+Docker service rm service name
+
+Multiple replica and scaling
+Docker service create --name my-server -p 80:80 --replicas=3 nginx
+
+Scale the service ( increase)
+Docker service scale my-server=5
+
+Update
+Docker service update --image=nginx:1.16 my-server
+
+Now we want to use previous image only instead if nginx:1.16
+Docker service rollback my-server
+
+Now we can bring it back
+docker node update --availability active b4w8x3ymsy89eqbr45emhvp7m
+
+Docker stack deploy --compose-file  docker-compose.yml my-stack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
