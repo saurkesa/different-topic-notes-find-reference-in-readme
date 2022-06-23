@@ -1,0 +1,60 @@
+Pod:
+Create a pod :                                         kubectl run firstpod --image=nginx
+Get pod :                                                  kubectl get pods
+Describe the details of pod :               Kubectl describe pod firstpod
+Will go inside pod :                               Kubectl exec -it firstpod -- /bin/bash 
+delete pod  :                                           kubectl delete pod firstpod
+it will show file into yaml                    Kubectl get pod firstpod -o yaml
+which k8s created behind 
+the scene
+Create pod using yaml :                        Kubectl create -f firstpod.yaml
+go into  specific container of pod:      kubectl exec -it  firstpod --container db -- /bin/bash
+
+
+Get Namespace :                                   Kubectl get ns
+Create namespace :                              Kubectl create ns firstns
+To use ns while creating pod :           Kubectl create -f firstpod.yml --namespace firstns
+To switch namespace:                         Kubectl config set-context --current --namespace firstns
+
+
+it will give all the resources that       Kubectl get all
+are currently on cluster
+
+We can do dry run if we want           Kubectl create -f firstpod.yml --dry-run=client
+check all our step is ok
+
+Instead of creating yaml from scratch we can quicky get yaml for deployment or service or pod creation
+Kubectl run demo --image=httpd ( to launch a pod with http container)
+Kubectl get pod/demo -o yaml  ( wtever resources we want like pod here we want mention it)
+
+At anypoint we are not sure what the element is :-----We can run command
+Kubectl explain pods
+
+We can also see what can go inside pod element
+Kubectl explain pod.metadata
+
+
+Create Deployment yaml
+kubectl create -f  webserver.yml
+ kubectl get deployments
+kubectl get deployment webserver -o yaml
+
+Create service
+Kubectl get service
+Kubectl create -f webserver-svc.yml
+
+For some reason we want to use older version of httpd
+Kubectl replace -f webserver.yml 
+
+Rollback
+Kubectl rollout history deployment
+
+We want see changes between version :--
+Kubectl rollout history deployment mywebserver --revision=2
+
+kubectl delete all --all
+
+
+
+
+
