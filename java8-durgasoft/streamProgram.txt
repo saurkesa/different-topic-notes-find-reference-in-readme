@@ -1,0 +1,398 @@
+
+note :
+
+ ------
+public  interface Consumer<T>{
+ void accept<T>
+ 
+ public interface Predicate<T>{
+  boolean test(T t)
+ }
+ 
+ public interface Function<T,R>{
+ 
+ R apply(T t)
+ }
+ 
+forEach will accept consumer as argument
+filter will accept predicate as argument
+map will accept function as argument
+findFirst take optional object
+ Optional<T> min(Comparator<? super T> comparator);
+ Optional<T> max(Comparator<? super T> comparator); -----------comparator.comparing-----------take function
+
+												print stream
+
+			// create a stream from string
+		Stream<String> stream = Stream.of("a", "b", "c");
+		stream.forEach(System.out::println);
+
+		Stream<Integer> stream1 = Stream.of(1, 2, 3);
+		stream1.forEach(System.out::println);
+
+		// create stream from list
+		List<String> list = Arrays.asList("city", "town");
+		Stream<String> stream2 = list.stream();
+
+		stream2.forEach(System.out::println);
+
+		// create stream from set
+
+		Set<String> set = new HashSet<>(list);
+		Stream<String> stream3= set.stream();
+		stream3.forEach(System.out::println);
+
+		// create stream from array
+		String[] str = { "name", "city", "age" };
+		Stream<String> stream4 = Arrays.stream(str);
+		stream4.forEach(System.out::println);
+		
+		==============================================================================
+		
+		
+														filter stream
+														
+	public class Product {
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+
+	private int id;
+	private String name;
+	private float price;
+
+	public Product(int id, String name, float price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+}
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class demo {
+
+	public static void main(String[] args) {
+
+	   List<Product> products = getProducts();
+	   
+	   products.stream().filter(product->product.getPrice()>25000f).forEach(System.out::println);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(2, "Dell laptop", 30000f));
+		productsList.add(new Product(3, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+//output
+
+Product [id=2, name=Dell laptop, price=30000.0]
+Product [id=3, name=Lenovo laptop, price=28000.0]
+Product [id=4, name=Sony laptop, price=28000.0]
+Product [id=5, name=Apple laptop, price=90000.0]
+
+
+============================================================================
+
+sorting using java 8
+
+1- three different way to sort list in ascending order
+
+
+                          sort list of string in ascending order
+
+List<String> fruit= Arrays.asList("Banana","Apple","Mango","Orange");
+		
+		//ascending order
+		
+		List<String> sortedList = fruit.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+		System.out.println(sortedList);
+		
+		// using lambda expression
+		List<String> sortedList1 = fruit.stream().sorted((o1,o2)->o1.compareTo(o2)).collect(Collectors.toList());
+		System.out.println(sortedList1);
+		
+		// using lambda expression
+		List<String> sortedList2 = fruit.stream().sorted().collect(Collectors.toList());
+		System.out.println(sortedList2);
+		
+sort list of string in descending order
+
+ 
+		List<String> fruit= Arrays.asList("Banana","Apple","Mango","Orange");
+		
+		//ascending order
+		
+		List<String> sortedList = fruit.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+		System.out.println(sortedList);
+		
+		// using lambda expression
+		List<String> sortedList1 = fruit.stream().sorted((o1,o2)->o2.compareTo(o1)).collect(Collectors.toList());
+		System.out.println(sortedList1);
+		
+===========================================================================================
+
+Sort employee using salary by annonymous implementaion in ascending order
+
+public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted(new Comparator<Product>() {
+
+			@Override
+			public int compare(Product o1, Product o2) {
+
+				return (int) (o1.getPrice() - o2.getPrice());
+			}
+
+		}).collect(Collectors.toList());
+
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(2, "Dell laptop", 30000f));
+		productsList.add(new Product(3, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+output
+
+[Product [id=1, name=Hp laptop, price=25000.0], Product [id=3, name=Lenovo laptop, price=28000.0], Product [id=4, name=Sony laptop, price=28000.0],
+ Product [id=2, name=Dell laptop, price=30000.0], Product [id=5, name=Apple laptop, price=90000.0]]
+ 
+ // sort using lamda expression
+ 
+ public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted((p1, p2) -> p1.getId() - p2.getId())
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+//output
+
+[Product [id=1, name=Hp laptop, price=25000.0], Product [id=2, name=Lenovo laptop, price=28000.0],
+ Product [id=3, name=Dell laptop, price=30000.0], Product [id=4, name=Sony laptop, price=28000.0], Product [id=5, name=Apple laptop, price=90000.0]]
+ 
+ 
+                                                         decending order sort
+ 
+ public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted((p1, p2) -> p2.getId() - p1.getId())
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+[Product [id=5, name=Apple laptop, price=90000.0], Product [id=4, name=Sony laptop, price=28000.0], Product [id=3, name=Dell laptop, price=30000.0], 
+Product [id=2, name=Lenovo laptop, price=28000.0], Product [id=1, name=Hp laptop, price=25000.0]]
+
+
+
+																		sort using comparator.comparing
+																		
+																		public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted(Comparator.comparing(Product::getPrice))
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+														decending order
+public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted(Comparator.comparing(Product::getPrice).reversed())
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+
+						=========================================================================
+
+findFirst  and findAny ---- of string	
+
+	public static void main(String[] args) {
+
+		List<Integer> list = Arrays.asList(1, 2, 3, 4);
+		Optional<Integer> first = list.stream().findFirst();
+
+		if (first.isPresent()) {
+			System.out.println(first.get());
+		}else {
+			System.out.println("not present");
+		}
+
+	}			
+		
+=======================================================
+
+count() , min() and max() method
+
+Count () : use to count number of element in string
+Max() -> use to find max element in string
+Min():- use to find min element in a string
+
+
+public class demo {
+
+	public static void main(String[] args) {
+
+		// min
+
+		Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6, 7);
+		Integer min = stream.min(Comparator.comparing(Integer::valueOf)).get();
+
+		// max
+
+		Stream<Integer> stream1 = Stream.of(1, 2, 3, 4, 5, 6, 7, 8);
+		Integer max = stream1.max(Comparator.comparing(Integer::valueOf)).get();
+		
+		Stream<Integer> stream2 = Stream.of(1, 2, 3, 4, 5, 6, 7, 8);
+		long count = stream2.count();
+
+	
+		
+		System.out.println(min);
+		System.out.println(max);
+		System.out.println(count);
+
+	}
+}
+
+// output
+1
+8
+8
+
+===========================================
+forEach() --------------------- print map
+
+public static void main(String[] args) {
+
+		Map<Integer, String> m = new HashMap<>();
+		m.put(1, "saurabh");
+
+		m.forEach((k, v) -> System.out.println(k + " " + v));
+
+	}
+
+
+
+
+
+
