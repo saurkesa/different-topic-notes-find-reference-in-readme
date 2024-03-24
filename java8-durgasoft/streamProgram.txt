@@ -20,6 +20,17 @@ map will accept function as argument
 findFirst take optional object
  Optional<T> min(Comparator<? super T> comparator);
  Optional<T> max(Comparator<? super T> comparator); -----------comparator.comparing-----------take function
+ 
+ 
+ Collectors.summingInt (Integer::value)
+Collectors.averagingInt(Integer::value)
+Collectors.minBy(Comparator.naturalOrder)
+Collectors.maxBy(Comparator.naturalOrder)
+Collectors.counting
+Colllectors.groupingBy--------------------take function   and return map
+Collectors.groupingBy(Person::getAge,Collectors.counting)
+
+
 
 												print stream
 
@@ -390,6 +401,169 @@ public static void main(String[] args) {
 		m.forEach((k, v) -> System.out.println(k + " " + v));
 
 	}
+	
+======================================================================
+
+collectors.joining return string -------------------------convert element into string
+
+	List<String> asList = Arrays.asList("hello", "saurabh");
+		String collect = asList.stream().collect(Collectors.joining(","));
+		System.out.println(collect);
+		
+		// output
+		hello,saurabh
+		
+==================================================================
+
+java 8 stream flatMap method
+ Question :  when we should go for map and when we should go for flatMap.
+We should go for map if we have given a list, set or map of element.
+But if we have given list of list, set of set or map of map then we should go for flatMap
+
+		
+		List<List<Integer>> numList = Arrays.asList(
+
+				Arrays.asList(1, 2, 3),
+				Arrays.asList(4, 5, 6));
+		
+		List<Integer> collect = numList.stream().flatMap(List::stream).collect(Collectors.toList());
+		
+		collect.forEach(System.out::println);
+		
+		// output 1 2 3 4 5 6
+		
+================================================================================
+
+distinct :--- will give unique values
+
+	List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		List<Integer> collect = asList.stream().distinct().collect(Collectors.toList());
+
+		collect.forEach(System.out::println);
+		
+======================================================================
+
+12 : stream reduce method
+Reduce : 
+we use this  method when we have to reduce to certain value
+example :-----sum of all number , multiply of all number
+do a certain operation on all values and reduce to single values.
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		Integer reduce = asList.stream().reduce(0,(a,b)->a+b);
+		
+		System.out.println(reduce);
+		
+		// output 12
+		
+==========================================================
+
+13 ) allMatch() , anyMatch(), noneMatch()
+Note :
+These method will take a predicate
+
+
+=======================================================
+
+Collectors.summingInt (Integer::value)
+Collectors.averagingInt(Integer::value)
+Collectors.minBy(Comparator.naturalOrder)
+Collectors.maxBy(Comparator.naturalOrder)
+Collectors.counting
+Colllectors.groupingBy--------------------take function   and return map
+Collectors.groupingBy(Person::getAge,Collectors.counting)
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+Map<Integer, List<Integer>> collect = asList.stream().collect(Collectors.groupingBy(Integer::intValue));
+System.out.println(collect);
+
+=============================================
+
+partitioningBy method  --  it takes predicate
+Note : partitioningBy create partition based on our logic
+Will take list of integer and will create even and odd partition
+It return a map and key is always a boolean
+
+======================================
+
+IntStrream deal with number
+
+intStream.of(numbers).sum();
+intStream.of(numbers).max();
+intStream.of(numbers).min();
+
+list.stream().mapToInt(Integer::intValue).min
+
+IntStream.of(number).mapToObject===============
+
+========================================================================
+
+duplicate value
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+	   System.out.println(asList.stream().collect(Collectors.groupingBy(Integer::intValue, Collectors.counting())));
+	   
+	   List<Integer> collect = asList.stream().collect(Collectors.groupingBy(Integer::intValue, Collectors.counting())).entrySet().stream().filter(entry->entry.getValue()>1).map(Map.Entry::getKey).collect(Collectors.toList());
+
+	   System.out.println(collect);
+	   
+	   // output {1=1, 2=2, 3=1, 4=1}
+[2]
+
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		Map<Integer, Long> frequencyMap = asList.stream()
+				.collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+
+		Map<Integer, Long> collect = frequencyMap.entrySet().stream().filter(entry -> entry.getValue() > 1)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		collect.forEach((x, y) -> System.out.println(x + " " + y));
+		
+		2 2
+===============================
+
+find second largest
+
+	List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		Integer integer = asList.stream().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+		
+		
+		important
+		
+	Prog 8 : performing stream operation on string
+Chars : return intStream of char values.
+
+================================================================
+
+duplicate character
+
+String name = "saurabh";
+
+		Map<Character, Long> frequencyMap = name.chars().mapToObj(val -> (char) val)
+				.collect(Collectors.groupingBy(val -> val, Collectors.counting()));
+
+		 List<Character> collect = frequencyMap.entrySet().stream().filter(entry -> entry.getValue() > 1)
+				.map(Map.Entry::getKey).collect(Collectors.toList());
+		System.out.println(collect);
+		
+		
+
+
+
+		System.out.println(integer);
+
+
+
+
+
+
+
+		
 
 
 
