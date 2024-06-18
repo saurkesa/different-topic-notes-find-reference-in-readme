@@ -1,0 +1,201 @@
+What are the different ways to externalize configuration in Spring Boot?
+How can you secure sensitive configuration properties in Spring Boot?
+Explain the difference between application.properties and application.yml.
+How can you switch between different configurations for different environments in Spring Boot?
+What is the purpose of the @ConfigurationProperties annotation?
+How do you configure a custom data source in Spring Boot?
+Explain how to use profiles in Spring Boot.
+How can you configure logging in a Spring Boot application?
+What are the different ways to load external configuration files in Spring Boot?
+Explain the use of the @Value annotation in Spring Boot.
+What are some common performance tuning techniques in Java?
+How do you profile a Java application to identify performance bottlenecks?
+Explain garbage collection tuning in JVM.
+How can you reduce the memory footprint of a Java application?
+What is a memory leak and how can you detect it in a Java application?
+Discuss the use of JVM options for performance tuning.
+How can you optimize the performance of a Spring Boot application?
+Explain the concept of caching in Java and how it improves performance.
+What are the best practices for writing high-performance Java code?
+How do you handle high concurrency in a Java application?
+Explain the difference between JPA and Hibernate.
+How do you configure a database connection pool in Spring Boot?
+What is the purpose of the @Entity annotation in JPA?
+How do you handle transactions in Spring Boot?
+Explain the concept of lazy loading in Hibernate.
+What is the N+1 select problem in Hibernate and how do you solve it?
+How do you implement pagination in Spring Data JPA?
+What is a Criteria API in JPA?
+How do you handle optimistic locking in JPA?
+Explain the difference between fetch join and batch fetch in Hibernate.
+What is Spring Boot and how does it differ from the traditional Spring Framework?
+Explain the Spring Boot auto-configuration mechanism.
+How do you create a custom starter in Spring Boot?
+What is the use of the Spring Boot Actuator?
+How can you customize the embedded Tomcat server in Spring Boot?
+Explain the concept of a Spring Boot CLI.
+How do you handle exceptions in Spring Boot applications?
+What is the purpose of the @SpringBootApplication annotation?
+How do you create a RESTful web service using Spring Boot?
+Explain how to secure a Spring Boot application with Spring Security.
+What is a microservice architecture?
+How do you design a microservices-based application?
+Explain the role of an API Gateway in a microservice architecture.
+What are some common challenges with microservices and how do you address them?
+How do you handle service discovery in a microservices architecture?
+Explain the concept of circuit breakers in microservices.
+How do you manage configuration in a microservices architecture?
+What is the purpose of the Spring Cloud Netflix stack?
+How do you implement inter-service communication in microservices?
+Explain the role of Docker in microservices.
+What is Apache Kafka and what are its key components?
+How do you produce and consume messages in Kafka using Java?
+Explain the concept of a Kafka topic and partitions.
+How do you achieve fault tolerance in Kafka?
+What is Kafka Streams and how does it differ from Kafka Producer/Consumer API?
+How do you manage offsets in Kafka?
+Explain the role of Kafka Connect.
+How do you monitor Kafka clusters?
+What are the different types of serializers in Kafka?
+How do you handle message ordering in Kafka?
+Explain the difference between an interface and an abstract class in Java.
+How do you implement a singleton design pattern in Java?
+What is the use of the volatile keyword in Java?
+Explain the concept of immutability in Java.
+How do you create a custom annotation in Java?
+What is a lambda expression in Java and how is it used?
+Explain the difference between checked and unchecked exceptions.
+What is the purpose of the synchronized keyword in Java?
+How do you implement a custom thread pool in Java?
+Explain the concept of reflection in Java.
+Advanced Topics
+What is the purpose of the Fork/Join framework in Java?
+Explain the use of CompletableFuture in Java.
+How do you implement a non-blocking I/O operation in Java?
+What are the different types of garbage collectors in JVM?
+Explain the concept of reactive programming in Java.
+How do you implement a reactive stream in Java?
+What is the purpose of the @FunctionalInterface annotation?
+How do you handle large files in Java?
+Explain the use of the java.util.concurrent package.
+What are the different types of references in Java?
+How do you implement JWT authentication in a Spring Boot application?
+Explain the concept of OAuth2 and its use in securing APIs.
+How do you handle CSRF in Spring Security?
+What are the different ways to secure a Spring Boot application?
+How do you secure communication between microservices?
+Explain the use of SSL/TLS in securing web applications.
+How do you store passwords securely in a database?
+What are the best practices for securing a RESTful web service?
+How do you implement role-based access control in Spring Security?
+Explain the concept of a security filter in Spring Security.
+How do you deploy a Spring Boot application to AWS?
+Explain the use of AWS Lambda with Java.
+How do you configure a Spring Boot application to use Amazon RDS?
+What is the purpose of the AWS SDK for Java?
+How do you handle scaling in a cloud-based microservices architecture?
+Explain the use of Kubernetes in deploying Java applications.
+How do you manage secrets in a cloud environment?
+What is the purpose of a load balancer in a cloud architecture?
+How do you monitor a cloud-based Java application?
+Explain the use of Terraform in provisioning cloud infrastructure.
+What is the Singleton design pattern and how is it implemented in Java?
+Explain the Factory design pattern with an example.
+What is the Builder design pattern and when would you use it?
+How do you implement the Observer pattern in Java?
+What is the Decorator pattern and how is it different from inheritance?
+Explain the Strategy pattern with an example.
+What is the Adapter pattern and when is it used?
+How do you implement the Command pattern in Java?
+Explain the Proxy design pattern with an example.
+What is the Chain of Responsibility pattern and how is it used?
+How do you write unit tests for a Spring Boot application?
+Explain the use of Mockito in Java testing.
+How do you perform integration testing in a Spring Boot application?
+What is the purpose of the @MockBean annotation in Spring Boot tests?
+How do you test a RESTful web service in Spring Boot?
+Explain the use of JUnit 5 in Java testing.
+How do you write parameterized tests in JUnit?
+What is the purpose of the @TestConfiguration annotation in Spring Boot?
+How do you perform load testing on a Java application?
+Explain the use of Testcontainers in Java integration tests.
+What is Maven and how is it used in Java projects?
+Explain the purpose of Gradle in building Java applications.
+How do you use Lombok in a Java project?
+What is the purpose of the Spring Boot DevTools?
+How do you integrate Swagger with a Spring Boot application?
+Explain the use of Flyway for database migrations in Java.
+What is the purpose of MapStruct in Java?
+How do you use Prometheus and Grafana to monitor a Java application?
+Explain the role of Apache Camel in Java applications.
+How do you use RabbitMQ with Spring Boot?
+How do you implement a linked list in Java?
+Explain the difference between a stack and a queue.
+How do you perform a binary search on a sorted array in Java?
+What is the purpose of a hash map and how is it implemented in Java?
+How do you implement a binary tree in Java?
+Explain the concept of recursion and provide an example.
+How do you find the shortest path in a graph using Java?
+What is the purpose of the Collections framework in Java?
+How do you implement a sorting algorithm in Java?
+Explain the concept of dynamic programming with an example.
+What is serialization in Java and why is it used?
+How do you serialize an object in Java?
+Explain the difference between serialization and deserialization.
+How do you customize the serialization process in Java?
+What is the purpose of the serialVersionUID field?
+How do you handle serialization of a class with non-serializable fields?
+Explain the use of the Externalizable interface in Java.
+How do you serialize a collection in Java?
+What are the security concerns with Java serialization?
+How do you use JSON serialization in Java?
+How do you create a TCP server and client in Java?
+Explain the use of the java.net package.
+How do you implement a simple HTTP server in Java?
+What is the purpose of the URL class in Java?
+How do you handle sockets in Java?
+Explain the concept of RESTful web services.
+How do you consume a RESTful API in Java?
+What is the purpose of the HttpClient class in Java?
+How do you handle asynchronous networking in Java?
+Explain the use of WebSockets in Java.
+What is concurrency in Java and why is it important?
+How do you create and manage threads in Java?
+Explain the difference between synchronized methods and synchronized blocks.
+What is the purpose of the java.util.concurrent package?
+How do you implement a thread-safe singleton in Java?
+Explain the concept of a semaphore in Java.
+How do you use the Executor framework in Java?
+What is the purpose of the Future interface in Java?
+How do you handle deadlocks in Java?
+Explain the use of the CountDownLatch class.
+What is the difference between checked and unchecked exceptions in Java?
+How do you create a custom exception in Java?
+Explain the use of the try-with-resources statement.
+How do you handle exceptions in a Spring Boot application?
+What is the purpose of the @ExceptionHandler annotation in Spring Boot?
+How do you log exceptions in Java?
+Explain the concept of exception chaining.
+How do you handle global exceptions in a Spring Boot application?
+What is the purpose of the finally block in exception handling?
+How do you rethrow an exception in Java?
+What is the Java Memory Model?
+Explain the concept of method references in Java.
+How do you implement internationalization in a Java application?
+What is the purpose of the Optional class in Java?
+How do you use the Stream API in Java?
+Explain the concept of type inference in Java.
+How do you use annotations in Java?
+What is the purpose of the default keyword in interfaces?
+How do you handle file I/O in Java?
+Explain the concept of modularity in Java.
+What are some best practices for writing clean code in Java?
+How do you optimize a Java application for performance?
+What are the best practices for exception handling in Java?
+How do you ensure thread safety in a Java application?
+What are some best practices for designing RESTful APIs?
+How do you write maintainable code in Java?
+What are the best practices for using JPA and Hibernate?
+How do you manage dependencies in a Java project?
+What are some best practices for logging in a Java application?
+How do you ensure security in a Java application?
