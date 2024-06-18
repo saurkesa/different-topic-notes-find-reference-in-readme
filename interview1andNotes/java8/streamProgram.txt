@@ -1,0 +1,681 @@
+
+note :
+
+ ------
+public  interface Consumer<T>{
+ void accept<T>
+ 
+ public interface Predicate<T>{
+  boolean test(T t)
+ }
+ 
+ public interface Function<T,R>{
+ 
+ R apply(T t)
+ }
+ 
+forEach will accept consumer as argument
+filter will accept predicate as argument
+map will accept function as argument
+findFirst take optional object
+ Optional<T> min(Comparator<? super T> comparator);
+ Optional<T> max(Comparator<? super T> comparator); -----------comparator.comparing-----------take function
+ 
+ 
+ Collectors.summingInt (Integer::value)
+Collectors.averagingInt(Integer::value)
+Collectors.minBy(Comparator.naturalOrder)
+Collectors.maxBy(Comparator.naturalOrder)
+Collectors.counting
+Colllectors.groupingBy--------------------take function   and return map
+Collectors.groupingBy(Person::getAge,Collectors.counting)
+
+
+
+												print stream
+
+			// create a stream from string
+		Stream<String> stream = Stream.of("a", "b", "c");
+		stream.forEach(System.out::println);
+
+		Stream<Integer> stream1 = Stream.of(1, 2, 3);
+		stream1.forEach(System.out::println);
+
+		// create stream from list
+		List<String> list = Arrays.asList("city", "town");
+		Stream<String> stream2 = list.stream();
+
+		stream2.forEach(System.out::println);
+
+		// create stream from set
+
+		Set<String> set = new HashSet<>(list);
+		Stream<String> stream3= set.stream();
+		stream3.forEach(System.out::println);
+
+		// create stream from array
+		String[] str = { "name", "city", "age" };
+		Stream<String> stream4 = Arrays.stream(str);
+		stream4.forEach(System.out::println);
+		
+		==============================================================================
+		
+		
+														filter stream
+														
+	public class Product {
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+
+	private int id;
+	private String name;
+	private float price;
+
+	public Product(int id, String name, float price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+}
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class demo {
+
+	public static void main(String[] args) {
+
+	   List<Product> products = getProducts();
+	   
+	   products.stream().filter(product->product.getPrice()>25000f).forEach(System.out::println);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(2, "Dell laptop", 30000f));
+		productsList.add(new Product(3, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+//output
+
+Product [id=2, name=Dell laptop, price=30000.0]
+Product [id=3, name=Lenovo laptop, price=28000.0]
+Product [id=4, name=Sony laptop, price=28000.0]
+Product [id=5, name=Apple laptop, price=90000.0]
+
+
+============================================================================
+
+sorting using java 8
+
+1- three different way to sort list in ascending order
+
+
+                          sort list of string in ascending order
+
+List<String> fruit= Arrays.asList("Banana","Apple","Mango","Orange");
+		
+		//ascending order
+		
+		List<String> sortedList = fruit.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+		System.out.println(sortedList);
+		
+		// using lambda expression
+		List<String> sortedList1 = fruit.stream().sorted((o1,o2)->o1.compareTo(o2)).collect(Collectors.toList());
+		System.out.println(sortedList1);
+		
+		// using lambda expression
+		List<String> sortedList2 = fruit.stream().sorted().collect(Collectors.toList());
+		System.out.println(sortedList2);
+		
+sort list of string in descending order
+
+ 
+		List<String> fruit= Arrays.asList("Banana","Apple","Mango","Orange");
+		
+		//ascending order
+		
+		List<String> sortedList = fruit.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+		System.out.println(sortedList);
+		
+		// using lambda expression
+		List<String> sortedList1 = fruit.stream().sorted((o1,o2)->o2.compareTo(o1)).collect(Collectors.toList());
+		System.out.println(sortedList1);
+		
+===========================================================================================
+
+Sort employee using salary by annonymous implementaion in ascending order
+
+public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted(new Comparator<Product>() {
+
+			@Override
+			public int compare(Product o1, Product o2) {
+
+				return (int) (o1.getPrice() - o2.getPrice());
+			}
+
+		}).collect(Collectors.toList());
+
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(2, "Dell laptop", 30000f));
+		productsList.add(new Product(3, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+output
+
+[Product [id=1, name=Hp laptop, price=25000.0], Product [id=3, name=Lenovo laptop, price=28000.0], Product [id=4, name=Sony laptop, price=28000.0],
+ Product [id=2, name=Dell laptop, price=30000.0], Product [id=5, name=Apple laptop, price=90000.0]]
+ 
+ // sort using lamda expression
+ 
+ public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted((p1, p2) -> p1.getId() - p2.getId())
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+//output
+
+[Product [id=1, name=Hp laptop, price=25000.0], Product [id=2, name=Lenovo laptop, price=28000.0],
+ Product [id=3, name=Dell laptop, price=30000.0], Product [id=4, name=Sony laptop, price=28000.0], Product [id=5, name=Apple laptop, price=90000.0]]
+ 
+ 
+                                                         decending order sort
+ 
+ public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted((p1, p2) -> p2.getId() - p1.getId())
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+[Product [id=5, name=Apple laptop, price=90000.0], Product [id=4, name=Sony laptop, price=28000.0], Product [id=3, name=Dell laptop, price=30000.0], 
+Product [id=2, name=Lenovo laptop, price=28000.0], Product [id=1, name=Hp laptop, price=25000.0]]
+
+
+
+																		sort using comparator.comparing
+																		
+																		public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted(Comparator.comparing(Product::getPrice))
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+														decending order
+public class demo {
+
+	public static void main(String[] args) {
+
+		List<Product> collect = getProducts().stream().sorted(Comparator.comparing(Product::getPrice).reversed())
+				.collect(Collectors.toList());
+		
+		System.out.println(collect);
+	}
+
+	private static List<Product> getProducts() {
+
+		List<Product> productsList = new ArrayList<>();
+		productsList.add(new Product(1, "Hp laptop", 25000f));
+		productsList.add(new Product(3, "Dell laptop", 30000f));
+		productsList.add(new Product(2, "Lenovo laptop", 28000f));
+		productsList.add(new Product(4, "Sony laptop", 28000f));
+		productsList.add(new Product(5, "Apple laptop", 90000f));
+		return productsList;
+
+	}
+
+}
+
+
+						=========================================================================
+
+findFirst  and findAny ---- of string	
+
+	public static void main(String[] args) {
+
+		List<Integer> list = Arrays.asList(1, 2, 3, 4);
+		Optional<Integer> first = list.stream().findFirst();
+
+		if (first.isPresent()) {
+			System.out.println(first.get());
+		}else {
+			System.out.println("not present");
+		}
+
+	}			
+		
+=======================================================
+
+count() , min() and max() method
+
+Count () : use to count number of element in string
+Max() -> use to find max element in string
+Min():- use to find min element in a string
+
+
+public class demo {
+
+	public static void main(String[] args) {
+
+		// min
+
+		Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6, 7);
+		Integer min = stream.min(Comparator.comparing(Integer::valueOf)).get();
+
+		// max
+
+		Stream<Integer> stream1 = Stream.of(1, 2, 3, 4, 5, 6, 7, 8);
+		Integer max = stream1.max(Comparator.comparing(Integer::valueOf)).get();
+		
+		Stream<Integer> stream2 = Stream.of(1, 2, 3, 4, 5, 6, 7, 8);
+		long count = stream2.count();
+
+	
+		
+		System.out.println(min);
+		System.out.println(max);
+		System.out.println(count);
+
+	}
+}
+
+// output
+1
+8
+8
+
+===========================================
+forEach() --------------------- print map
+
+public static void main(String[] args) {
+
+		Map<Integer, String> m = new HashMap<>();
+		m.put(1, "saurabh");
+
+		m.forEach((k, v) -> System.out.println(k + " " + v));
+
+	}
+	
+======================================================================
+
+collectors.joining return string -------------------------convert element into string
+
+	List<String> asList = Arrays.asList("hello", "saurabh");
+		String collect = asList.stream().collect(Collectors.joining(","));
+		System.out.println(collect);
+		
+		// output
+		hello,saurabh
+		
+==================================================================
+
+java 8 stream flatMap method
+ Question :  when we should go for map and when we should go for flatMap.
+We should go for map if we have given a list, set or map of element.
+But if we have given list of list, set of set or map of map then we should go for flatMap
+
+		
+		List<List<Integer>> numList = Arrays.asList(
+
+				Arrays.asList(1, 2, 3),
+				Arrays.asList(4, 5, 6));
+		
+		List<Integer> collect = numList.stream().flatMap(List::stream).collect(Collectors.toList());
+		
+		collect.forEach(System.out::println);
+		
+		// output 1 2 3 4 5 6
+		
+================================================================================
+
+distinct :--- will give unique values
+
+	List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		List<Integer> collect = asList.stream().distinct().collect(Collectors.toList());
+
+		collect.forEach(System.out::println);
+		
+======================================================================
+
+12 : stream reduce method
+Reduce : 
+we use this  method when we have to reduce to certain value
+example :-----sum of all number , multiply of all number
+do a certain operation on all values and reduce to single values.
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		Integer reduce = asList.stream().reduce(0,(a,b)->a+b);
+		
+		System.out.println(reduce);
+		
+		// output 12
+		
+==========================================================
+
+13 ) allMatch() , anyMatch(), noneMatch()
+Note :
+These method will take a predicate
+
+
+=======================================================
+
+Collectors.summingInt (Integer::value)
+Collectors.averagingInt(Integer::value)
+Collectors.minBy(Comparator.naturalOrder)
+Collectors.maxBy(Comparator.naturalOrder)
+Collectors.counting
+Colllectors.groupingBy--------------------take function   and return map
+Collectors.groupingBy(Person::getAge,Collectors.counting)
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+Map<Integer, List<Integer>> collect = asList.stream().collect(Collectors.groupingBy(Integer::intValue));
+System.out.println(collect);
+
+=============================================
+
+partitioningBy method  --  it takes predicate
+Note : partitioningBy create partition based on our logic
+Will take list of integer and will create even and odd partition
+It return a map and key is always a boolean
+
+======================================
+
+IntStrream deal with number
+
+intStream.of(numbers).sum();
+intStream.of(numbers).max();
+intStream.of(numbers).min();
+
+list.stream().mapToInt(Integer::intValue).min
+
+IntStream.of(number).mapToObject===============
+
+========================================================================
+
+duplicate value
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+	   System.out.println(asList.stream().collect(Collectors.groupingBy(Integer::intValue, Collectors.counting())));
+	   
+	   List<Integer> collect = asList.stream().collect(Collectors.groupingBy(Integer::intValue, Collectors.counting())).entrySet().stream().filter(entry->entry.getValue()>1).map(Map.Entry::getKey).collect(Collectors.toList());
+
+	   System.out.println(collect);
+	   
+	   // output {1=1, 2=2, 3=1, 4=1}
+[2]
+
+
+List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		Map<Integer, Long> frequencyMap = asList.stream()
+				.collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+
+		Map<Integer, Long> collect = frequencyMap.entrySet().stream().filter(entry -> entry.getValue() > 1)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		collect.forEach((x, y) -> System.out.println(x + " " + y));
+		
+		2 2
+===============================
+
+find second largest
+
+	List<Integer> asList = Arrays.asList(1, 2, 2, 3, 4);
+
+		Integer integer = asList.stream().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+		
+		
+		important
+		
+	Prog 8 : performing stream operation on string
+Chars : return intStream of char values.
+
+================================================================
+
+duplicate character
+
+String name = "saurabh";
+
+		Map<Character, Long> frequencyMap = name.chars().mapToObj(val -> (char) val)
+				.collect(Collectors.groupingBy(val -> val, Collectors.counting()));
+
+		 List<Character> collect = frequencyMap.entrySet().stream().filter(entry -> entry.getValue() > 1)
+				.map(Map.Entry::getKey).collect(Collectors.toList());
+		System.out.println(collect);
+		
+		
+
+
+
+		System.out.println(integer);
+		
+		
+		==============================================================
+		
+	
+
+=============================================================================================================================================================================
+
+List<Integer> asList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+
+		// 1----------- separate odd and even
+		Map<Boolean, List<Integer>> collect = asList.stream().collect(Collectors.partitioningBy(val -> val % 2 == 0));
+		System.out.println(collect.get(true));
+		System.out.println(collect.get(false));
+		System.out.println("============");
+
+		// 2-----------------remove duplicate from list
+		List<Integer> asList1 = Arrays.asList(1, 2, 3, 3, 5, 6, 7, 8);
+		asList.stream().distinct().collect(Collectors.toList()).forEach(System.out::println);
+		System.out.println("============");
+
+		// 3---------- frequency of each character in string
+		String name = "saurabh";
+		Map<Character, Long> collect2 = name.chars().mapToObj(val -> (char) val)
+				.collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+		System.out.println(collect2);
+		System.out.println("============");
+
+		// 4------------- frequency of each element in an array
+		int[] arr = { 1, 2, 3, 1, 2, 3 };
+		Map<Integer, Long> collect3 = Arrays.stream(arr).mapToObj(val -> val)
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+		System.out.println(collect3);
+		System.out.println("============");
+
+		// 5----------sort the list in reverse order
+		List<Integer> list = Arrays.asList(1, 2, 3);
+		list.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+		System.out.println("============");
+
+		// 6---------print multiple of 5 from the list
+		List<Integer> list1 = Arrays.asList(1, 2, 3, 5, 10);
+		list1.stream().filter(num -> num % 5 == 0).forEach(System.out::println);
+		System.out.println("============");
+
+		// 7-----------maximum and minimum in a list
+		List<Integer> list3 = Arrays.asList(1, 2, 3, 5, 10);
+
+		Integer max = list3.stream().max(Comparator.naturalOrder()).get();
+		System.out.println("max value in list " + max);
+
+		List<Integer> list4 = Arrays.asList(1, 2, 3, 5, 10);
+		Integer min = list3.stream().min(Comparator.naturalOrder()).get();
+		System.out.println("min value in list " + min);
+
+		List<Integer> list5 = Arrays.asList(2, 3, 5, 10);
+		Optional<Integer> min1 = list5.stream().collect(Collectors.minBy(Comparator.naturalOrder()));
+		System.out.println("min " + min1.get());
+		System.out.println("============");
+
+		// 8----------anagram program in java 8
+		// split , uppercase, sorted, joining
+
+		String str1 = "face";
+		String str2 = "caef";
+
+		String collect4 = Stream.of(str1.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
+		String collect5 = Stream.of(str2.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
+
+		if (collect4.equals(collect5)) {
+			System.out.println("anagram");
+		}
+		System.out.println("============");
+
+		// 9-----------sum of all digit of a number
+
+		int number = 12345;
+
+		Integer collect6 = Stream.of(String.valueOf(number).split(""))
+				.collect(Collectors.summingInt(Integer::parseInt));
+		System.out.println("sum of digit in a number " + collect6);
+
+		System.out.println("============");
+
+		// 10---- find three max and min from list
+		List<Integer> min3 = Arrays.asList(1, 4, 5, 6, 2, 7);
+
+		min3.stream().sorted().limit(3).forEach(System.out::println);
+
+		List<Integer> max3 = Arrays.asList(1, 4, 5, 6, 2, 7);
+		max3.stream().sorted(Comparator.reverseOrder()).limit(3).forEach(System.out::println);
+
+		System.out.println("============");
+
+		// 11- second largest number in integer array
+
+		List<Integer> list2 = Arrays.asList(1, 3, 4, 2, 6);
+		Integer integer = list2.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+		System.out.println("second max " + integer);
+		System.out.println("============");
+		
+		// 12 sort list of string in increasing order of their length
+
+		List<String> list6 = Arrays.asList("saurabh", "ankit", "rupesh");
+		
+		//common element 
+		list6.stream().sorted(Comparator.comparing(String::length)).forEach(System.out::println);
+	}
+}
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
