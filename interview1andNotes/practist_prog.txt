@@ -1,0 +1,556 @@
+1-  find missing element
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 3, 5, 6 };
+
+		int n = arr.length + 1;
+
+		int expectedSum = n * (n + 1) / 2;
+
+		int actualSum = 0;
+
+		for (int val : arr) {
+			actualSum = actualSum + val;
+		}
+
+		int missingElement = expectedSum - actualSum;
+		System.out.println(missingElement);
+	}
+}
+
+2- find longest sequence in an array:-
+
+// input int[] arr = { 1, 2, 4,5,6,7, 11 };
+//output : 4,5,6,7
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 4,5,6,7, 11 };
+		
+		HashMap<Integer,Boolean> hm = new HashMap<>();
+		
+		for(int val:arr) {
+			hm.put(val, true);
+		}
+		
+		for(int val:arr) {
+			
+			if(hm.containsKey(val-1)) {
+				hm.put(val, false);
+			}
+		}
+		
+		int ml=0;
+		int msp=0;
+		
+		for(int val:arr) {
+			if(hm.get(val)==true) {
+				
+				int tl=1;
+				int tsp=val;
+				
+				while(hm.containsKey(tsp+tl)) {
+					tl++;
+				}
+				if(tl>ml) {
+					ml=tl;
+					msp=tsp;
+				}
+			}
+		}
+
+		for(int i=0;i<ml;i++) {
+			System.out.print(msp+i +" ");
+		}
+	
+	}
+}
+
+3-  matrix with sorted element . Get position of any specific element
+
+
+// input int[] arr = { 1, 2, 3,4,5,6,7,8,9 };
+//output : 2 0
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[][] arr = {{1,2,3},{4,5,6},{7,8,9}};
+		
+		int element =7;
+		
+		int i=0;
+		int j=arr[0].length-1;
+		
+		while(i<arr.length && j>=0) {
+			if(element==arr[i][j]) {
+				System.out.println(i +" "+ j);
+				return;
+			}else if(element<arr[i][j]) {
+				j--;
+			}else{
+				i++;
+			}
+		}
+	}
+}
+
+4----------------reverse an array
+
+// input int[] arr = { 1, 2, 3,4,5};
+//output : 5 4 3 2 1
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+	int[] arr= {1,2,3,4,5};
+	
+	int i=0;
+	int j=arr.length-1;
+	
+	while(i<j) {
+		
+		int temp=arr[i];
+		arr[i]=arr[j];
+		arr[j]=temp;
+		i++;
+		j--;
+	}
+	
+	for(int val: arr) {
+		System.out.print(val +" ");
+	}
+	}
+}
+
+5 ---------------------------- find maximum ocuurence of character in string
+
+using java 7
+
+// input saurabh;
+//output :  a 2
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		String name = "saurabh";
+
+		HashMap<Character, Integer> hm = new HashMap<>();
+
+		for (int i = 0; i < name.length(); i++) {
+
+			char ch = name.charAt(i);
+
+			if (hm.containsKey(ch)) {
+
+				hm.put(ch, hm.get(ch) + 1);
+
+			} else {
+				hm.put(ch, 1);
+			}
+		}
+
+		char mchar = 0;
+		int mcount = 0;
+
+		Set<Entry<Character, Integer>> entrySet = hm.entrySet();
+
+		for (Entry<Character, Integer> entry : entrySet) {
+
+			if (entry.getValue() > mcount) {
+				mcount = entry.getValue();
+				mchar = entry.getKey();
+			}
+		}
+
+		System.out.println(mchar + " " + mcount);
+	}
+}
+
+using java 8
+
+// input saurabh;
+//output :  a 2
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		String name = "saurabh";
+
+		Map<Character, Long> freMap = name.chars().mapToObj(x -> (char) x)
+				.collect(Collectors.groupingBy(val -> val, Collectors.counting()));
+
+		Entry<Character, Long> entry = freMap.entrySet().stream().max(Map.Entry.comparingByValue()).get();
+
+		System.out.println(entry.getKey() + " " + entry.getValue());
+	}
+}
+
+6--------------------------search element in an array
+
+// input {1,2,3,4,5};
+//output :  true
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = {1,2,3,4,5};
+		int searchElement=3;
+		
+		boolean anyMatch = Arrays.stream(arr).anyMatch(x->x==searchElement);
+		
+		 System.out.println("element found = "+anyMatch);
+		}
+	}
+	
+7---- permutation of a string in java
+
+// input abc;
+//output :  abc acb bac bca cab cba
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		String str = "abc";
+
+		printPermutation(str, "");
+	}
+
+	private static void printPermutation(String ques, String asf) {
+
+		if (ques.length() == 0) {
+			System.out.print(asf + " ");
+			return;
+		}
+		for (int i = 0; i < ques.length(); i++) {
+
+			char ch = ques.charAt(i);
+
+			String qlpart = ques.substring(0, i);
+			String qrpart = ques.substring(i + 1);
+
+			String rques = qlpart + qrpart;
+
+			printPermutation(rques, asf + ch);
+
+		}
+
+	}
+}
+
+8------------------
+
+//input String str ="aabbbcca";
+//output a2b3c2a1
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		String str = "aabbbcca";
+
+		int count = 0;
+		for (int i = 0; i < str.length(); i = i + count) {
+
+			count = 1;
+			for (int j = i + 1; j < str.length(); j++) {
+
+				if (str.charAt(i) == str.charAt(j)) {
+					count++;
+
+				} else {
+					break;
+				}
+			}
+
+			System.out.print(str.charAt(i) +""+ count);
+		}
+
+	}
+}
+
+9--------remove duplicate element from array and print it.
+
+// input { 1, 2, 3, 3, 4, 4, 5 }
+// output 1 2 3 4 5
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 3, 3, 4, 4, 5 };
+
+		int k = 0;
+
+		for (int i = 0; i < arr.length - 1; i++) {
+
+			if (arr[i] != arr[i + 1]) {
+				arr[k++] = arr[i];
+			}
+		}
+		arr[k++] = arr[arr.length - 1];
+
+		for (int i = 0; i < k; i++) {
+			System.out.print(arr[i] + " ");
+		}
+
+	}
+}
+
+10----   seperate 0 and 1 in array
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 0, 0, 0, 1, 1, 0, 1 };
+
+		int count = 0;
+
+		for (int val : arr) {
+			if (val == 0) {
+				count = count + 1;
+			}
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (i < count) {
+				arr[i] = 0;
+			} else {
+				arr[i] = 1;
+			}
+		}
+
+		for (int val : arr) {
+			System.out.print(val + " ");
+		}
+
+	}
+}
+
+11-------------------seperate positive and negative number
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 5, -1, -6, 7 };
+
+		int[] temp = new int[arr.length];
+		int j = 0;
+
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > 0) {
+				temp[j++] = arr[i];
+			}
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] < 0) {
+				temp[j++] = arr[i];
+			}
+		}
+
+		for (int val : temp) {
+			System.out.print(val + " ");
+		}
+	}
+}
+
+12----------------------delete element from array 
+
+// input { 1, 2, 3, 4, 5, 6 }
+// output {1,2,3,5,6}
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 3, 4, 5, 6 };
+		
+		int[] newArr = new int[arr.length-1];
+
+		int j=0;
+				
+		int k=3;
+		
+		for(int i=0;i<k;i++) {
+			newArr[j++]=arr[i];
+			
+		}
+		for(int i=k+1;i<arr.length;i++) {
+			newArr[j++]=arr[i];
+		}
+
+		for(int val : newArr) {
+			System.out.print(val + " ");
+		}
+	}
+}
+
+13--------------------- insert an element into array
+
+// input { 1, 2, 3, 4, 5, 6 }
+// output {1,2,3,5,6}
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 3, 4, 5, 6 };
+
+		int[] newArr = new int[arr.length + 1];
+
+		int j = 0;
+
+		int element = 11;
+		int index = 4;
+
+		for (int i = 0; i < index; i++) {
+			newArr[j++] = arr[i];
+
+		}
+		newArr[j++] = element;
+		for (int i = index ; i < arr.length; i++) {
+			newArr[j++] = arr[i];
+		}
+
+		for (int val : newArr) {
+			System.out.print(val + " ");
+		}
+	}
+}
+
+14 ) merge two sorted array
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr1 = { 1, 2, 3, 7 };
+		int[] arr2 = { 4, 5, 9, 10 };
+
+		int[] newArr = new int[arr1.length + arr2.length];
+
+		int i = 0, j = 0, k = 0;
+
+		while (i < arr1.length && j < arr2.length) {
+
+			if (arr1[i] < arr2[j]) {
+				newArr[k++] = arr1[i++];
+			} else {
+				newArr[k++] = arr2[j++];
+			}
+		}
+
+		while (i < arr1.length) {
+			newArr[k++] = arr1[i++];
+		}
+
+		while (j < arr2.length) {
+			newArr[k++] = arr2[j++];
+		}
+
+		for (int val : newArr) {
+			System.out.print(val + " ");
+		}
+	}
+}
+
+// output
+
+15---- find maximum product of two integer in an array
+// input { 1, 2, 3, 4, 5, 6 }
+// output {1,2,3,5,6}
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr1 = { 1, 2, 3, 7 };
+
+		int maxProduct = Integer.MIN_VALUE;
+
+		for (int i = 0; i < arr1.length - 1; i++) {
+			for (int j = i + 1; j < arr1.length; j++) {
+
+				int prod = arr1[i] * arr1[j];
+
+				if (prod > maxProduct) {
+					maxProduct = prod;
+				}
+			}
+		}
+
+		System.out.println(maxProduct);
+
+	}
+}
+
+16-------------- find intersection between two array
+// input
+//int[] arr1 = { 1, 2, 3, 7 };
+//int[] arr2 = { 2, 7, 9 };
+
+// output 2,7
+
+public class TestNew {
+
+	public static void main(String[] args) {
+
+		int[] arr1 = { 1, 2, 3, 7 };
+
+		int[] arr2 = { 2, 7, 9 };
+
+		int l = arr1.length;
+		int j = arr2.length;
+
+		int k = 0;
+		if (l > j) {
+			k = j;
+		} else {
+			k = l;
+		}
+
+		int index = 0;
+		int[] intersection = new int[k];
+
+		for (int i = 0; i < arr1.length; i++) {
+			int current = arr1[i];
+			// Check if current element exists in arr2
+			if (contain(arr2, current)) {
+				// Add to intersection array if it's not already added
+				if (!contain(intersection, current)) {
+					intersection[index++] = current;
+				}
+			}
+		}
+	
+		for(int i=0;i<index;i++) {
+			System.out.print(intersection[i]+" ");
+		}
+
+	}
+
+	private static boolean contain(int[] arr2, int val) {
+
+		for (int i = 0; i < arr2.length; i++) {
+			if (arr2[i] == val) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
