@@ -1,0 +1,48 @@
+What is a Singleton class? 
+What is the purpose of the Singleton pattern? 
+How would you implement a Singleton class in Java? 
+What are the advantages and disadvantages of using a Singleton pattern? 
+What are the thread-safety concerns in a Singleton class and how can you handle them? 
+How do you implement a Singleton class in a multi-threaded environment? 
+What is the difference between eager and lazy initialization in a Singleton pattern? 
+What is Java serialization? 
+How does Java serialization work? 
+How can you customize serialization in Java? 
+What are serialVersionUID and why is it important? 
+How can you implement XOR encryption during serialization in Java? 
+What are the potential problems with serialization in Java (e.g., backward compatibility issues)? 
+How can you exclude a field from being serialized in Java? 
+What is the use of the transient keyword in Java serialization? 
+Can you use annotations to prevent serialization of a field in Java?  
+What are the major features introduced in Java 8? 
+What is a Lambda expression? 
+What is the Stream API in Java 8 and how is it used? 
+What are default methods in Java 8 interfaces? 
+What is the Optional class in Java 8? 
+What is the difference between map() and flatMap() in Java 8?  
+What is a functional interface in Java? 
+What are the characteristics of a functional interface? 
+What is the purpose of @FunctionalInterface annotation? 
+Can a functional interface have default or static methods? 
+What are some common functional interfaces in Java 8? 
+How would you create your own functional interface? 
+What is a marker interface in Java? 
+What is the purpose of using marker interfaces? 
+Can you provide an example of a marker interface in Java? 
+What is the difference between a marker interface and a regular interface? 
+How does the Serializable interface work as a marker interface? 
+What are the four pillars of Object-Oriented Programming (OOP)? 
+What is polymorphism in Java? 
+What is the difference between compile-time (method overloading) and runtime polymorphism (method overriding)? 
+Can you give an example of polymorphism in Java? 
+How does method overriding demonstrate runtime polymorphism? 
+How does method overloading demonstrate compile-time polymorphism? 
+What is constructor overloading in Java? 
+What are the advantages of constructor overloading? 
+What are the disadvantages of constructor overloading? 
+What is a stateless bean in Java EE? 
+What is a stateful bean in Java EE? 
+What is the difference between stateful and stateless session beans? 
+What are design patterns in software engineering? 
+Can you name some of the common design patterns in Java? 
+What is the Singleton design pattern and where would you use it? 

@@ -1,0 +1,189 @@
+Avinash/ Java+ microservices/Panel Mahesh
+
+
+1. Brief about yourself and current role and responsibilities
+
+
+2. Explain current project
+
+
+3. How to identify if kafka message is produced into the topic but lost and not consumed
+
+
+4. How to retry kafka message consuming
+
+
+5. Which collections you used
+
+
+6. For which scenario would you use linkedlist and arraylist
+
+
+7. Internal working of Hashmap
+
+
+8. How to write effective hashcode to avoid hash collision
+
+
+9. How multitheading affects map
+
+
+10. why string is immutable
+
+
+11. Design patterns used in project
+
+
+12. Find leader of given array and optimise the code
+
+Abhinov Dongre(Mathew Rixon) Java+Microservices
+
+
+.Multithreading 
+
+
+.Executor and future
+
+
+.Can we consume data from Kafka and write it to database. What if transaction fails?
+
+
+. Exception handling in multithreading
+
+D Naresh / Java Microservices/ panel rixon
+
+
+1 tell me about yourself
+
+
+2Explain about project and your role 
+
+
+3How do you make sure that all threats are completed and wait to complete? 
+
+
+4 how do you configure load balance how we communicate each other?
+
+
+5  explain EKS, what is the difference between deployment and pod?
+
+
+6 how do you configure retry mechanism in a threads?
+
+
+7 do you know transaction management in spring?
+
+
+8 how do you do transaction in the below scenario? A message has to read parts and save the database.
+
+
+9 how do you group by department in a person object ID name department ID and find second A salary?
+
+
+10 how do you do the above problem in a SQL query?
+
+Soumya/Java microservices/Rixon
+
+
+what is kafa architecture
+
+
+what is consumer group
+
+
+if kafa produces a msg within a consumer group then once messge will get mutiple time or same group
+
+
+microservice
+
+
+what is the architecture of microservies
+
+
+how many ways thread can be refined
+
+
+what is multithreading application
+
+
+for eg you have thread application you need to group them by specic date or value
+
+
+first group them based on value
+
+ 
+Mohammed saqlain/Java/panel - Mahesh
+
+
+Project related questions in details and cross questions on those  things almost 30 mins with back forth questions.
+
+
+Hasmap internal working
+
+
+Multithreading pool, 
+
+
+Array problem and its time complexity and space complexity.
+ 
+ 
+1.) What is a singleton class and how do you exactly implement it in the framework or your project?
+2. How can we compare two XML files?
+3. Can you just write a pseudocode for your CSV comparison for whatever you did for your CSV comparison and show me like you did compared to CSV files, right?
+4. When would you choose a linked list? Under what circumstances?
+5. How do you access the values of a HashMap?
+6. Can HashMap have a null key?
+7. Can you write code to retrieve all the key-value pairs present in a HashMap?
+8. How would you handle replacing a student with ID 102 in the HashMap and replacing them with another student?
+9. How do you compare two lists and provide a Boolean result as true or false if the lists match or do not match?
+10. What would be your approach if the items from both the lists are missing and you need to print the missing items?
+11. What is your understanding of version control and documentation? Can you elaborate on how Git and GitHub were handled in your team?
+12. If you need to add a change to GitHub, what are the steps and prerequisites involved in doing so?
+13. Can you automate the conversion of CSV data to JSON files? How would you do that?
+14. How do you generate comprehensive reports in Excel and PDF format?
+ 
+===============
+
+MS Interview
+
+===============
+
+Q1) Is the below code is thread safe?
+ 
+var chm = new ConcurrentHashMap<>();
+ 
+	if(!chm.containsKey(k1))
+
+	chm.put(k1,10)
+
+	Can two threads try to put this?
+
+	who decide the priority of the threads.
+
+
+Q2) How many microservices were developed in your project? How do you trouble shoot microservices?
+ 
+Q3) How the Trace id and Span Id will get generated.Which service will generate traceID?
+ 
+Q4) There is a shared Resource example :DB Connection Class.
+
+I wanted to limit the threads to access the resource to 5 threads.Write the code to implement the same.
+ 
+Q5)How do you implement Cache with required search fields.
+ 
+How to make search option faster using Cache.
+ 
+Q6)Does Redis support Multiple Indexes?
+ 
+Q7)There  is an array with millions of elements. int[] arr={1,3,4,5,7,8,9,10,11,3,23}
+ 
+sum of two numbers is k.
+ 
+Do it with time efficient way.Time complexity of algorithm
+ 
+Is there any better way to do this?
+ 
+Q8)How to configure Splunk .
+ 
+Q9) How do you design custom splunk ?
+ 

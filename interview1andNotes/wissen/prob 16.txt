@@ -1,0 +1,210 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+class DemoData {
+    private int id;
+    private String name;
+    private Date date;
+    private int age;
+
+    // Getter and Setter for id
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Getter and Setter for name
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Getter and Setter for date
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    // Getter and Setter for age
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    // Override equals method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        DemoData demoData = (DemoData) obj;
+        return id == demoData.id;
+    }
+
+    // Override hashCode method
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    // Override toString method
+    @Override
+    public String toString() {
+        return "DemoData{id=" + id + ", name='" + name + "', date=" + date + ", age=" + age + '}';
+    }
+
+    // Method to get unique DemoData based on name, date, and age, ignoring id
+    public static List<DemoData> getUniqueData(List<DemoData> dataList) {
+        Set<String> seen = new HashSet<>();
+        List<DemoData> uniqueList = new ArrayList<>();
+
+        for (DemoData data : dataList) {
+            String key = data.getName() + "_" + data.getDate() + "_" + data.getAge(); // Ignore id
+            if (seen.add(key)) {
+                uniqueList.add(data);
+            }
+        }
+        return uniqueList;
+    }
+
+    // Method to get DemoData with second highest age using Streams
+    public static List<DemoData> getSecondHighestAgeData(List<DemoData> dataList) {
+        // Find the second highest age using skip and findFirst
+        OptionalInt secondHighestAgeOpt = dataList.stream()
+                                                  .mapToInt(DemoData::getAge)
+                                                  .distinct()
+                                                  .boxed()
+                                                  .sorted(Comparator.reverseOrder())
+                                                  .skip(1)
+                                                  .mapToInt(Integer::intValue)
+                                                  .findFirst();
+
+        if (!secondHighestAgeOpt.isPresent()) {
+            return Collections.emptyList(); // Return an empty list if there is no second highest age
+        }
+
+        int secondHighestAge = secondHighestAgeOpt.getAsInt();
+
+        // Filter the list based on the second highest age
+        return dataList.stream()
+                       .filter(data -> data.getAge() == secondHighestAge)
+                       .collect(Collectors.toList());
+    }
+
+    // Method to get DemoData with second highest age using traditional loops and collections
+    public static List<DemoData> getSecondHighestAgeDataWithoutStreams(List<DemoData> dataList) {
+        // Step 1: Find unique ages and sort them
+        Set<Integer> uniqueAgesSet = new HashSet<>();
+        for (DemoData data : dataList) {
+            uniqueAgesSet.add(data.getAge());
+        }
+        List<Integer> uniqueAges = new ArrayList<>(uniqueAgesSet);
+        Collections.sort(uniqueAges, Collections.reverseOrder());
+
+        // Step 2: Check if there are at least two unique ages
+        if (uniqueAges.size() < 2) {
+            return Collections.emptyList(); // Return an empty list if there is no second highest age
+        }
+
+        // Step 3: Get the second highest age
+        int secondHighestAge = uniqueAges.get(1);
+
+        // Step 4: Filter the list based on the second highest age
+        List<DemoData> secondHighestAgeData = new ArrayList<>();
+        for (DemoData data : dataList) {
+            if (data.getAge() == secondHighestAge) {
+                secondHighestAgeData.add(data);
+            }
+        }
+
+        return secondHighestAgeData;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Same name, different dates
+        DemoData data1 = new DemoData();
+        data1.setId(1);
+        data1.setName("Alice");
+        data1.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 25).getTime());
+        data1.setAge(25);
+
+        DemoData data2 = new DemoData();
+        data2.setId(2);
+        data2.setName("Alice");
+        data2.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 26).getTime());
+        data2.setAge(30);
+
+        // Same date, different names
+        DemoData data3 = new DemoData();
+        data3.setId(3);
+        data3.setName("Bob");
+        data3.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 25).getTime());
+        data3.setAge(25);
+
+        // Same name and date, different ages
+        DemoData data4 = new DemoData();
+        data4.setId(4);
+        data4.setName("Charlie");
+        data4.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 27).getTime());
+        data4.setAge(35);
+
+        DemoData data5 = new DemoData();
+        data5.setId(5);
+        data5.setName("Charlie");
+        data5.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 27).getTime());
+        data5.setAge(30);
+
+        // All different fields
+        DemoData data6 = new DemoData();
+        data6.setId(6);
+        data6.setName("David");
+        data6.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 28).getTime());
+        data6.setAge(28);
+
+        // Duplicates
+        DemoData data7 = new DemoData();
+        data7.setId(7);
+        data7.setName("Alice");
+        data7.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 25).getTime());
+        data7.setAge(25);
+
+        DemoData data8 = new DemoData();
+        data8.setId(8);
+        data8.setName("Bob");
+        data8.setDate(new GregorianCalendar(2024, Calendar.NOVEMBER, 25).getTime());
+        data8.setAge(25);
+
+        List<DemoData> dataList = Arrays.asList(data1, data2, data3, data4, data5, data6, data7, data8);
+
+        System.out.println("All Data:");
+        dataList.forEach(System.out::println);
+
+        // Use the unique method
+        List<DemoData> uniqueDataList = DemoData.getUniqueData(dataList);
+        System.out.println("\nUnique Data:");
+        uniqueDataList.forEach(System.out::println);
+
+        // Use the method with streams
+        List<DemoData> secondHighestAgeDataWithStreams = DemoData.getSecondHighestAgeData(dataList);
+        System.out.println("\nSecond Highest Age Data (With Streams):");
+        secondHighestAgeDataWithStreams.forEach(System.out::println);
+
+        // Use the method without streams
+        List<DemoData> secondHighestAgeDataWithoutStreams = DemoData.getSecondHighestAgeDataWithoutStreams(dataList);
+        System.out.println("\nSecond Highest Age Data (Without Streams):");
+        secondHighestAgeDataWithoutStreams.forEach(System.out::println);
+    }
+}

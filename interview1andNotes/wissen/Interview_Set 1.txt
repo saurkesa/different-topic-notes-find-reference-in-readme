@@ -1,0 +1,281 @@
+---------------------------------------------------------------------------------------------------
+
+R1 Questions
+====================
+ 1)Write the code to Create end points and Read data from USER tables using spring boot.
+ 
+2)How to use Group By and Having in SQL
+ 
+3)AWS Components used in previous projects
+ 
+4)Where did you use the Spring boot components.
+ 
+5)Difference between Spring MVC and Spring boot
+ 
+6)Why json is used in payload and most of the place?
+ 
+7)Can you explain Beans Scopes
+ 
+8)Where did you use Kafka
+ 
+9)What is the significance of Zookeeper
+ 
+10)Qualifier usage in Spring boot.
+ 
+11)What are Functional Interfaces. How to use predefined Functional Interface.
+ 
+12)How to Sort Arrays.
+ 
+13)Find the first non repeating Character from the Character Array.
+ 
+14)Did you do Any deployment using AWS?
+ 
+15)How to solve the performance issues for login page?
+ 
+ 16)Are you using Git
+ 
+17)How to handle logs in Java applications.
+ 
+18)How to use Splunk.
+ 
+*****************************************************************************8
+Java - collections- concurrent hashmaps, and lists
+Java -  Generics, Wildcards
+Java- exceptions and exception handling
+Java - multithreading- executors, volatile, atomic
+Spring-  beans, rest template, controller advice
+ 
+• Difference between abstract and interface
+• default methods in an interface
+• Difference between synchronized and volatile
+• Stream API in Java
+• Lambdas in Java
+• Difference between map and flatMap in Stream API
+• Use of Optional in Java lambdas
+• Why use Optional instead of any other type e.g. List etc.
+• Difference between HashMap and Hashtable
+• Are Hashtable and HashMap synchronized
+• ConcurrentHashMap and SynchronizedHashMap
+• What would happen when a value with a duplicate key is put in a HashMap
+• Difference between StringBuilder and String
+• When would you use a StringBuilder vs String and vice versa
+• For String manipulation in a for loop we would use a String or StringBuilder
+• Difference between StringBuilder and StringBuffer
+• What is a Garbage Collector
+• How does a Garbage Collection work in Java
+• Describe Maven - why and how do you need and use it
+• What are transitive dependencies in Maven
+• What is pom.xml
+• Difference between Spring Boot and Spring MVC
+• Explain Dependency Injection and Inversion of Control in context of Spring
+• What are Spring Beans
+• Why do you need DI / IOC in your application
+• What are REST APIs
+• Difference between Relational SQL and NoSQL databases like MongoDB
+• Orders { Id, CustomerId, Amount }, Customer { Id, Name }
+• Write SQL Query to fetch all order IDs with their customer name
+• What are SQL Joins
+• Difference between Inner Join and Outer Join
+• Write SQL to find the top 3 purchasers by their cumulative order amount
+• Describe your experience in working with the AWS cloud
+• What were the AWS services you used
+• How did you automate repetitive deployment
+• Have you created AWS instances dynamically
+• How is deployment done using Docker
+• How do you orchestrate cloud instances using Kubernetes
+ 
+---------------------------------------------------------------------------------------- R1 --------------------------------------------------------
+ 
+API Gateway
+Service discovery
+Load balancing - why and where
+Annotations in spring
+Spring batch - why and where
+Spring Security
+JPA - why and where
+Optimistic v/s pessimistic locks 
+Session management
+Transaction management across microservices
+HashMap vs Concurrent HashMap - why and where
+Caching
+Application context in Spring boot
+Java memory management for objects created
+Common mistakes done by developers due to which object will not get garbage collected in java.
+Coding question: Frequency of longest common sub-string in a given string.
+   
+----------
+ 
+Topics asked :
+OOPs concepts
+Spring JPA
+Coding questions - palindromic string( a sentence just ignore special characters and numbers and spaces), 
+                                square of a number without using loop, existing function, multiplication
+Inheritance
+Composition
+Annotations
+Working of SpringBoot application
+Multithreading
+lifecycle of thread
+runnable vs callable
+when to use which
+Java 8 Streams
+TreeSet - internal working
+Custom object as value in TreeSet
+JUnit 
+Junit annotations and definition
+setUp method
+JPA repository vs CRUD repository
+save method and Saveandflush method
+application configurations in springboot
+ 
+----------------------------
+ 
+asked two questions kth largest element in array (heap) and balanced paranthesis (Stack),
+design pattern singelton.
+write a post api 
+custom exception
+rest status code
+AWS s3, compute engine
+how to load a class using reflection
+third largest salary of an employee
+string is immutable or muttable
+compile time polymorphism and runtime polymorphism
+how to configure JDBC in java application
+lambda expression
+how to handle nullpointerException in java
+ 
+---------------------------
+ 
+1. threshold and latency relationship in service 
+2. Descovery Service why we need it  
+3. why and where to use NoSQL and SQL (technical)
+4. Microservice intercommunication 
+5. Microsrvice External comunication 
+6. Find Kth largest element in the array 
+7. circuit breaker 
+8. what will happen if microservice A is reaching out to another B and Failure point at B occurs
+9. Distributed DB
+10. what is better for microserce to use diffrent db or a single db accross
+11. if there is diffrent db how will join query  will occur 
+12. how transaction works in distributed system ( across multiple microservice)
+13 structure of restController
+14 Hedder conntent type
+15 callable and future 
+16 Thread. join()
+ 
+----------------------------
+ 
+Stream Api
+lambda expression
+transaction working in case of failure of a service
+collections, difference between arraylist and linkedlist, internal working of hashmap
+hashcode and equals functions
+join , its types, asked to write few queries
+coalesce function
+internal working of index in sql
+ddl vs dml 
+grant permission
+what is microservices
+singleton design pattern 
+if your website is slow, how would you approach to this
+ 
+----------------------------
+ 
+Mostly multithreading questions asked
+new features of java 9 to 17
+oops concepts
+runnable
+callable 
+difference between them
+Threads
+deadlock cond'n
+synchronized
+using java 8 group employees by department
+coding ques- Minimum Number of Platforms Required for a Railway/Bus Station
+CompletableFuture
+how many threads CompletableFuture leverages?
+ 
+-------------------------------------
+ 
+Programming - Longest substring without repeating characters in a string, find repeating substrings in a string
+springboot autoconfiguration, how microservice starts up, 
+aws - iam roles, lambda, event driven architecture
+design a custom hashmap
+how to retrieve 100gb of data from db at once
+how to process 1 million records and store in db efficiently
+microservices - fault tolerance
+design patterns
+solid principles
+code review - what issues normally come up
+database design - what all to consider
+reactive programming
+streams related questions
+Java 8 lambda
+functional interface questions
+multiple payment options (credit card, debit card, upi) in front end, which design pattern to implement in the backend
+good coding practices
+spring security
+java reflection
+database index and views
+ 
+-------------------------------------------------------------------------------------------- R2 -----------------------------------------------------------------------------
+ 
+Topics asked :
+Memory management
+Garbage collection
+Spring Factory pattern
+Coding question -
+1) Find the missing elements in array start from 1 to the max element present.
+2) Out of two list find the numbers which are not common in both the list
+ 
+----
+ 
+Questions were mostly based out of experience on resume and connected to what we tell in the discussion. Panel was interactive and supportive. Questions asked are as below :
+Brief discussion about project - APIs, design, inter service calls, DB design, Protocols, explain the system design of the project  
+About Spring boot, why spring boot over Spring MVC - advantages
+What is REST why is it used.
+aggregation and composition in java
+Inheritance and why is it used
+Features of Java 8
+Functional Interface - rules for it
+MediaType class of spring. What is it? What all can be used out of it
+TreeSet, HashSet, HashMap - internal working
+Spring batch
+Memory management
+Scenario based question for data structures - Order App (add unique items to cart and retrieve it based on descending order of price)
+Given 2 tables Employee and Department - 
+Count of employee in each Department
+fetch Max salary based for each Department
+ 
+------
+ 
+1. about my project 
+2. internal working hash map
+3. Stream, 2 question form streams
+4. equal and hashcode relationship in object 
+5. https://www.geeksforgeeks.org/problems/two-numbers-with-sum-closest-to-zero1737/1
+ 
+---------
+ 
+service configuration in aws or linux
+ 
+Programming - Longest substring without repeating characters in a string, find repeating substrings in a string
+springboot autoconfiguration, how microservice starts up, 
+aws - iam roles, lambda, event driven architecture
+design a custom hashmap
+how to retrieve 100gb of data from db at once
+how to process 1 million records and store in db efficiently
+microservices - fault tolerance
+design patterns
+solid principles
+code review - what issues normally come up
+database design - what all to consider
+reactive programming
+streams related questions
+Java 8 lambda
+functional interface questions
+multiple payment options (credit card, debit card, upi) in front end, which design pattern to implement in the backend
+good coding practices
+spring security
+java reflection
+database index and views
