@@ -1,0 +1,2258 @@
+Question 1:
+Write a program 
+to creae Employee class with name and salary.
+Find the 2nd highest salary from the list.
+
+solution :
+
+	List<Employee> emp = Arrays.asList(new Employee("John", 50000), new Employee("Alice", 75000),
+				new Employee("Bob", 70000), new Employee("Charlie", 80000), new Employee("David", 75000));
+
+		Employee employee = emp.stream().sorted((x, y) -> Double.compare(y.getSalary(), x.getSalary())).skip(1).findFirst().get();
+	System.out.println(employee.getSalary())
+	
+============================================================================================================================
+Question 2:
+Write a code to find the sum of the two numbers is k and return all the pairs.
+int[] arr={1,4,2,3,1,5,7,9,2,9,5};
+
+public class Test {
+
+	public static void main(String[] args) {
+		int[] arr = { 1, 4, 2, 3, 1, 5, 7, 9, 2, 9, 5 };
+		int k = 10; // Target sum
+
+		findPairWithSum(arr, k);
+
+	}
+
+	private static void findPairWithSum(int[] arr, int k) {
+
+		Set<Integer> seen = new HashSet<>();
+		Set<String> pairs = new HashSet<>();
+
+		for (int num : arr) {
+			int complement = k - num;
+
+			if (seen.contains(complement)) {
+
+				String pair = Math.min(num, complement) + " " + Math.max(num, complement);
+				pairs.add(pair);
+
+			}
+			seen.add(num);
+		}
+
+		// Print all pairs found
+		if (pairs.isEmpty()) {
+			System.out.println("No pairs found with the sum " + k);
+		} else {
+			System.out.println("Pairs with the sum " + k + ":");
+			for (String pair : pairs) {
+				System.out.println(pair);
+			}
+		}
+	}
+}
+
+Approach:
+Traverse the array.
+For each element, calculate its complement (i.e., k - current number).
+Check if the complement is already in the set.
+If it exists, return the pair. If not, add the current element to the set and continue.
+
+====================================================================
+
+3:- One class based coding questions to create a class and find the maximum profit from an array.
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		int[] prices = { 7, 1, 5, 3, 6, 4 }; // Example stock prices
+
+		int result = maxProfit(prices);
+		System.out.println(result);
+
+	}
+
+	private static int maxProfit(int[] prices) {
+
+		if (prices == null || prices.length < 2) {
+			return 0;
+		}
+		int minPrice = prices[0];
+		int maxProfit = 0;
+
+		for (int i = 1; i < prices.length; i++) {
+			int profit = prices[i] - minPrice;
+
+			maxProfit = Math.max(maxProfit, profit);
+			minPrice = Math.min(minPrice, prices[i]);
+		}
+		return maxProfit;
+	}
+
+}
+// output  :-  5
+
+==========================================================================================
+
+
+4-------------how do we store data in producer consumer problem
+
+import java.util.concurrent.*;
+
+class ProducerConsumer {
+    private static final int CAPACITY = 10; // Size of buffer
+    private static final BlockingQueue<Integer> buffer = new LinkedBlockingQueue<>(CAPACITY);
+
+    // Producer thread
+    static class Producer implements Runnable {
+        public void run() {
+            try {
+                while (true) {
+                    int item = (int) (Math.random() * 100);
+                    buffer.put(item); // Add item to buffer (blocking if full)
+                    System.out.println("Produced: " + item);
+                    Thread.sleep(1000); // Simulate work
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    // Consumer thread
+    static class Consumer implements Runnable {
+        public void run() {
+            try {
+                while (true) {
+                    int item = buffer.take(); // Take item from buffer (blocking if empty)
+                    System.out.println("Consumed: " + item);
+                    Thread.sleep(1500); // Simulate work
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Start producer and consumer threads
+        Thread producerThread = new Thread(new Producer());
+        Thread consumerThread = new Thread(new Consumer());
+
+        producerThread.start();
+        consumerThread.start();
+    }
+}
+
+==============================================================================
+
+5:---------------------------What would be your approach if the items from both the lists are missing and you need to print the missing items?
+
+import java.util.*;
+
+public class MissingItems {
+    public static void main(String[] args) {
+        List<String> list1 = Arrays.asList("A", "B", "C", "D");
+        List<String> list2 = Arrays.asList("B", "C", "E", "F");
+
+        // Convert lists to sets
+        Set<String> set1 = new HashSet<>(list1);
+        Set<String> set2 = new HashSet<>(list2);
+
+        // Find items missing from list1
+        Set<String> missingFromList1 = new HashSet<>(set2);
+        missingFromList1.removeAll(set1); // Items in list2 but not in list1
+        System.out.println("Missing from list1: " + missingFromList1);
+
+        // Find items missing from list2
+        Set<String> missingFromList2 = new HashSet<>(set1);
+        missingFromList2.removeAll(set2); // Items in list1 but not in list2
+        System.out.println("Missing from list2: " + missingFromList2);
+    }
+}
+======================================
+
+6----You have an array containing continuos number but misses a number in between, write a code to find the number and array is not in sorted form.
+
+
+public class MissingNumber {
+
+    public static int findMissingNumber(int[] arr) {
+        // Step 1: Find the min and max without using inbuilt functions
+        int min = arr[0];
+        int max = arr[0];
+        
+        for (int num : arr) {
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+        }
+
+        // Step 2: Calculate the expected sum of the complete range (min to max)
+        int expectedSum = 0;
+        for (int i = min; i <= max; i++) {
+            expectedSum += i;
+        }
+
+        // Step 3: Calculate the actual sum of elements in the array
+        int actualSum = 0;
+        for (int num : arr) {
+            actualSum += num;
+        }
+
+        // Step 4: The missing number is the difference between expected and actual sums
+        return expectedSum - actualSum;
+    }
+
+    public static void main(String[] args) {
+        // Example array with a missing number
+        int[] arr = {7, 5, 6, 9, 10, 8, 11};
+        
+        // Finding the missing number
+        int missingNumber = findMissingNumber(arr);
+        
+        // Output the result
+        System.out.println("The missing number is: " + missingNumber);
+    }
+}
+===================================
+
+1--------Find the missing elements in array start from 1 to the max element present.
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 4, 6, 7 };
+
+		int max = Integer.MIN_VALUE;
+
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > max) {
+				max = arr[i];
+			}
+		}
+		
+		boolean[] present = new boolean[max+1];
+		
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]<=max) {
+				present[arr[i]]=true;
+			}
+		}
+
+		for(int i=1;i<=max;i++) {
+			if(!present[i]) {
+				System.out.println(i);
+			}
+		}
+	}
+}
+
+2---------------Out of two list find the numbers which are not common in both the list
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		   List<Integer> list1 = new ArrayList<>();
+	        list1.add(1);
+	        list1.add(2);
+	        list1.add(3);
+	        list1.add(4);
+
+	        List<Integer> list2 = new ArrayList<>();
+	        list2.add(3);
+	        list2.add(4);
+	        list2.add(5);
+	        list2.add(6);
+	        
+	        List<Integer> result = new ArrayList<>();
+	        
+	        for(int num :list1) {
+	        	if(!list2.contains(num)) {
+	        		result.add(num);
+	        	}
+	        }
+	        
+	        for(int num :list2) {
+	        	if(!list1.contains(num)) {
+	        		result.add(num);
+	        	}
+	        }
+	        
+	        System.out.println(result);
+
+	}
+}
+
+3-----------------https://www.geeksforgeeks.org/problems/two-numbers-with-sum-closest-to-zero1737/1
+
+public class Test {
+
+	public static void main(String[] args) {
+		int[] arr = { -1, 2, 1, -4, 3 };
+
+		Arrays.sort(arr);
+
+		int num1 = 0;
+		int num2 = 0;
+		int left = 0;
+		int right = arr.length - 1;
+		int closestSum = Integer.MAX_VALUE;
+
+		while (left < right) {
+			int sum = arr[left] + arr[right];
+
+			if (Math.abs(sum) < Math.abs(closestSum)) {
+
+				closestSum = sum;
+				num1 = arr[left];
+				num2 = arr[right];
+
+			}
+			if (sum < 0) {
+				left++;
+			} else {
+				right--;
+			}
+		}
+		System.out.println("The two numbers with sum closest to zero are: " + num1 + " and " + num2);
+
+	}
+}
+
+===============================
+4
+check balanced package com;
+
+import java.util.Stack;
+
+public class Test {
+
+	public static void main(String[] args) {
+		String expression = "{[()]}";
+
+		System.out.println(checkBalanced(expression));
+	}
+
+	private static boolean checkBalanced(String expression) {
+
+		Stack<Character> st = new Stack();
+
+		for (int i = 0; i < expression.length(); i++) {
+			char ch = expression.charAt(i);
+
+			if (ch == '{' || ch == '[' || ch == '(') {
+				st.push(ch);
+			} else if (ch == '}' || ch == ']' || ch == ')') {
+				if (st.isEmpty()) {
+					return false;
+				}
+				char top = st.pop();
+				if (ch == '}' && top != '{') {
+					return false;
+				}
+				if (ch == ']' && top != '[') {
+					return false;
+				}
+				if (ch == ')' && top != '(') {
+					return false;
+				}
+
+			}
+		}
+
+		return true;
+
+	}
+}
+==================5
+ 5:--Longest substring without repeating characters in a string
+ 
+ public class Test {
+
+	public static void main(String[] args) {
+		String s = "abcdabcbb";
+
+		int start = 0;
+		int maxlength = 0;
+		HashSet<Character> set = new HashSet<>();
+
+		for (int end = 0; end < s.length(); end++) {
+			char currentChar = s.charAt(end);
+
+			while (set.contains(currentChar)) {
+				set.remove(s.charAt(start));
+				start++;
+
+			}
+			set.add(currentChar);
+			maxlength = Math.max(maxlength, end - start + 1);
+		}
+		System.out.println(maxlength);
+
+	}
+}
+==============
+6 :--- kth largest element 
+
+public class Test {
+
+	public static void main(String[] args) {
+		int[] arr = { 1, 4, 5, 6, 7, 8, 4, 2, 9 };
+
+		int k = 3;
+
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (i < k) {
+				pq.add(arr[i]);
+			} else if (arr[i] > pq.peek()) {
+				pq.remove();
+				pq.add(arr[i]);
+			}
+
+		}
+
+		while (pq.size() > 0) {
+			System.out.println(pq.remove());
+		}
+	}
+}
+
+===================================================
+
+7--------- 
+Qsyncronization contruct which allow n slot of thread at a time 
+
+To allow n threads to access a synchronized block at the same time, you can use a Semaphore in Java. 
+A Semaphore is a concurrency control mechanism that limits the number of threads that can access a particular resource concurrently.
+
+Using Semaphore to Allow n Threads at a Time:
+A Semaphore can be initialized with a count of n, which represents the number of permits available for threads to acquire.
+ Each thread will attempt to acquire a permit before executing the synchronized block, and it will release the permit when done, allowing other threads to acquire the permit.
+
+Example Code:
+java
+Copy code
+import java.util.concurrent.Semaphore;
+
+public class SemaphoreExample {
+
+    // Create a Semaphore with n permits
+    private static final Semaphore semaphore = new Semaphore(3);  // Allow 3 threads at a time
+
+    public static void main(String[] args) {
+
+        // Create multiple threads that will try to acquire the semaphore
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Task(i)).start();
+        }
+    }
+
+    static class Task implements Runnable {
+        private final int threadId;
+
+        public Task(int threadId) {
+            this.threadId = threadId;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // Acquire a permit before entering the synchronized block
+                semaphore.acquire();
+
+                // Critical section: Only n threads can be in this block at the same time
+                System.out.println("Thread " + threadId + " is executing.");
+
+                // Simulate work by sleeping
+                Thread.sleep(2000);
+
+                // Release the permit after execution
+                System.out.println("Thread " + threadId + " is done.");
+                semaphore.release();
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+}
+Explanation:
+Semaphore Initialization: The semaphore is created with n permits, where n = 3 in this example. 
+This means up to 3 threads can execute the critical section concurrently.
+
+java
+Copy code
+private static final Semaphore semaphore = new Semaphore(3);
+Acquiring and Releasing Permits:
+
+Acquire: Each thread calls semaphore.acquire() before entering the critical section. 
+If there are no available permits, the thread will wait until a permit becomes available.
+Release: After the thread finishes its task, it calls semaphore.release() to release a permit, 
+allowing another waiting thread to acquire it and enter the critical section.
+Output: The threads will print their execution status, but only 3 threads can be in 
+the critical section (inside semaphore.acquire() and semaphore.release()) at the same time.
+
+Why Use Semaphore:
+Concurrency Control: This construct allows you to control the number of concurrent
+ threads accessing a resource, ensuring that only a limited number of threads can execute a block of code simultaneously.
+
+Thread Coordination: It provides a way to coordinate threads when access to a shared resource needs to be limited 
+(for example, limiting access to a database or a service).
+
+Key Points:
+semaphore.acquire() blocks if no permits are available.
+semaphore.release() increments the available permits, potentially releasing a blocked thread.
+It is often used for resource pooling (e.g., limiting the number of concurrent database connections).
+Use Case:
+In scenarios where you want to limit the number of concurrent threads accessing a shared resource (
+like database connections, file access, or network connections),
+ using a Semaphore with a specified number of permits can effectively control the concurrency level.
+ 
+ 
+ ============================================================================
+
+
+8---------Qimplement semaphore
+
+Here's a concise implementation of a Semaphore in Java, which allows up to n threads to access a critical section at the same time.
+
+import java.util.concurrent.Semaphore;
+
+public class SemaphoreExample {
+
+    // Create a Semaphore with 3 permits, allowing 3 threads at a time
+    private static final Semaphore semaphore = new Semaphore(3);
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Task(i)).start();
+        }
+    }
+
+    static class Task implements Runnable {
+        private final int threadId;
+
+        public Task(int threadId) {
+            this.threadId = threadId;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // Acquire a permit before accessing the critical section
+                semaphore.acquire();
+                System.out.println("Thread " + threadId + " is executing.");
+
+                // Simulate work by sleeping
+                Thread.sleep(2000);
+
+                System.out.println("Thread " + threadId + " is done.");
+
+                // Release the permit after the task is finished
+                semaphore.release();
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+}
+==================================================
+
+9 :-   rain trapping water 
+
+public class TrappingRainWater {
+
+    // Method to calculate the total amount of water trapped
+    public static int trap(int[] height) {
+        if (height == null || height.length == 0) {
+            return 0; // No water can be trapped if the array is empty
+        }
+
+        int left = 0, right = height.length - 1;  // Pointers to left and right ends of the array
+        int leftMax = 0, rightMax = 0;  // Variables to store the maximum heights encountered so far
+        int totalWater = 0;  // Variable to store the total water trapped
+
+        // Traverse the array from both ends
+        while (left <= right) {
+            if (height[left] <= height[right]) {  // Move left pointer when the left bar is shorter or equal
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];  // Update leftMax if the current height is greater
+                } else {
+                    totalWater += leftMax - height[left];  // Calculate water trapped at this index
+                }
+                left++;  // Move left pointer inward
+            } else {  // Move right pointer when the right bar is shorter
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];  // Update rightMax if the current height is greater
+                } else {
+                    totalWater += rightMax - height[right];  // Calculate water trapped at this index
+                }
+                right--;  // Move right pointer inward
+            }
+        }
+
+        return totalWater;  // Return the total amount of trapped water
+    }
+
+    // Main method to test the solution
+    public static void main(String[] args) {
+        // Sample input representing heights of bars
+        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        
+        // Calculate the trapped water
+        int result = trap(height);
+        
+        // Output the result
+        System.out.println("Total water trapped: " + result);  // Expected output: 6
+    }
+}
+
+
+==========================================
+
+10--- 
+
+What does "enqueue" mean?
+"Enqueue" refers to the action of adding an element to the end of the queue. 
+It is the opposite of "dequeue", which refers to removing an element from the front of the queue.
+In the context of a queue data structure, enqueue means adding an element, while dequeue means removing an element.
+
+
+=======================================
+
+remove duplicate   linked list
+
+// Function to remove duplicates from the linked list
+    public void removeDuplicates() {
+        if (head == null) {
+            return; // Empty list, nothing to remove
+        }
+
+        HashSet<Integer> seen = new HashSet<>();
+        Node current = head;
+        Node previous = null;
+
+        while (current != null) {
+            if (seen.contains(current.data)) {
+                // Duplicate found, remove it by skipping the current node
+                previous.next = current.next;
+            } else {
+                // Add current data to HashSet if it's not a duplicate
+                seen.add(current.data);
+                previous = current;
+            }
+            current = current.next;
+        }
+    }
+===========================================
+
+
+
+
+
+
+
+
+
+================================================================theory===============================================
+
+ 1: - What is JPA and how it works
+
+What is JPA?
+JPA (Java Persistence API) is a Java specification for managing relational data in Java applications using object-relational mapping (ORM). 
+It simplifies database interaction by mapping Java objects to database tables and provides a set of APIs for CRUD operations, querying,
+ and managing the persistence context.
+
+Key Features of JPA:
+Object-Relational Mapping (ORM): Maps Java objects to database tables.
+CRUD Operations: Supports create, read, update, and delete operations.
+JPQL (Java Persistence Query Language): A query language similar to SQL, but for Java objects.
+EntityManager: Manages entities and provides database interaction.
+Transaction Management: Integrates with transaction management to ensure atomicity.
+
+How JPA Works:
+Entities: Java classes annotated with @Entity represent database tables.
+EntityManager: Interface to interact with the database and manage entities.
+Persistence Context: Manages the lifecycle of entities.
+Persistence Unit: Configuration defined in persistence.xml to connect to a database
+
+================================================
+
+2- Asked inheritance and Runtime polymorphism concepts with some tricky question
+
+
+Can we override a constructor in Java?
+No, constructors are not inherited, so they cannot be overridden. However, a child class can define its own constructor.
+
+Can you invoke a superclass constructor explicitly in a subclass?
+Yes, using the super() keyword, you can call the constructor of the parent class from the child class constructor.
+
+Can a child class call a parent class's private method?
+No, private methods are not inherited, so the child class cannot access the parent’s private methods directly.
+ However, it can call protected or public methods from the parent.
+ 
+ ========================================================================
+ 3:- Given one class and make it as immutable
+ 
+ To make a class immutable in Java:
+
+Declare the class as final to prevent subclassing.
+Make all fields private and final to ensure they cannot be modified after initialization.
+Initialize all fields via a constructor.
+Do not provide "setter" methods to modify fields.
+If the class has reference fields (e.g., objects), make sure to return a defensive copy of those fields
+ when accessed to prevent external modification.
+ 
+ public final class Person {
+    private final String name;
+    private final int age;
+
+    // Constructor to initialize fields
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getter methods (no setters)
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+Key Points:
+The class is final, so it can't be subclassed.
+The fields are private and final, ensuring immutability.
+There are no setter methods, so the fields cannot be modified after the object is created.
+For Reference Fields:
+If the class has reference fields (e.g., objects), return a defensive copy in getters:
+
+public final class Employee {
+    private final Date hireDate;
+
+    public Employee(Date hireDate) {
+        this.hireDate = new Date(hireDate.getTime());  // Create a copy
+    }
+
+    public Date getHireDate() {
+        return new Date(hireDate.getTime());  // Return a copy
+    }
+}
+
+=====================================================================
+4:-- microservice design patterns what all you aware
+
+. API Gateway Pattern:
+An API Gateway acts as a reverse proxy that routes requests from clients to appropriate microservices.
+It provides single entry point, manages cross-cutting concerns like authentication, rate limiting, logging, etc.
+Example: Spring Cloud Gateway, Zuul.
+
+Service Discovery Pattern:
+Helps in dynamically discovering microservices at runtime.
+Service Registry (e.g., Eureka) is used to register services, and clients can discover available instances.
+Example: Netflix Eureka, Consul.
+
+Circuit Breaker Pattern:
+Prevents a failing service from causing a cascade of failures.
+Monitors service health, and if a threshold is exceeded, it stops further requests to the failing service.
+Example: Hystrix, Resilience4j.
+
+ Event Sourcing Pattern:
+Store events that represent state transitions, rather than the current state.
+Services listen to and react to events, enabling event-driven architecture.
+Example: Kafka, RabbitMQ.
+
+Saga Pattern:
+Manages distributed transactions and long-running processes by using compensating transactions to ensure consistency.
+Choreography or Orchestration can be used to manage the saga.
+Example: Amazon SQS, Kafka.
+
+======================================================
+5-----------how to chek null value in junit
+
+JUnit 5: Use assertNull() and assertNotNull().
+
+================================================================
+
+6:-  Spring vs Springboot , why do we use spring boot 
+
+Why Use Spring Boot:
+
+Simplified Configuration: Automatically configures Spring components based on application dependencies.
+Embedded Servers: No need to deploy to an external server. Spring Boot apps come with an embedded Tomcat, Jetty, or Undertow server.
+Faster Development: Reduces boilerplate code and XML configurations, promoting rapid development.
+Microservices-Friendly: Ideal for building microservices with Spring Cloud and other cloud-native features.
+Production-Ready: Includes health checks, metrics, and monitoring out of the box.
+
+Summary:
+Spring Boot simplifies the use of Spring by providing automatic configurations, embedded servers, and quick setup,
+ making it ideal for rapid development of stand-alone, production-ready applications.
+ 
+ ==================================================================
+ 7:----
+ why do we use index
+based on which criteria we decide we should create index
+
+
+CREATE INDEX idx_email ON Customers(email);
+SELECT * FROM Customers WHERE email = 'john.doe@example.com';
+
+solution :-
+
+Why Use Indexes:
+Improves Query Performance: Indexes speed up data retrieval operations (e.g., SELECT) by allowing the database to find rows more efficiently.
+Reduces Full Table Scans: Instead of scanning all rows, indexes allow the database to quickly locate specific rows using optimized data 
+structures (e.g., B-tree, Hash).
+Enhances Sorting and Grouping: Indexes can speed up operations like ORDER BY, GROUP BY, and JOIN.
+
+Criteria to Create Index:
+Frequently Queried Columns: Create indexes on columns frequently used in WHERE, JOIN, ORDER BY, or GROUP BY clauses.
+Primary/Foreign Keys: Automatically indexed by databases, but explicitly indexing them can improve performance in large tables.
+Large Tables: For tables with a large number of rows, indexing can significantly improve search performance.
+Uniqueness: For columns with unique values (e.g., emails, IDs), indexing is often beneficial.
+Columns with Range Queries: Columns that are often used with range queries (e.g., BETWEEN, >=, <=) benefit from indexing.
+
+
+When Not to Use Index:
+Small Tables: Indexing small tables may not provide any performance improvement.
+Frequent Data Modification: If a table has frequent INSERT, UPDATE, or DELETE operations, indexes can slow down performance 
+due to the overhead of maintaining the index.
+Summary:
+Create indexes on frequently queried or joined columns, primary/foreign keys, and large tables to improve query performance.
+ Avoid indexing on small tables or when there are frequent data modifications.
+ 
+ ==============================================================================================
+ 
+ 8----------------Spring bean scope , use of scope
+ 
+ Spring Bean Scopes:
+Singleton (Default):
+
+A single instance of the bean is created for the entire Spring container.
+It is shared across the entire application.
+Use Case: When the bean does not maintain any state and can be shared by all components.
+Prototype:
+
+A new instance of the bean is created every time it is requested.
+Use Case: When each request requires a unique instance, e.g., for beans that hold user-specific data.
+Request:
+
+A new bean instance is created for each HTTP request.
+Available only in web applications.
+Use Case: When each HTTP request requires a separate instance of a bean.
+Session:
+
+A new bean instance is created for each HTTP session.
+Available only in web applications.
+Use Case: When a bean should be tied to a user session, like user preferences or login information.
+Global Session:
+
+Similar to session scope but for portlet-based applications.
+Use Case: When a bean needs to be shared across multiple portlets within the same session.
+=======================================================================================================
+
+9------------------------- caching mechanism
+
+A caching mechanism in computing refers to storing data in a temporary storage area (cache) to speed up future data access. This reduces the time required to retrieve frequently used data and can improve system performance by avoiding repeated costly operations (like database queries or file system access).
+
+Key Concepts of Caching:
+Cache Hit vs Cache Miss:
+
+Cache Hit: When requested data is found in the cache.
+Cache Miss: When requested data is not found in the cache, and a fetch from the original data source (like a database) is required.
+Cache Eviction: When the cache is full, older or least used data may be removed to make space for newer data. Common eviction strategies include:
+
+Least Recently Used (LRU): Evicts the least recently used data.
+Least Frequently Used (LFU): Evicts the least frequently used data.
+First In, First Out (FIFO): Evicts data in the order it was added.
+Cache Expiration: Some caches automatically remove data after a certain time period or after the data becomes stale.
+
+Types of Caching:
+
+Memory Caching: Stores data in memory for fast access (e.g., HashMap, ConcurrentHashMap).
+Disk Caching: Stores data on disk to provide persistent cache storage.
+Distributed Caching: Caches data across multiple servers (e.g., Redis, Memcached).
+Benefits of Caching:
+
+Performance Improvement: Faster access to frequently requested data.
+Reduced Latency: Reduces time spent fetching data from slower data sources (e.g., databases).
+Load Reduction: Decreases load on primary data sources.
+Cache Consistency: When the cached data becomes outdated, strategies must be in place to ensure consistency between the cache and the source data.
+ This can be achieved by:
+
+Write-through Cache: Data is updated in the cache and the source simultaneously.
+Write-back Cache: Data is only written to the source after being evicted or periodically.
+Example Caching Strategies:
+Memoization: A specific type of caching used in function calls, where results of expensive function calls are stored and reused 
+when the same inputs occur again.
+
+Time-based Expiration: Caches that automatically remove data after a certain time to prevent serving outdated information.
+
+When to Use Caching:
+Frequently accessed data that is computationally expensive to fetch or compute.
+Data that does not change frequently and can be reused without much risk of becoming stale.
+Caching Libraries in Java:
+Guava: Offers built-in support for caching with features like automatic eviction.
+Caffeine: A high-performance caching library for Java, offering support for time-based expiration, size-based eviction, 
+and automatic loading of values.
+In summary, caching is an essential optimization technique in software development, 
+allowing systems to efficiently manage data and minimize performance bottlenecks.
+
+=========================================================================================================
+
+10--------------------------------------
+Why we use synchronised and what are different locking mechanism in java , and difference between them
+
+Why Use synchronized in Java?
+The synchronized keyword in Java is used to ensure thread safety when multiple threads access shared resources 
+(e.g., variables, methods, or objects) concurrently. 
+It prevents race conditions by allowing only one thread to access a critical section of code at a time.
+
+Use Cases for synchronized:
+To protect shared data from being accessed or modified by multiple threads simultaneously.
+To ensure that a method or block of code can only be executed by one thread at a time.
+Different Locking Mechanisms in Java:
+Intrinsic Lock (Monitor Lock):
+
+How it works: Every object in Java has an intrinsic lock (monitor). 
+The synchronized keyword uses this lock to ensure only one thread can execute a synchronized method or block.
+Example:
+java
+Copy code
+public synchronized void method() {
+    // Critical section
+}
+Explicit Lock (ReentrantLock):
+
+How it works: Provided by the java.util.concurrent.locks package,
+ ReentrantLock allows more fine-grained control over synchronization compared to synchronized. 
+ It allows locking and unlocking in different parts of the code and can also try to acquire a lock within a specified time.
+Lock lock = new ReentrantLock();
+lock.lock();
+try {
+    // Critical section
+} finally {
+    lock.unlock();
+}
+=======================================================================================
+
+11------------- what is integration testing, how have you done
+
+What is Integration Testing?
+Integration testing is a type of testing where individual software components or systems are combined and tested as a group. 
+The purpose of integration testing is to verify that the interactions between integrated units or components are working as expected.
+
+How Have I Done Integration Testing?
+In a Spring Boot application, I’ve used integration testing to verify that various components (such as controllers, services, 
+and repositories) interact correctly. Here's how I've approached it:
+
+Using @SpringBootTest: This annotation loads the full Spring context, including beans, controllers, repositories, and services, 
+allowing for comprehensive integration tests.
+
+Mocking HTTP Requests (for REST APIs): By using MockMvc, I’ve simulated HTTP requests to test whether the controllers properly handle them, 
+and whether the correct responses are returned.
+
+Database Integration: I’ve configured an in-memory database (like H2) during testing to verify that interactions with the database, 
+such as saving and retrieving data, are correct.
+
+Autowiring Components: I’ve used @Autowired to inject components (services, controllers, etc.) into the test class to test the interaction
+ between them.
+ 
+ ================================================
+ 
+ 12--------how to test the api
+ 
+ 
+To test an API in Java, specifically in a Spring Boot application, you typically use MockMvc for unit and integration tests to simulate HTTP requests and verify the responses.
+
+Steps to Test an API in Spring Boot:
+Add Required Dependencies: Ensure your pom.xml (for Maven) includes dependencies for testing.
+xml
+Copy code
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+</dependency>
+Create an API Test Class: Use @SpringBootTest to load the application context and MockMvc to simulate HTTP requests.
+
+Write Tests for Your API:
+
+Example of API Test Using MockMvc:
+java
+Copy code
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+public class UserControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    // Test GET API
+    @Test
+    public void testGetUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/1"))
+               .andExpect(status().isOk()) // Expect HTTP status 200
+               .andExpect(jsonPath("$.id").value(1)) // Expect ID in response
+               .andExpect(jsonPath("$.name").value("John")); // Expect name in response
+    }
+
+    // Test POST API
+    @Test
+    public void testCreateUser() throws Exception {
+        String userJson = "{\"name\":\"John\", \"age\":30}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+               .contentType("application/json")
+               .content(userJson))
+               .andExpect(status().isCreated()) // Expect HTTP status 201
+               .andExpect(jsonPath("$.name").value("John"));
+    }
+}
+Explanation:
+@SpringBootTest: Loads the Spring context.
+MockMvc: Allows simulating HTTP requests to test controllers.
+MockMvcRequestBuilders: Helps build GET, POST, and other HTTP requests.
+jsonPath: Extracts and verifies specific values in the JSON response.
+
+Key Points:
+GET Requests: Verify the response status and content.
+POST Requests: Simulate sending data and verify the response.
+MockMvc: Provides an in-memory HTTP request/response model for tests.
+
+Summary:
+Use MockMvc in Spring Boot to test APIs.
+@SpringBootTest loads the full application context for integration tests.
+Simulate HTTP requests and assert the status and response content.
+
+=========================================================================
+13:------ how can we share newly api design to another team for integration
+
+Share Swagger/OpenAPI docs, Postman collections, and clear specifications.
+Provide authentication details and access to a test environment.
+
+=================================================================
+
+14 ---- API documentation
+
+Good API documentation is concise and includes the base URL, endpoints, 
+authentication details, request/response formats, status codes, and error handling, along with example requests and responses.
+
+==========================================================
+15:----------once you created index , how to confirm it's working
+
+To confirm that an index is working in SQL (e.g., MySQL, PostgreSQL, etc.), follow these concise steps:
+
+1. Check Index Existence:
+MySQL: Use SHOW INDEX to list all indexes for a specific table.
+sql
+Copy code
+SHOW INDEX FROM your_table_name;
+
+2. Test Query Performance:
+Before creating the index, execute a query and note its performance.
+
+After creating the index, execute the same query and compare the execution time.
+
+sql
+Copy code
+EXPLAIN SELECT * FROM your_table_name WHERE your_column = 'value';
+
+=========================================================================================
+
+16---------------how to improve api performance
+
+Optimize database queries with indexing and batching.
+Cache responses with Redis or HTTP headers.
+Minimize response size using pagination and compression.
+Use async processing and offload tasks.
+Rate limit and scale the infrastructure as needed.
+
+========================================================
+
+17------------------how to create Rest api for student-management-project then follow up
+
+1. Set Up Project:
+Use Spring Boot (Java) for the backend.
+Use Maven/Gradle for dependency management.
+Add Dependencies in pom.xml (for Maven):
+
+xml
+Copy code
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+2. Define Entity (Student):
+java
+Copy code
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+    private int age;
+
+    // Getters and Setters
+}
+3. Create Repository:
+java
+Copy code
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Long> {
+}
+4. Create Service:
+java
+Copy code
+@Service
+public class StudentService {
+    @Autowired
+    private StudentRepository repository;
+
+    public List<Student> getAllStudents() {
+        return repository.findAll();
+    }
+
+    public Student getStudentById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public Student createStudent(Student student) {
+        return repository.save(student);
+    }
+
+    public void deleteStudent(Long id) {
+        repository.deleteById(id);
+    }
+}
+5. Create Controller:
+java
+Copy code
+@RestController
+@RequestMapping("/api/students")
+public class StudentController {
+    @Autowired
+    private StudentService service;
+
+    @GetMapping
+    public List<Student> getStudents() {
+        return service.getAllStudents();
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudent(@PathVariable Long id) {
+        return service.getStudentById(id);
+    }
+
+    @PostMapping
+    public Student createStudent(@RequestBody Student student) {
+        return service.createStudent(student);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable Long id) {
+        service.deleteStudent(id);
+    }
+}
+========================================================================
+
+18--------------- create builder design with example
+
+public class Student {
+    private String name;
+    private int age;
+    private String grade;
+
+    private Student(StudentBuilder builder) {
+        this.name = builder.name;
+        this.age = builder.age;
+        this.grade = builder.grade;
+    }
+
+    public static class StudentBuilder {
+        private String name;
+        private int age;
+        private String grade;
+
+        // Setters for the builder
+        public StudentBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public StudentBuilder setAge(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public StudentBuilder setGrade(String grade) {
+            this.grade = grade;
+            return this;
+        }
+
+        public Student build() {
+            return new Student(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Student{name='" + name + "', age=" + age + ", grade='" + grade + "'}";
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        // Using the builder pattern to create a Student object
+        Student student = new Student.StudentBuilder()
+                .setName("John Doe")
+                .setAge(20)
+                .setGrade("A")
+                .build();
+
+        System.out.println(student);
+    }
+}
+// output 
+Student{name='John Doe', age=20, grade='A'}
+
+Explanation:
+Builder Class (StudentBuilder): Provides setter methods to set different fields.
+build() Method: Creates and returns a Student object once all fields are set.
+Student Object Creation: The object is created step by step using the builder pattern, making the code more readable and flexible.
+
+=======================================================
+19:-----------Incase if we create 1 million threads ,how the references will get stored in the memory
+
+Summary:
+Thread Stack Memory: Each thread's stack takes up memory (e.g., 1 MB per thread).
+Heap Memory: Threads are stored as objects in heap memory, adding small overhead.
+OS Limits: The system may run out of resources before it can manage 1 million threads efficiently.
+Thus, creating 1 million threads is not practical in most cases due to high memory consumption and system limitations.
+
+=========================================
+
+20------------------How memory will get allocated to thread.
+
+Summary:
+Thread Stack: Memory for local variables and method calls.
+Heap Memory: Stores thread objects and references.
+Thread Control Block: OS-managed data for thread management.
+
+========================================================================
+
+21----------------How stack overflow exception occur and Out of memory exception occur
+
+StackOverflowError: Caused by deep recursion or infinite function calls that exhaust the stack.
+OutOfMemoryError: Caused by insufficient heap space due to memory leaks or excessive allocation.
+
+public class StackOverflowExample {
+    public void recursiveMethod() {
+        recursiveMethod();  // Infinite recursion
+    }
+
+    public static void main(String[] args) {
+        StackOverflowExample example = new StackOverflowExample();
+        example.recursiveMethod();
+    }
+}
+
+public class OutOfMemoryExample {
+    public static void main(String[] args) {
+        while (true) {
+            String[] largeArray = new String[1000000];  // Memory consumption grows
+        }
+    }
+}
+
+===================================================================================
+
+22----------------------------How Stack works internally
+
+How Stack Works Internally in Java:
+Memory Allocation:
+
+The stack is a region of memory used for storing method frames, local variables, and function call data.
+Each thread has its own stack, which is private and independent of other threads.
+Method Call:
+
+When a method is called, a stack frame is created. This frame contains:
+Local variables.
+Return address (the point to return after the method execution).
+Parameters passed to the method.
+The stack frame is pushed onto the stack.
+Stack Pointer:
+
+The stack pointer keeps track of the top of the stack and is adjusted as methods are called and return.
+Method Execution:
+
+As the method executes, its local variables and intermediate data are stored in the stack frame.
+When the method returns, the stack frame is popped off the stack, and the control returns to the caller.
+Memory Deallocation:
+
+Once a method finishes execution, its stack frame is removed (popped) from the stack, releasing the memory.
+Stack Limit:
+
+Each thread has a fixed stack size (configurable by JVM). Exceeding this size (e.g., due to deep recursion) results in a StackOverflowError.
+
+Summary:
+Stack stores method frames, local variables, and execution data.
+Stack frames are pushed on method calls and popped on method returns.
+Each thread has its own stack, and its size is limited.
+
+=====================================================================================
+
+23----------How memory management works in java
+
+Memory Management in Java:
+Java uses an automatic memory management system, primarily handled by the JVM's Garbage Collector (GC), which ensures efficient allocation and deallocation of memory.
+
+Key Components:
+Heap Memory:
+
+Stores objects created using new.
+Divided into Young Generation (for new objects) and Old Generation (for long-lived objects).
+Objects are allocated in the Young Generation, and if they survive multiple GC cycles, they move to the Old Generation.
+Stack Memory:
+
+Each thread gets its own stack, used for storing local variables and method calls.
+Stack memory is automatically reclaimed when a method exits.
+Method Area (Metaspace):
+
+Stores class definitions, static variables, and method metadata.
+Java 8 replaced the Permanent Generation with Metaspace, which dynamically grows as needed.
+Garbage Collection (GC):
+
+GC automatically reclaims unused objects from the heap to free memory.
+Uses various algorithms like Mark-and-Sweep, Generational GC, and Stop-the-world pauses.
+Objects that are no longer reachable from the root are marked for garbage collection.
+Memory Allocation and Deallocation:
+Allocation: Objects are allocated in the heap.
+Deallocation: Unused objects are identified by the GC and removed, freeing memory.
+Summary:
+Heap: Stores objects; managed by GC (Young and Old generations).
+Stack: Stores method calls and local variables for each thread.
+Method Area: Stores class-level information.
+GC: Automatically reclaims memory from unused objects.
+
+======================================================
+
+24-------------------How to serialize the class
+
+How to Serialize a Class in Java:
+To serialize a class, you need to implement the Serializable interface, which marks the class as serializable, allowing its objects to be converted into a byte stream.
+
+Steps to Serialize a Class:
+Implement Serializable Interface:
+
+The class must implement the Serializable interface (a marker interface with no methods).
+Use ObjectOutputStream:
+
+Use ObjectOutputStream to write the object to a file or stream.
+Example:
+java
+Copy code
+import java.io.*;
+
+// Step 1: Make the class Serializable
+public class Student implements Serializable {
+    private String name;
+    private int age;
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{name='" + name + "', age=" + age + "}";
+    }
+
+    public static void main(String[] args) {
+        try {
+            // Step 2: Serialize the object
+            Student student = new Student("John", 20);
+            FileOutputStream fileOut = new FileOutputStream("student.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(student);
+            out.close();
+            fileOut.close();
+
+            System.out.println("Serialized data is saved in student.ser");
+
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+}
+Deserialization:
+To read back the serialized object, use ObjectInputStream:
+
+java
+Copy code
+public class DeserializeExample {
+    public static void main(String[] args) {
+        try {
+            // Step 3: Deserialize the object
+            FileInputStream fileIn = new FileInputStream("student.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Student student = (Student) in.readObject();
+            in.close();
+            fileIn.close();
+
+            System.out.println("Deserialized Student: " + student);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+Summary:
+Implement Serializable interface.
+Use ObjectOutputStream to serialize objects.
+Use ObjectInputStream to deserialize objects.
+
+======================================================================
+
+25-----------------------if you want to create Custom exceptions which one do you create?
+
+How to Create Custom Unchecked Exception:
+java
+Copy code
+public class CustomUncheckedException extends RuntimeException {
+    public CustomUncheckedException(String message) {
+        super(message);
+    }
+}
+When to Use Checked Custom Exceptions:
+Only if the exception represents a recoverable condition that the caller should handle explicitly (e.g., I/O operations, user input validation).
+Summary:
+Custom Unchecked Exception: Extend RuntimeException for most cases.
+Custom Checked Exception: Extend Exception if recovery is necessary and must be handled by the caller
+
+==============================================================================================
+
+26----------------------What is an advice in spring boot
+
+In Spring Boot, advice refers to the action taken by an aspect at a certain point during the execution of a program. 
+It is part of Aspect-Oriented Programming (AOP), which allows you to separate cross-cutting concerns (like logging, transactions, etc.) 
+from the main business logic.
+
+Types of Advice in Spring AOP:
+Before Advice: Runs before the method execution.
+After Advice: Runs after the method execution, regardless of its outcome.
+After Returning: Runs only if the method completes successfully.
+After Throwing: Runs only if the method throws an exception.
+Around Advice: Surrounds the method execution. It can modify the method's return value or handle exceptions.
+Pointcut: Defines where the advice should apply (e.g., which methods should be intercepted)
+
+===============================================================
+
+27-------------What is the functionality behind the @Transactional
+
+Key Functionalities:
+Transaction Management:
+
+Ensures that all operations within the method are part of a single transaction. If any operation fails, the entire transaction is rolled back.
+Rollback on Exception:
+
+By default, Spring rolls back the transaction if a runtime exception or Error occurs.
+Custom rollback behavior can be configured for specific exceptions.
+Automatic Commit:
+
+If the method completes successfully (no exceptions thrown), the transaction is automatically committed.
+Example:
+java
+Copy code
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class UserService {
+
+    @Transactional
+    public void createUser(User user) {
+        // DB operations: Insert into User table
+        // Other DB operations
+        // Transaction is committed if no exception occurs, or rolled back if an exception is thrown
+    }
+}
+Customizing @Transactional:
+Rollback rules: Can specify which exceptions trigger a rollback:
+
+java
+Copy code
+@Transactional(rollbackFor = CustomException.class)
+Isolation level: Defines how transactions are isolated from each other.
+
+java
+Copy code
+@Transactional(isolation = Isolation.READ_COMMITTED)
+Summary:
+@Transactional ensures that database operations are executed within a transaction,
+ automatically handling commit and rollback based on method success or failure.
+ 
+ =================================================================================
+ 
+ 28------------------------Create custom Transactions ,Assume that we don't have spring transactions ,how do you handle it?
+ 
+ To create custom transactions without Spring's built-in transaction management, you can manage transactions manually using JDBC or JTA. 
+ Here's how you can handle it in a custom way:
+
+Steps to Create Custom Transactions:
+Establish a Connection:
+
+Get a connection from a DataSource.
+Disable Auto-Commit:
+
+Turn off auto-commit mode so that you can control when to commit or roll back.
+Perform Operations:
+
+Execute the required SQL operations within the transaction.
+Commit or Rollback:
+
+If operations are successful, commit the transaction; if any exception occurs, rollback the transaction.
+Close the Connection:
+
+Finally, close the connection to release resources.
+
+import java.sql.*;
+
+public class CustomTransactionManager {
+
+    private Connection connection;
+
+    public CustomTransactionManager(DataSource dataSource) throws SQLException {
+        this.connection = dataSource.getConnection();
+    }
+
+    public void executeTransaction() {
+        try {
+            // Step 1: Disable auto-commit
+            connection.setAutoCommit(false);
+
+            // Step 2: Perform operations
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("INSERT INTO users (name) VALUES ('John')");
+            stmt.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE user_id = 1");
+
+            // Step 3: Commit transaction
+            connection.commit();
+
+        } catch (SQLException e) {
+            try {
+                // Step 4: Rollback if error occurs
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                // Step 5: Ensure resources are closed
+                if (connection != null) {
+                    connection.setAutoCommit(true); // Restore auto-commit mode
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+Summary:
+Connection: Get a connection from the datasource.
+Disable Auto-Commit: Control the transaction manually.
+Commit/Rollback: Commit if successful, rollback if there's an exception.
+Close Resources: Ensure proper cleanup of resources.
+This approach mimics transaction management without relying on Spring's transaction handlin
+
+========================================================
+
+29----------------How do you Manage Transactions in spring boot
+
+
+
+In Spring Boot, transactions are typically managed using the @Transactional annotation, which provides declarative transaction management. This eliminates the need for manual transaction handling.
+
+Steps to Manage Transactions in Spring Boot:
+Add @Transactional Annotation:
+
+Apply @Transactional at the method or class level to specify that a method should be executed within a transaction.
+Automatic Transaction Handling:
+
+Spring automatically handles transaction boundaries (begin, commit, rollback) based on method execution.
+By default, it rolls back on runtime exceptions and errors.
+Transaction Propagation and Isolation:
+
+You can configure propagation (how transactions behave in nested calls) and isolation (how transactions interact with each other).
+Example:
+java
+Copy code
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class UserService {
+
+    @Transactional
+    public void createUserAndAccount(User user, Account account) {
+        // Create user
+        userRepository.save(user);
+        
+        // Create account
+        accountRepository.save(account);
+        
+        // Both operations will be part of a single transaction
+    }
+}
+Customizing @Transactional:
+Rollback: You can specify exceptions that trigger a rollback:
+java
+Copy code
+@Transactional(rollbackFor = CustomException.class)
+Isolation Level: Control transaction isolation:
+java
+Copy code
+@Transactional(isolation = Isolation.READ_COMMITTED)
+Summary:
+Declarative: Use @Transactional to manage transactions in Spring Boot.
+Automatic Management: Spring handles commit/rollback based on method outcome.
+Customization: Configure propagation, isolation, and rollback behavior as needed.
+
+======================================================================================
+
+30--------Find Max salary of employees in each department in JAVA
+
+  // Using streams to find the max salary in each department
+        Map<String, Optional<Employee>> maxSalaryByDept = employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))
+                ));
+
+        // Display the results
+        maxSalaryByDept.forEach((department, employee) -> {
+            System.out.println(department + ": " + (employee.isPresent() ? employee.get() : "No employees"));
+        });
+		
+=====================================================================
+31----------String creation
+
+Summary:
+String Literal: Memory efficient, uses string pool.
+new Keyword: Creates a new object, bypassing the pool.
+StringBuilder/StringBuffer: For mutable strings or when performing multiple string manipulations.
+
+===============================================
+
+32-----------How do you generate comprehensive reports in Excel and PDF format?
+
+To generate comprehensive reports in Excel and PDF formats in Java, you can use libraries like Apache POI (for Excel) and iText (for PDF).
+
+1. Generate Excel Reports (Using Apache POI):
+Add Dependencies (Maven):
+
+xml
+Copy code
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>5.2.3</version>
+</dependency>
+Example Code:
+
+java
+Copy code
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+
+public class ExcelReport {
+    public static void main(String[] args) throws Exception {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Report");
+
+        // Create a row and cell
+        Row row = sheet.createRow(0);
+        row.createCell(0).setCellValue("Name");
+        row.createCell(1).setCellValue("Salary");
+
+        // Add data to the sheet
+        row = sheet.createRow(1);
+        row.createCell(0).setCellValue("John");
+        row.createCell(1).setCellValue(5000);
+
+        // Write to Excel file
+        FileOutputStream fileOut = new FileOutputStream("report.xlsx");
+        workbook.write(fileOut);
+        fileOut.close();
+        workbook.close();
+    }
+}
+2. Generate PDF Reports (Using iText):
+Add Dependencies (Maven):
+
+xml
+Copy code
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itext7-core</artifactId>
+    <version>7.2.2</version>
+</dependency>
+Example Code:
+
+java
+Copy code
+import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+
+public class PDFReport {
+    public static void main(String[] args) throws Exception {
+        PdfWriter writer = new PdfWriter("report.pdf");
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+
+        // Add content to PDF
+        document.add(new Paragraph("Employee Report"));
+        document.add(new Paragraph("Name: John"));
+        document.add(new Paragraph("Salary: 5000"));
+
+        // Close document
+        document.close();
+    }
+}
+Summary:
+Excel: Use Apache POI to create, write, and save Excel files.
+PDF: Use iText to generate and write content to PDF files.
+
+========================================================================
+
+33------------Can you automate the conversion of CSV data to JSON files? How would you do that?
+
+How It Works:
+OpenCSV is used to read the CSV file and parse its rows.
+Each row is converted to a Map<String, String> where keys are the CSV header columns.
+Jackson is used to serialize the list of maps into a nicely formatted JSON and write it to a file
+
+Summary:
+Use OpenCSV to read CSV data and Jackson to convert and write it as JSON.
+This approach is easily automatable by scheduling the task or integrating into a larger application.
+
+============================================================================
+
+34-------------------If you need to add a change to GitHub, what are the steps and prerequisites involved in doing so?
+
+Prerequisites: Git, GitHub account, and repository access.
+Process: Create a branch, make changes, stage and commit, push to GitHub, and create a pull request for review and merge.
+
+=======================================
+
+35-----------------What is your understanding of version control and documentation? Can you elaborate on how Git and GitHub were handled in your team?
+
+
+Version Control:
+Version control is a system that tracks changes to files, allowing multiple people to collaborate on a project, track changes over time, and revert to previous versions when necessary. It helps manage code modifications, reduce conflicts, and ensure code integrity.
+
+Documentation:
+Documentation refers to written explanations of the code, system architecture, and processes. It includes README files, API documentation, design docs, and inline comments, which help developers understand, maintain, and extend the system efficiently.
+
+Git & GitHub in Team:
+In my team, Git and GitHub were used as follows:
+
+Branching Strategy:
+
+Feature branches: Developers created separate branches (feature/xyz) for new features.
+Main branch: The primary branch (main or master) was protected and required pull requests (PRs) for merging.
+Commit and Push:
+
+Each developer committed their changes locally, with clear and concise commit messages following a naming convention 
+(e.g., feat: add user login, fix: resolve issue with payment gateway).
+Changes were then pushed to GitHub for remote collaboration.
+Pull Requests (PRs):
+
+Developers created PRs for their feature branches. PRs were reviewed by peers to ensure code quality, functionality, 
+and adherence to team standards.
+Once approved, the PR was merged into the main branch.
+Conflict Resolution:
+
+If conflicts occurred, the team would resolve them by communicating and merging the changes manually, ensuring consistency across branches.
+Tagging and Releases:
+
+For important milestones or releases, tags were created (v1.0.0, v1.1.0) to mark specific points in the codebase.
+Documentation:
+
+Documentation was stored in the repository (e.g., README.md for project setup and instructions) and kept up-to-date alongside the codebase
+ to ensure clarity for new developers and contributors.
+ 
+Summary:
+Version control tracks changes and facilitates collaboration.
+Documentation ensures clear understanding and maintainability of the code.
+Git and GitHub were used with proper branching strategies, commit messages, PRs for code review, and tagging for releases, all 
+while ensuring up-to-date documentation for smooth teamwork.
+
+================================================================================================
+
+36-------------How do you compare two lists and provide a Boolean result as true or false if the lists match or do not match?
+
+To compare two lists and return a Boolean result indicating if they match or not, you can use equals() method of List or use a more customized approach for specific requirements like order-insensitive comparisons.
+
+1. Using List.equals():
+The equals() method compares two lists for exact matches in terms of:
+
+Order of elements
+Equality of each element
+Example Code:
+java
+Copy code
+import java.util.*;
+
+public class ListComparison {
+    public static void main(String[] args) {
+        List<String> list1 = Arrays.asList("A", "B", "C");
+        List<String> list2 = Arrays.asList("A", "B", "C");
+        List<String> list3 = Arrays.asList("C", "B", "A");
+
+        // Using equals() for comparison
+        boolean areEqual1 = list1.equals(list2); // True, as both lists have the same order and elements
+        boolean areEqual2 = list1.equals(list3); // False, as the order is different
+
+        System.out.println("List1 equals List2: " + areEqual1);
+        System.out.println("List1 equals List3: " + areEqual2);
+    }
+}
+Output:
+csharp
+Copy code
+List1 equals List2: true
+List1 equals List3: false
+2. Order-Insensitive Comparison:
+If you need to compare two lists without considering the order of elements, you can convert them to sets and then compare the sets.
+
+Example Code (Order-Insensitive):
+java
+Copy code
+import java.util.*;
+
+public class ListComparison {
+    public static void main(String[] args) {
+        List<String> list1 = Arrays.asList("A", "B", "C");
+        List<String> list2 = Arrays.asList("C", "B", "A");
+
+        // Convert lists to sets for order-insensitive comparison
+        boolean areEqual = new HashSet<>(list1).equals(new HashSet<>(list2));
+
+        System.out.println("List1 equals List2 (order-insensitive): " + areEqual);
+    }
+}
+Output:
+sql
+Copy code
+List1 equals List2 (order-insensitive): true
+Summary:
+Order-Sensitive Comparison: Use list1.equals(list2) to compare two lists.
+Order-Insensitive Comparison: Convert lists to sets and then use set1.equals(set2) to compare.
+
+
+================================================================================================
+
+37-------------------How would you handle replacing a student with ID 102 in the HashMap and replacing them with another student?
+
+To replace a student with ID 102 in a HashMap and replace it with another student, you can use the put() method, which will update the value for the given key if it already exists.
+
+Steps:
+Check if the ID exists: Use containsKey() to verify that the student with ID 102 exists.
+Replace the student: Use put() to replace the existing student with a new one.
+
+import java.util.*;
+
+class Student {
+    int id;
+    String name;
+    
+    // Constructor
+    public Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{id=" + id + ", name='" + name + "'}";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create a HashMap with student ID as the key
+        Map<Integer, Student> studentMap = new HashMap<>();
+        
+        // Add some students
+        studentMap.put(101, new Student(101, "Alice"));
+        studentMap.put(102, new Student(102, "Bob"));
+        studentMap.put(103, new Student(103, "Charlie"));
+
+        // Print the original map
+        System.out.println("Original Map: " + studentMap);
+
+        // New student to replace the one with ID 102
+        Student newStudent = new Student(102, "David");
+
+        // Check if the student with ID 102 exists and replace
+        if (studentMap.containsKey(102)) {
+            studentMap.put(102, newStudent);
+            System.out.println("Replaced student with ID 102.");
+        } else {
+            System.out.println("Student with ID 102 not found.");
+        }
+
+        // Print the updated map
+        System.out.println("Updated Map: " + studentMap);
+    }
+}
+
+=======================================================================
+
+38-------------Can you write code to retrieve all the key-value pairs present in a HashMap
+
+Summary:
+Use entrySet() for both keys and values in a single iteration.
+Use forEach() with lambda expressions for a concise iteration.
+Use keySet() to retrieve keys and get() to fetch the corresponding values.
+
+=================================================
+
+39----------- How do you access the values of a HashMap?
+
+Summary:
+Use get(key) to retrieve a specific value.
+Use forEach(), entrySet(), or values() to access and iterate over all values.
+
+===================================================================
+
+40----------. When would you choose a linked list? Under what circumstances?
+
+
+You would choose a LinkedList in the following circumstances:
+
+Frequent Insertions/Deletions:
+
+If your application requires frequent insertions or deletions of elements, especially at the beginning or middle, 
+a LinkedList is efficient since it does not require shifting elements like an array-based structure.
+Dynamic Size:
+
+If the size of the data structure is unpredictable or frequently changes, a LinkedList can dynamically grow or shrink 
+without needing to resize or reallocate memory.
+Memory Efficiency for Large Collections:
+
+In scenarios where a large number of elements need to be stored, and you don't know the number in advance, 
+a LinkedList allows you to allocate memory for each element individually without the need for resizing arrays.
+No Random Access:
+
+If you don't need fast random access to elements (i.e., you are not frequently accessing elements by index), 
+then a LinkedList is suitable as it supports sequential access.
+
+Summary:
+Choose a LinkedList when you need efficient insertions and deletions, dynamic sizing, or when random access is not a priority.
+
+=====================================================================================
+
+41---------------------------How can we compare two XML files?
+
+Summary:
+XMLUnit: Efficiently compares XMLs with options to ignore insignificant differences.
+DOM Parsing: Manually compares XML elements node by node.
+JAXB: Converts XML to Java objects for comparison.
+
+=========================================
+
+42-------------What is a singleton class and how do you exactly implement it in the framework or your project?
+
+Usage in Framework/Project:
+Dependency Injection: In frameworks like Spring, the Singleton pattern is used by default for beans (single instance per containe
+
+======================================
+
+43--------)Does Redis support Multiple Indexes?
+
+Summary:
+Native Redis: No direct support for multiple indexes, but can use data structures like ZSET, SET, and HASH for limited indexing.
+RedisSearch Module: Provides full support for creating and managing multiple indexes on different fields and allows complex querying
+ and indexing features.
+If you're working with large datasets and require complex querying capabilities, the RedisSearch module is the best solution
+ for implementing multiple indexes efficiently.
+ 
+ -----------------------------------------
+ 
+ 44------How do you implement Cache with required search fields.
+ 
+ Implementing a cache in Java with required search fields involves creating a cache structure where data can be retrieved quickly using predefined search keys or fields. Below is an example of how to implement such a cache in Java, along with explanations of each step.
+
+Steps to Implement Cache in Java
+1. Identify Search Fields
+You need to define the fields on which you will search. These could be keys like userId, email, etc.
+
+2. Choose Cache Storage
+We'll implement a simple in-memory cache using Java's HashMap. For production-level systems, you might use distributed caches like Redis, but for simplicity, let's start with an in-memory HashMap.
+
+3. Define Cache Structure
+We'll use a HashMap to store entries and associate them with multiple search fields.
+
+4. Implement Cache with TTL and Search Fields
+We'll use a CacheItem class to hold the data and manage cache expiry using a timestamp for TTL (Time-To-Live).
+
+Java Code Example
+java
+Copy code
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+class SimpleCache {
+    
+    // Cache to hold data based on search fields like "userId" and "email"
+    private Map<String, CacheItem> cacheByUserId = new HashMap<>();
+    private Map<String, CacheItem> cacheByEmail = new HashMap<>();
+    
+    // Cache expiration time in milliseconds (TTL)
+    private long ttl = TimeUnit.HOURS.toMillis(1); // 1 hour
+
+    // Inner class to represent a cached item with TTL
+    static class CacheItem {
+        private Object data;
+        private long expiryTime;
+
+        public CacheItem(Object data, long ttl) {
+            this.data = data;
+            this.expiryTime = System.currentTimeMillis() + ttl;
+        }
+
+        public Object getData() {
+            return data;
+        }
+
+        public boolean isExpired() {
+            return System.currentTimeMillis() > expiryTime;
+        }
+    }
+
+    // Method to add data to the cache
+    public void addToCache(String userId, String email, Object data) {
+        CacheItem cacheItem = new CacheItem(data, ttl);
+        cacheByUserId.put(userId, cacheItem);
+        cacheByEmail.put(email, cacheItem);
+    }
+
+    // Method to get data from the cache by userId
+    public Object getFromCacheByUserId(String userId) {
+        CacheItem cacheItem = cacheByUserId.get(userId);
+        if (cacheItem != null && !cacheItem.isExpired()) {
+            return cacheItem.getData();
+        }
+        return null; // Return null if expired or not found
+    }
+
+    // Method to get data from the cache by email
+    public Object getFromCacheByEmail(String email) {
+        CacheItem cacheItem = cacheByEmail.get(email);
+        if (cacheItem != null && !cacheItem.isExpired()) {
+            return cacheItem.getData();
+        }
+        return null; // Return null if expired or not found
+    }
+
+    // Optional: Method to manually remove expired cache
+    public void removeExpiredCache() {
+        cacheByUserId.entrySet().removeIf(entry -> entry.getValue().isExpired());
+        cacheByEmail.entrySet().removeIf(entry -> entry.getValue().isExpired());
+    }
+}
+
+public class CacheExample {
+
+    public static void main(String[] args) {
+        SimpleCache cache = new SimpleCache();
+
+        // Adding some data to cache
+        cache.addToCache("123", "user@example.com", "User Data for 123");
+        cache.addToCache("456", "anotheruser@example.com", "User Data for 456");
+
+        // Searching by userId
+        Object user1 = cache.getFromCacheByUserId("123");
+        System.out.println("User 123 Data: " + user1);
+
+        // Searching by email
+        Object user2 = cache.getFromCacheByEmail("anotheruser@example.com");
+        System.out.println("User 456 Data: " + user2);
+
+        // Simulate cache expiration (remove expired cache entries)
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        // Remove expired entries
+        cache.removeExpiredCache();
+
+        // Try retrieving again (cache will expire after TTL)
+        Object expiredUser = cache.getFromCacheByUserId("123");
+        System.out.println("Expired User Data (should be null): " + expiredUser);
+    }
+}
+Explanation
+CacheItem Class:
+
+Each cached entry (CacheItem) contains the actual data (Object data) and an expiryTime.
+The expiry time is calculated by adding TTL (Time-To-Live) to the current time.
+The method isExpired() checks if the cache has expired based on the TTL.
+Adding to Cache:
+
+The addToCache() method takes userId, email, and data, and stores the data in both the cacheByUserId and cacheByEmail maps,
+ ensuring you can search by either field.
+Retrieving from Cache:
+
+getFromCacheByUserId() and getFromCacheByEmail() methods fetch data from the cache by userId and email, respectively.
+If the data is expired or not found, they return null.
+Cache Expiration:
+
+The removeExpiredCache() method cleans up expired cache entries. It iterates through both maps (cacheByUserId and cacheByEmail) 
+and removes expired entries.
+TTL (Time-To-Live):
+
+TTL is set to 1 hour by default (you can adjust it). The expiryTime is calculated when data is added, and when retrieving, 
+we check whether the data is expired.
+Example Output
+sql
+Copy code
+User 123 Data: User Data for 123
+User 456 Data: User Data for 456
+Expired User Data (should be null): null
+Key Concepts
+Search Fields: The search fields are userId and email, which allow fast lookups in the cache.
+TTL: The cache includes expiration logic so that data does not stay in memory indefinitely.
+In-memory Cache: This example uses HashMap to simulate an in-memory cache. For distributed systems, you might use a tool like Redis.
+This implementation is quite basic and can be enhanced with more sophisticated eviction policies, multi-threading, 
+or distributed caching frameworks.
+
+============================================================================================
+
+45----------------------- How the Trace id and Span Id will get generated.Which service will generate traceID?
+
+Summary:
+Trace ID is typically generated by the first service (entry point) when a request is received. 
+It uniquely identifies a request across multiple services.
+
+Span ID is generated by each service that performs an operation within the trace and represents a specific unit of work.
+
+The first service in the request lifecycle generates the Trace ID, and each subsequent service generates its own Span ID.
+
+Distributed tracing systems (e.g., OpenTelemetry, Jaeger, Zipkin, AWS X-Ray) handle the generation, propagation, 
+and collection of Trace and Span IDs across services in a microservices-based system.
+By using Trace and Span IDs, you can get detailed insights into the flow of requests, debug issues, and optimize 
+performance in a distributed system.
+
+========================
+
+46-------------How many microservices were developed in your project? How do you trouble shoot microservices
+
+Number of Microservices Developed in the Project:
+In my previous projects, the number of microservices typically ranged between 5 to 15, depending on the project complexity. 
+Microservices were organized around specific domains or features, such as:
+
+Authentication Service
+User Management Service
+Order Management Service
+Payment Service
+Notification Service
+Inventory Service
+How to Troubleshoot Microservices:
+Centralized Logging:
+
+Use tools like ELK Stack (Elasticsearch, Logstash, Kibana) or Fluentd to aggregate logs from all microservices in one place for easier
+ troubleshooting. Distributed Tracing:
+
+Implement distributed tracing with tools like Jaeger, Zipkin, or OpenTelemetry. This helps track requests as they pass through multiple services 
+and provides insights into latency and errors.
+Health Checks:
+
+Each microservice should expose health check endpoints (e.g., /health or /actuator/health in Spring Boot) to check if the service is 
+running as expected.
+Monitoring and Metrics:
+
+Use Prometheus and Grafana for real-time monitoring and alerting on key metrics like service uptime, response times, and resource usage.
+Error Handling and Retries:
+
+Implement circuit breakers (using libraries like Hystrix or Resilience4j) to gracefully handle failures and retries for inter-service communication.
+Containerization and Orchestration:
+
+Docker for containerizing services and Kubernetes for orchestration helps isolate and manage microservices, making it easier to scale and 
+troubleshoot failures.
+By combining centralized logging, distributed tracing, and monitoring, you can quickly identify, diagnose, and fix issues in a 
+microservices-based architecture.
+
+=====================================================================================
+
+47-------------------------------------------
+
+Q1) Is the below code is thread safe?
+ 
+var chm = new ConcurrentHashMap<>();
+ 
+	if(!chm.containsKey(k1))
+	chm.put(k1,10)
+	Can two threads try to put this?
+	who decide the priority of the threads.
+	
+	
+	In Summary:
+No, the code is not thread-safe because the combination of containsKey(k1) and put(k1, 10) creates a race condition.
+To fix it, use computeIfAbsent(k1, key -> 10) to perform the operation atomically.
+The thread scheduler decides the order in which threads execute, and this is managed by the JVM and the underlying OS.
+
+=======================================================
+
+48--------Q design centralized logging, tracing,debugginh solutions for microservices
+
+Overall Solution Flow:
+Microservices generate structured logs and trace data.
+Logs and traces are aggregated and stored in a centralized system (ELK, Jaeger).
+Developers/Operations teams use Kibana for logs, Jaeger/Zipkin for tracing, and Prometheus for metrics.
+Alerts are set up for proactive issue detection.
+
+

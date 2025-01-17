@@ -1,0 +1,241 @@
+Microservices:
+--------------
+
+https://www.interviewbit.com/microservices-interview-questions/
+
+SQL Questions link:
+-------------------
+
+https://www.geeksforgeeks.org/sql-query-interview-questions/
+
+https://codesignal.com/blog/interview-prep/28-sql-interview-questions-and-answers-from-beginner-to-senior-level/
+
+https://www.edureka.co/blog/interview-questions/sql-query-interview-questions
+
+https://mindmajix.com/sql-server-interview-questions-for-2-5-years
+
+https://upesonline.ac.in/blog/advanced-sql-interview-questions
+
+https://www.edureka.co/blog/interview-questions/sql-interview-questions
+
+https://www.simplilearn.com/top-sql-interview-questions-and-answers-article
+
+
+First Round:
+------------
+2 coding questions (Array---> count of each element of the highest one Ex: 1,4, 6, 1, 1, 3, 3) (2D array, Find absolute difference between the diagnols)
+collections, concurrent HashMap
+map ,list synchronized?
+SQL questions
+Immutable, Singleton, HashMap
+
+Second Round:
+-------------
+Parking Lot (System Design) ---> Classes on HLD, Database tables
+Database ---> Indexing, Pagination
+Design LRU Cache ---> Algorithm
+
+First Round:
+------------
+ 
+maximum occurring number in an array {1,2,3,2,3,4,5,2,6,2}   // output 2
+Comparator and comparable, stream, filter, Map and Flat Map, Overloading vs Overriding
+Sort student list by name by using comparator
+3 sum
+
+Second Round:
+-------------
+ 
+Kubernetes
+Asynchronous communication in Microservices
+How to categorize microservices based on the type (large, medium, small)
+Project
+RabbitMQ
+CICD Pipelines
+Docker
+Deploy the application
+
+
+First Round:
+------------
+ 
+Class add variable
+add different constructors 
+implement hashcode and equals
+find unique values
+SQL ---> filter date who has more than one value
+
+
+First Round: (Bangalore)
+------------
+Threadmill, HashMap, Hashcode equals
+Collections, Comparable vs Comparator
+2 arrays ---> ascending order sorted
+
+First Round:
+------------
+Two sum (pair of sum of an array target)
+Caching, HashMap
+String ---> return an array of lower and uppercase alphabets (Caching)
+SQL ---> Table with BookId and Author (Get author having 2 books)
+Hibernate from Resume (Locking) and Locking in Database
+Database Indexing
+Immutable Class
+
+First Round: (Bangalore)
+------------
+ 
+Last company Project
+ 
+Find unique values with hashcode and equals (TreeMap Comparator)
+ 
+person having 2nd highest age (without streams or sorting)
+ 
+SQL ---> printing the date having 2 records
+ 
+a1 = a2 using .equals  method
+ 
+a1 = a2 using hashcode  method
+
+First Round: (Treasata Bangalore)
+------------
+
+OOPS, Singleton, Factory, Abstract Factory, Method Overloading vs Method Overriding
+
+Project
+
+System Design, SOLID principles
+
+Serialization, Cloneable, Marker interface, Lambda expression
+
+
+First Round:
+------------
+
+JSON
+ 
+Conversion of Json to Java objects
+
+SpringBoot Annotations
+
+Authentication and Authorization of Spring Security (JWT)
+
+a1 = a2 using .equals  method
+ 
+a1 = a2 using hashcode  method
+
+create a Classfile and method within the class
+
+Project
+
+Round 1:
+--------
+
+1. What's the backend working of Java class being converted into JSON. Not the method that converts it, but how that method works on the back-end.
+ 
+2. He asked me about my last project and challenging tasks. Then he asked questions from that.
+ 
+3. He asked me to build a class customer with int Id , string name, date register, date dob. And now I have to return distinct data only, also you can't override equals and hashcode. And then after that you can't change or add a date into string.
+ 
+Then some cross questions from this.
+ 
+ 
+4. What will happen if we don't make a parameterised constructor but make an object with a parameterised constructor.
+ 
+5. A SQL query to return dates which are having 2 occurrences in the table.
+
+Round 2:
+--------
+
+DSA question 2 Sum.
+ 
+You have an array containing continuous number but misses a number in between, write a code to find the number and array is not in sorted form.
+ 
+HLD and LLD of scheduling a meeting room. And edge questions were asked while designing.
+ 
+We have 100 doors and 100 people.
+Every room is closed initially, and every person comes one by one and opens the door if it's closed and closes if it's opened. How many doors will be opened at last.
+
+
+Round 1:
+--------
+ 
+REST API methods
+what is Idempotent?
+what are the idempotent methods?
+HashMap internal working
+fail fast and fail safe iterator
+diff btw list and set
+Time Complexity for List and Set
+polymorphism
+Java 8 features
+Interface in Java8
+Sum of two numbers=K (with sorted and without sorted)
+Tree DS and zigzag tree traversal
+
+Round 1:
+--------
+
+int[] arr = (3,2,9,1,4); return an element for which sum of all the element to its right is equal to sum of elements of its left : ans = element 9;
+ 
+Group all anagrams in a list of string.
+ 
+Discussion regarding all types of hashmap and their thread safety.
+Parallel stream vs stream.parallelOf
+3 stages of Stream or asynchronous processing
+Questions related to past projects.
+
+
+Q
+
+k1="abc"
+
+k2 = new string("abc")
+
+map.put(k1,10)
+
+map.put(k2,20)
+
+size of map ?
+ 
+ 
+Q
+
+var chm = new ConcurrentHashMap<>();
+
+thread1
+
+	if(!chm.containsKey(k1))
+
+	chm.put(k1,10)
+
+thread 2
+
+	if(!chm.containsKey(k1))
+
+	chm.put(k1,11)
+
+are above block are thread safe
+ 
+Qsyncronization contruct which allow n slot of thread at a time 
+
+Qimplement semaphore
+
+Qproject role and responsibility 
+
+Qproject architecture
+ 
+Q design centralized logging, tracing,debugginh solutions for microservices
+
+Qditributed transcation techiniques 
+
+Qhow to implement saga  and 2 phase transcation
+ 
+ 
+Qdesing solution tp process concurrently   millions of transcation happening to 1 million accounts with transcation in individual account to be ordered 
+
+Qcan consumer group/consumer process message from multiple partitions at a time or on after other batch of messages
+
+Q.find 2 elemeny from arrat whose sum equal to k in linear time complexity
+ 
+
