@@ -816,7 +816,14 @@ such as the beginning, using --to-earliest.
 Create a New Consumer Group: A new group will start reading from the earliest or latest message, depending on your configuration.
 
 Adjust Retention Settings: Ensure messages are still available by extending the retention period if necessary.
+
+// Reset offset to the beginning (first message) for all partitions
+        consumer.seekToBeginning(partitions);
+        
+        // Alternatively, you can reset to the end (latest message)
+        // consumer.seekToEnd(partitions);
 ============================================================================================================
+
 
 3---------------What configurations are needed to use Kafka?
 
@@ -883,30 +890,31 @@ Kafka's architecture is designed around a distributed and scalable message broke
 Below is a simplified overview of Kafka architecture components, followed by a diagram to visualize how they work together:
 
 Kafka Architecture Components:
-Producer:
 
+Producer:
 The producer sends messages (events) to Kafka topics.
 Producers push data to Kafka brokers.
-Kafka Brokers:
 
+Kafka Brokers:
 Kafka brokers are the core component where data is stored. A Kafka cluster consists of multiple brokers.
 Brokers store partitions of topics and handle incoming data.
-Topic:
 
+Topic:
 A topic is a logical channel to which producers send messages.
 Kafka topics are divided into partitions for scalability and parallelism.
-Partition:
 
+Partition:
 Each topic is split into partitions, which allow Kafka to scale and distribute data across brokers.
 Each partition is an ordered, immutable sequence of messages, and it allows for parallel data processing.
-Consumer:
 
+Consumer:
 Consumers subscribe to Kafka topics and read messages.
 They maintain offsets to track which message they have consumed.
-Consumer Group:
 
+Consumer Group:
 A consumer group is a group of consumers that share the load of reading data from Kafka topics.
 Each message in a topic partition is consumed by only one consumer within the group, enabling parallel consumption.
+
 Zookeeper (in older Kafka versions, but now being replaced by KRaft):
 
 Zookeeper manages metadata and broker coordination, leader election, and overall Kafka cluster management.
@@ -940,6 +948,7 @@ Kafka Architecture Diagram:
                       +-----------------------------+
 					  
 Key Points:
+
 Scalability: Kafka scales horizontally by adding more brokers and partitions.
 
 Fault Tolerance: Kafka replicates partitions across brokers to ensure data is available even if a broker fails.
@@ -971,27 +980,29 @@ which is crucial for many real-time applications. SQS, on the other hand, doesnâ
 Here are some important Spring annotations and their uses:
 
 @Component: Marks a class as a Spring-managed bean. Itâ€™s a general-purpose annotation that can be used for any bean.
+Example:
+ @Component is used for simple beans, like services or repositories.
 
-Example: @Component is used for simple beans, like services or repositories.
 @Autowired: Automatically injects dependencies into a class, constructor, or method.
-
 Example: @Autowired private MyService myService;
+
 @Service: A specialization of @Component used to mark service classes in the service layer.
-
 Example: Used to indicate business logic in your application.
+
 @Repository: A specialization of @Component used to define a Data Access Object (DAO) class, often for database interactions.
-
 Example: @Repository helps with exception translation in persistence layers.
-@Controller: Marks a class as a Spring MVC controller that handles HTTP requests.
 
+@Controller: Marks a class as a Spring MVC controller that handles HTTP requests.
 Example: Used in Spring MVC to handle web requests.
+
 @RestController: A specialization of @Controller that combines @ResponseBody, 
 meaning the return values of methods will be directly written to the HTTP response body.
 
 Example: Used in RESTful web services to return JSON/XML responses.
-@RequestMapping: Specifies a URL pattern to map web requests to specific methods in controllers.
 
+@RequestMapping: Specifies a URL pattern to map web requests to specific methods in controllers.
 Example: @RequestMapping("/home") maps the /home URL to the method.
+
 @GetMapping, @PostMapping, @PutMapping, @DeleteMapping: Specialized forms of @RequestMapping to handle 
 HTTP GET, POST, PUT, and DELETE requests, respectively.
 
@@ -1650,8 +1661,8 @@ Dirty Reads: Allowed
 Non-Repeatable Reads: Allowed
 Phantom Reads: Allowed
 This is the least restrictive isolation level. Transactions can see uncommitted changes made by other transactions.
-READ COMMITTED (default for many databases):
 
+READ COMMITTED (default for many databases):
 Dirty Reads: Not Allowed
 Non-Repeatable Reads: Allowed
 Phantom Reads: Allowed
@@ -1666,11 +1677,13 @@ Non-Repeatable Reads: Not Allowed
 Phantom Reads: Allowed
 This level guarantees that once a transaction reads a row, that row cannot be changed by another transaction. 
 However, it still allows new rows to be inserted that would match the query's condition.
+
 SERIALIZABLE:
 
 Dirty Reads: Not Allowed
 Non-Repeatable Reads: Not Allowed
 Phantom Reads: Not Allowed
+
 This is the highest isolation level and prevents all anomalies. It ensures complete isolation between 
 transactions by locking the data and ensuring that no other transactions can modify, insert, 
 or delete the data that the current transaction is working with.
@@ -1779,7 +1792,8 @@ implementation, and the abstract method remains the only method that must be imp
 
 3:---  What are its predefined types?
 
-In Java, functional interfaces are often used with lambda expressions and streams. Java provides several predefined functional interfaces in the java.util.function package that cover common use cases. Here are some of the most commonly used predefined functional interfaces:
+In Java, functional interfaces are often used with lambda expressions and streams. Java provides several predefined functional interfaces
+ in the java.util.function package that cover common use cases. Here are some of the most commonly used predefined functional interfaces:
 
 1. Predicate<T>
 Definition: Represents a function that takes a single argument and returns a boolean value.
@@ -1927,21 +1941,27 @@ Collisions: If two keys have the same hash code (or hash to the same bucket), a 
  lists (before Java 8) or balanced trees (since Java 8 when the list size exceeds 8).
 Entry: The basic unit in a HashMap is an entry, which consists of the key, value, hash code, and a reference to the next entry
  (in case of a collision).
+ 
 Basic Working:
 Putting a value:
 HashMap computes the hash code of the key.
 The hash code is then used to determine the index of the bucket.
 If the bucket is empty, the key-value pair is added directly.
 If the bucket contains other entries (due to collisions), a linked list or tree structure is used to store the new entry.
+
 Getting a value:
 HashMap computes the hash code of the key.
 It finds the corresponding bucket and checks for the key in the linked list or tree.
+
 Removing a value:
 HashMap computes the hash code of the key, locates the bucket, and removes the key-value pair from the list or tree.
-Default Capacity and Load Factor
-Default Capacity: The default capacity of a HashMap is 16. This is the initial size of the underlying array (number of buckets).
 
-Default Load Factor: The default load factor is 0.75. The load factor determines when the HashMap should resize its internal array 
+Default Capacity and Load Factor
+Default Capacity: 
+The default capacity of a HashMap is 16. This is the initial size of the underlying array (number of buckets).
+
+Default Load Factor: 
+The default load factor is 0.75. The load factor determines when the HashMap should resize its internal array 
 to accommodate more entries. It defines the threshold at which the capacity will be increased.
 
 Formula for resizing:
@@ -2218,6 +2238,27 @@ Summary:
 Docker: Use logs, health checks, and exit codes to identify and resolve issues.
 Kubernetes: Leverage logs, describe pod, probes, and rolling updates for error handling and recovery during deployment.
 
+The CrashLoopBackOff :----------------
+ is a status in Kubernetes that indicates a pod is repeatedly crashing and failing to start successfully. 
+It means that a container inside a pod is failing to start, and Kubernetes is trying to restart it, 
+but the container keeps crashing each time it attempts to start. After several retries, Kubernetes puts the pod into a "back-off" state,
+ where it will pause for a certain amount of time before trying again.
+
+Key Concepts:
+CrashLoopBackOff State:
+
+Crash: The container inside the pod is failing due to some error (e.g., application crash, configuration error, or missing dependency).
+Loop: Kubernetes keeps attempting to restart the container because it doesn't reach a healthy state.
+BackOff: After several failed attempts to restart the container, Kubernetes will enter a back-off mode, 
+where it waits longer before each subsequent restart attempt.
+
+Common Causes of CrashLoopBackOff:
+Application errors: Application exceptions or unhandled errors causing the container to exit.
+Invalid configuration: Missing or incorrect environment variables, configuration files, or arguments.
+Out of resources: The container might be using too much CPU or memory, causing it to be killed by Kubernetes.
+Failed health checks: Liveness/readiness probes failing because the application is not responding in time.
+Incorrect Docker image or entrypoint: The Docker image might be missing dependencies or configured incorrectly.
+
 ========================================
 5:-  Logging in Kubernetes.
 
@@ -2233,6 +2274,8 @@ Elasticsearch, or Stackdriver for centralized log collection and retention.
 
 Summary:
 kubectl logs: View container logs.
+
+
 
 ==========================================================================================================================================
 

@@ -699,7 +699,8 @@ Encapsulation: The object creation logic is centralized in the factory, which si
 										 
 1. What are the wrapper classes in Java (Integer, Boolean etc.) and why they are required
 
-Wrapper classes in Java are part of the java.lang package and provide object representations for the primitive data types. Each primitive type has a corresponding wrapper class:
+Wrapper classes in Java are part of the java.lang package and provide object representations for the primitive data types. 
+Each primitive type has a corresponding wrapper class:
 
 byte → Byte
 short → Short

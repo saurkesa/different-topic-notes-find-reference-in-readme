@@ -1,0 +1,714 @@
+													Section 1 :----
+													
+1:- How to identify if kafka message is produced into the topic but lost and not consumed
+	
+
+
+To identify if a Kafka message is produced but lost and not consumed, follow these steps:
+
+Check Producer Acknowledgments: Ensure the producer is configured with acks=all to confirm that the message is written to all replicas of the topic. 
+If it's not acknowledged, it might not have been successfully produced.
+
+Monitor Consumer Lag: Use Kafka monitoring tools (e.g., kafka-consumer-groups.sh) to track if the consumer is lagging behind, 
+which could indicate that it hasn't consumed the produced messages.
+
+Examine Topic and Partition Offsets: Use kafka-consumer-groups.sh or Kafka metrics to check if the consumer’s offset has advanced.
+ If the offset has not moved, the message might not have been consumed.
+
+Check Topic Retention Settings: Ensure that the message wasn't deleted due to the topic's retention policy (time-based or size-based).
+ This can happen before the consumer reads the message.
+
+Monitor Broker Logs: Check Kafka broker logs for errors related to message delivery or replication, as these may indicate 
+issues with message production or loss.
+
+By cross-referencing these checks, you can identify if a message was successfully produced but not consumed,
+ potentially due to issues with consumer lag, retention settings, or message acknowledgment failures.
+ 
+ ===========================================================================
+ 2:- How to retry kafka message consuming
+
+ 1 :---If an error occurs, the message is sent to the `Retry Topic`, and the consumer moves on to process the next message.
+ With this implementation, the message sent to the `Retry Topic` will be retried. If successful, the process is complete
+ 
+ 2:---
+ 
+ Exponential Backoff in Kafka, or any retry mechanism, refers to a strategy where the delay between consecutive retry 
+ attempts increases exponentially after each failure. This helps avoid overwhelming the system with repeated requests
+ in case of transient issues while still providing retries for temporary problems.
+
+How Exponential Backoff Works:
+
+Initial Retry Delay: The first retry happens after a short delay.
+Increasing Delay: Each subsequent retry has a delay that grows exponentially, typically doubling or increasing by 
+a constant factor after each failed attempt.
+Max Retry Limit: After a certain number of retries or a specific maximum delay, retries may stop, and the message
+ could be sent to a Dead Letter Queue (DLQ) or handled differently.
+Example of Exponential Backoff:
+Let’s say we set the base delay time to 1 second (1000 ms):
+
+Retry 1: After 1 second
+Retry 2: After 2 seconds
+Retry 3: After 4 seconds
+Retry 4: After 8 seconds
+Retry 5: After 16 seconds
+The delay between each retry doubles. If the retries are unsuccessful, the process might stop and trigger a fallback mechanism 
+like sending the message to a Dead Letter Queue (DLQ).
+
+Benefits of Exponential Backoff:
+Prevents Overload: By increasing the retry interval, the system doesn't get flooded with retry requests, which could overwhelm resources.
+Graceful Handling: Helps the system recover from transient issues (e.g., network glitches, temporary service outages) without making too many 
+retries too quickly.
+Improved Stability: Ensures retries occur with increasing delays, reducing the chance of repeated failures happening too quickly in succession.
+
+
+Example Code for Exponential Backoff in Kafka (Java):
+
+int retryCount = 0;
+long baseDelay = 1000; // Initial delay in milliseconds
+int maxRetries = 5;
+
+while (retryCount < maxRetries) {
+    try {
+        // Try to process the message
+        System.out.println("Processing message...");
+        
+        // Simulate processing failure
+        if (Math.random() < 0.5) {
+            throw new Exception("Simulated failure");
+        }
+
+        // Commit offset if processing succeeds
+        consumer.commitSync();
+        break;  // Exit the loop if successful
+
+    } catch (Exception e) {
+        retryCount++;
+        if (retryCount >= maxRetries) {
+            System.out.println("Max retries reached. Sending message to DLQ.");
+            // Send to DLQ or handle failure
+            break;
+        }
+
+        // Calculate delay using exponential backoff
+        long delay = baseDelay * (long) Math.pow(2, retryCount);  // Exponential backoff: delay * 2^retryCount
+        System.out.println("Retrying... Attempt " + retryCount + " after " + delay + " ms");
+
+        try {
+            Thread.sleep(delay);  // Wait before retrying
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
+Key Points:
+Initial Delay (baseDelay): The starting delay between retries.
+Exponential Factor (Math.pow(2, retryCount)): This determines how the delay increases with each retry.
+Max Retries (maxRetries): The maximum number of retries allowed before giving up or moving to a fallback solution (e.g., Dead Letter Queue).
+Exponential backoff helps balance retry attempts with system load, ensuring that retries happen in a controlled 
+manner and not too quickly, preventing unnecessary strain on resources.
+
+==============================================================
+3---8. How to write effective hashcode to avoid hash collision
+
+To write an effective hashCode method in Java 8 and minimize hash collisions, follow these best practices:
+
+Use Prime Numbers: Prime numbers help distribute hash values evenly.
+Incorporate Relevant Fields: Include all significant fields that contribute to object equality.
+Use Objects.hash() for Simplicity: Java 8 provides Objects.hash() to simplify hash code generation.
+Example:
+java
+Copy
+import java.util.Objects;
+
+public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);  // Uses prime number and relevant fields
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age && Objects.equals(name, person.name);
+    }
+}
+
+Key Points:
+Objects.hash(): Combines fields efficiently, using prime numbers to minimize collisions.
+Include All Relevant Fields: Ensure all fields used in equals() are included in hashCode().
+Prime Number (33): Internally, Objects.hash() uses a prime multiplier to help with distribution.
+This ensures a good spread of hash values and reduces collisions when using the object in hash-based collections like HashMap.
+
+====================
+4:---How multitheading affects map
+
+Conclusion:
+For multithreaded applications, it is recommended to use a thread-safe map like ConcurrentHashMap to avoid issues 
+such as data corruption or inconsistent reads. 
+If you must use a non-thread-safe map, you need to synchronize access manually, but this could harm performance due to contention.
+
+. Thread Safety:
+Non-Thread-Safe Maps (e.g., HashMap, TreeMap):
+
+Concurrency Issues: If multiple threads access and modify the map simultaneously, without synchronization, 
+it may lead to data corruption, inconsistent state, or exceptions (e.g., ConcurrentModificationException).
+Race Conditions: Two threads could modify the same entry simultaneously, resulting in lost updates or inconsistent reads.
+Thread-Safe Maps (e.g., ConcurrentHashMap):
+
+Thread Safety: These maps are designed to handle concurrent access by multiple threads, allowing safe reads and writes with minimal
+ synchronization overhead.
+Segmentation: ConcurrentHashMap divides the map into segments, allowing different threads to operate on different segments without 
+interfering with each other, providing better scalability in multithreaded environments.
+
+2. Synchronization:
+Manually Synchronized Maps:
+
+If using a non-thread-safe map (e.g., HashMap) in a multithreaded environment, you can manually synchronize access using synchronized 
+blocks or methods. For example:
+
+Map<String, String> map = new HashMap<>();
+synchronized(map) {
+    map.put("key", "value");
+}
+However, this can reduce performance because only one thread can access the map at a time.
+Collections.synchronizedMap:
+
+Java provides a synchronized wrapper around regular maps via Collections.synchronizedMap(Map<K, V> map), which synchronizes 
+all operations on the map. While this ensures thread safety, 
+it may still cause contention when multiple threads access the map concurrently.
+
+================================================
+5  why string is immutable
+
+Conclusion:
+Strings are immutable in Java to ensure security, thread safety, performance optimizations, and simplify code. Immutability prevents accidental
+ or malicious changes, helps maintain consistent hash codes, and allows for more efficient use of memory through string interning.
+ 
+ ========================================================
+ 6:---  Find leader of given array and optimise the code
+ 
+ import java.util.ArrayList;
+import java.util.List;
+
+public class LeaderInArray {
+    public static List<Integer> findLeaders(int[] arr) {
+        List<Integer> leaders = new ArrayList<>();
+        int n = arr.length;
+
+        // The rightmost element is always a leader
+        int maxFromRight = arr[n - 1];
+        leaders.add(maxFromRight);
+
+        // Traverse the array from right to left
+        for (int i = n - 2; i >= 0; i--) {
+            if (arr[i] > maxFromRight) {
+                leaders.add(arr[i]);
+                maxFromRight = arr[i]; // Update maxFromRight
+            }
+        }
+
+        // Reverse the list to maintain the order from left to right
+        List<Integer> result = new ArrayList<>();
+        for (int i = leaders.size() - 1; i >= 0; i--) {
+            result.add(leaders.get(i));
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {16, 17, 4, 3, 5, 2};
+        List<Integer> leaders = findLeaders(arr);
+        System.out.println("Leaders in the array: " + leaders);
+    }
+}
+
+============================================
+7  Can we consume data from Kafka and write it to database. What if transaction fails?
+
+Yes, you can consume data from Kafka and write it to a database. However, handling transaction failures is crucial for 
+ensuring data consistency and reliability.
+
+Key Steps:
+Consume Data from Kafka:
+
+Use a Kafka consumer to read messages from a topic.
+Write Data to Database:
+
+Use a database connection (JDBC, ORM) to insert or update data based on the consumed message.
+Transaction Management:
+
+Use database transactions to ensure atomicity, i.e., either the database write succeeds completely, or it rolls back in case of failure.
+What if the Transaction Fails?
+Rollback:
+
+If the transaction fails, rollback the database changes to ensure data consistency. Ensure you handle the failure by using 
+database transaction management features (commit, rollback).
+
+Kafka Message Reprocessing:
+
+After a failure, the message can be reprocessed by committing the Kafka offset only after a successful transaction. 
+This ensures that the same message can be retried without loss.
+
+Retry Logic:
+
+Implement retry logic in case of transient failures (e.g., network issues, temporary DB unavailability).
+ Exponential backoff or similar strategies can be used for retries.
+Dead Letter Queue (DLQ):
+
+In case of persistent failures, consider sending failed messages to a Dead Letter Queue (DLQ) for further inspection and troubleshooting.
+
+
+Example Approach:
+Consume Kafka message.
+Start a database transaction.
+Write data to the database.
+If successful, commit the database transaction and the Kafka offset.
+If a failure occurs, rollback the transaction and handle the message appropriately (retry or DLQ).
+Conclusion:
+By combining database transactions with proper Kafka offset management and retry strategies, you can handle transaction failures 
+gracefully and maintain data consistency.
+
+==============================================
+
+8:---how do you group by department in a person object ID name department ID and find second A salary?
+
+package com;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+class Person {
+	int id;
+	String name;
+	int departmentId;
+	double salary;
+
+	// Constructor
+	public Person(int id, String name, int departmentId, double salary) {
+		this.id = id;
+		this.name = name;
+		this.departmentId = departmentId;
+		this.salary = salary;
+	}
+
+	// Getters
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+}
+
+public class Test {
+
+	public static void main(String[] args) {
+		List<Person> persons = Arrays.asList(new Person(1, "Alice", 1, 5000), new Person(2, "Bob", 1, 7000),
+				new Person(3, "Charlie", 1, 6000), new Person(4, "David", 2, 8000), new Person(5, "Eve", 2, 9000),
+				new Person(6, "Frank", 2, 8500));
+
+		Map<Integer, List<Person>> groupPerson = persons.stream()
+				.collect(Collectors.groupingBy(Person::getDepartmentId));
+
+		groupPerson.forEach((id, listPerson) -> {
+
+		
+			Optional<Person> result = listPerson.stream()
+					.sorted((d1, d2) -> Double.compare(d2.getSalary(), d1.getSalary())).skip(1).findFirst();
+
+			result.ifPresent(r -> System.out.println( id +" "+r.getSalary()));
+		});
+	}
+}
+
+// output 1 6000.0Charlie
+2 8500.0Frank
+
+=====================
+
+9:----for eg you have thread application you need to group them by specic date or value
+first group them based on value
+
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+
+class Task implements Runnable {
+    private String taskName;
+    private Date taskDate;
+
+    // Constructor to initialize task with name and date
+    public Task(String taskName, Date taskDate) {
+        this.taskName = taskName;
+        this.taskDate = taskDate;
+    }
+
+    public Date getTaskDate() {
+        return taskDate;
+    }
+
+    @Override
+    public void run() {
+        // Simulate task processing (printing task name and date)
+        System.out.println("Processing Task: " + taskName + " for Date: " + taskDate);
+    }
+}
+
+public class ThreadGroupExample {
+    public static void main(String[] args) throws InterruptedException {
+        // Example tasks with different dates
+        List<Task> tasks = Arrays.asList(
+                new Task("Task1", new Date(2025, 1, 20)),  // January 20, 2025
+                new Task("Task2", new Date(2025, 1, 21)),  // January 21, 2025
+                new Task("Task3", new Date(2025, 1, 20)),  // January 20, 2025
+                new Task("Task4", new Date(2025, 1, 22))   // January 22, 2025
+        );
+
+        // Group tasks by taskDate (Date value)
+        Map<Date, List<Task>> groupedByDate = tasks.stream()
+                .collect(Collectors.groupingBy(Task::getTaskDate));
+
+        // Process tasks grouped by date using separate threads
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        // Iterate over the grouped tasks
+        for (Map.Entry<Date, List<Task>> entry : groupedByDate.entrySet()) {
+            Date date = entry.getKey();
+            List<Task> taskList = entry.getValue();
+            
+            // Submit each task for processing
+            for (Task task : taskList) {
+                executorService.submit(task);
+            }
+
+            // After all tasks for a particular date are submitted, wait for them to complete
+            // In real-world use, you could manage the threads more granularly
+        }
+
+        // Shutdown executor service after all tasks are completed
+        executorService.shutdown();
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
+    }
+}
+
+===========================================================================================
+
+								Section 2 :-----
+								
+1:-- database index and views
+
+A database index is a data structure that improves the speed of data retrieval operations on a database table at the cost of
+ additional space and maintenance time during insert, update, and delete operations. 
+It helps the database management system (DBMS) find rows more efficiently, reducing query execution time.
+
+Database View
+A view is a virtual table that contains the result of a stored query. It does not store data itself but provides a way to access the results of a query in a simplified manner. Views are used to present data in a particular format, aggregate data, or simplify complex queries.
+
+Example of creating a View:
+Suppose you have two tables, Employees and Departments:
+
+sql
+Copy
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(100)
+);
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    HireDate DATE
+);
+You want to create a view that combines Employees with Departments to show the department name along with employee details.
+
+sql
+Copy
+CREATE VIEW EmployeeDetails AS
+SELECT 
+    e.EmployeeID, 
+    e.FirstName, 
+    e.LastName, 
+    d.DepartmentName, 
+    e.HireDate
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID;
+Now, you can query the EmployeeDetails view as if it were a regular table:
+
+sql
+Copy
+SELECT * FROM EmployeeDetails;
+This query will return the employees along with their department names, without having to write the join each time.
+
+Key points about Views:
+Read-Only vs. Updatable Views: Some views are read-only, meaning you can only retrieve data from them, while others allow updates.
+Performance: Since a view is a virtual table, queries on views can sometimes be slower than directly querying the base tables,
+ especially if the view contains complex joins or aggregations.
+No Data Storage: Views do not store any data themselves; they only store the query definition.
+
+Conclusion:
+Indexes are used to speed up data retrieval operations in the database, especially for large datasets.
+Views provide a way to simplify complex queries, aggregate data, or present data in a different format, but they don't store data themselves.
+
+======================================================
+
+2---------------java reflection
+
+ava Reflection is a feature that allows the inspection and modification of classes, methods, fields, and other elements of a Java program at runtime. It provides the ability to obtain metadata about classes and objects, invoke methods, and even alter field values dynamically.
+
+Key Features of Reflection in Java:
+Access Class Information: Get details about a class like its name, methods, fields, constructors, etc.
+Invoke Methods: Dynamically call methods at runtime.
+Modify Fields: Access and modify private or protected fields of a class.
+Create Objects: Instantiate objects dynamically using constructors.
+Common Reflection Classes:
+Class: Represents a class or interface.
+Method: Represents a method of a class.
+Field: Represents a field in a class.
+Constructor: Represents a constructor of a class.
+Example:
+1. Getting Class Information:
+java
+Copy
+Class<?> clazz = String.class;  // Get Class object for String
+System.out.println(clazz.getName());  // Outputs: java.lang.String
+2. Accessing Fields:
+java
+Copy
+class Person {
+    private String name;
+    
+    public Person(String name) {
+        this.name = name;
+    }
+}
+
+Person person = new Person("John");
+Field field = person.getClass().getDeclaredField("name");
+field.setAccessible(true);  // Allow access to private field
+System.out.println(field.get(person));  // Outputs: John
+3. Invoking Methods:
+java
+Copy
+class Greeting {
+    public void sayHello(String name) {
+        System.out.println("Hello, " + name);
+    }
+}
+
+Greeting greeting = new Greeting();
+Method method = Greeting.class.getMethod("sayHello", String.class);
+method.invoke(greeting, "Alice");  // Outputs: Hello, Alice
+4. Creating Objects Dynamically:
+java
+Copy
+Constructor<?> constructor = Person.class.getConstructor(String.class);
+Person person = (Person) constructor.newInstance("Alice");
+Advantages:
+Dynamically inspect and manipulate classes, methods, and fields.
+Useful in frameworks like dependency injection or serialization.
+Disadvantages:
+Slower performance compared to direct code.
+Breaks encapsulation, as it allows access to private/protected members.
+Reflection is powerful but should be used judiciously due to its impact on performance and security.
+
+===============================================
+3-----------  reactive programming
+
+Reactive programming helps in building applications that are responsive, scalable, and maintainable, 
+especially when dealing with asynchronous operations or real-time data streams. 
+It is commonly used with libraries like RxJS in JavaScript, or frameworks like Spring WebFlux in Java.
+
+=============================================
+4-------database design - what all to consider
+
+
+Key Considerations in Database Design:
+
+Data Modeling:
+Identify entities and relationships (using ERD).
+Apply normalization (up to 3NF or higher).
+Define attributes and data types for each entity.
+Establish primary keys (unique identifiers).
+Define foreign keys for referential integrity.
+
+Scalability:
+Design for data growth and efficient scaling.
+Consider sharding and partitioning for large datasets.
+
+Indexing:
+Create indexes on frequently queried columns.
+Use composite indexes for queries filtering multiple columns.
+
+Data Integrity and Constraints:
+Use Unique Constraints to enforce uniqueness.
+Apply Check Constraints for valid data entry.
+Ensure Not Null constraints for required fields.
+
+Performance Optimization:
+Optimize table structures for efficient queries.
+Implement caching mechanisms (e.g., Redis).
+Consider denormalization for performance in read-heavy systems.
+
+Security:
+Implement role-based access control (RBAC).
+Use encryption for sensitive data (in transit and at rest).
+Prevent SQL injection using prepared statements.
+
+Backup and Recovery:
+Set up a regular backup strategy (full, incremental, differential).
+Have a disaster recovery plan for system failures.
+
+Transactions and Concurrency:
+Ensure ACID properties for transactions.
+Set appropriate isolation levels based on concurrency needs.
+
+Maintainability:
+Follow consistent naming conventions for database objects.
+Maintain clear documentation for schema and relationships.
+
+Logging and Monitoring:
+Implement error and exception logging.
+Monitor performance and resource usage.
+
+Compliance:
+Ensure compliance with data privacy laws (e.g., GDPR, HIPAA).
+Maintain audit trails for critical data changes.
+
+User Requirements:
+Understand application needs and expected load.
+Design for reporting and analytics requirements (e.g., OLAP, data warehouses).
+By considering these factors, you can ensure a well-designed, secure, and high-performing database.
+
+==========================================
+5--------------how to process 1 million records and store in db efficiently
+
+To efficiently process and store 1 million records in a database, follow these key strategies:
+
+1. Batch Processing
+Insert in Batches: Instead of inserting records one by one, group them into batches (e.g., 1000 records per batch) and insert them in bulk using a single SQL statement.
+Example (in SQL):
+sql
+Copy
+INSERT INTO table_name (col1, col2, col3) VALUES
+(val1, val2, val3),
+(val4, val5, val6),
+... ;
+
+2. Transaction Management
+Use Transactions: Wrap batch inserts in a transaction to ensure atomicity and reduce overhead. This avoids committing after each insert.
+Example (in Java):
+java
+Copy
+connection.setAutoCommit(false);
+try {
+    // Perform batch insert
+    connection.commit();
+} catch (Exception e) {
+    connection.rollback();
+}
+
+3. Disable Indexes Temporarily
+Disable Non-Essential Indexes: Disable indexes during the insert process and rebuild them afterward. Indexes can slow down insert operations.
+After insertion, rebuild indexes to improve query performance.
+
+4. Use Bulk Insert Utilities
+Many databases provide bulk insert utilities (e.g., MySQL’s LOAD DATA INFILE, PostgreSQL’s COPY). 
+These are optimized for inserting large volumes of data efficiently.
+
+5. Optimize Database Configuration
+Increase Buffer Pool/Cache Size: Adjust the database configuration (e.g., buffer pool, cache) to handle large volumes of data.
+Adjust Commit Frequency: Use a reasonable commit frequency to balance between memory usage and transaction log size.
+
+6. Use Multi-threading or Parallelism
+Split data into chunks and process them in parallel (e.g., using multiple threads or distributed systems) to speed up processing.
+
+7. Optimize Data Types and Schema
+Ensure columns use the appropriate data types (e.g., avoid large VARCHAR for small data).
+Normalize the schema to avoid redundancy and ensure efficient storage.
+
+8. Minimize Logging
+Reduce the level of logging (if possible) during the insertion to avoid I/O overhead.
+
+Conclusion:
+By using batch processing, transactions, optimized database utilities, and configurations, 
+you can efficiently process and store 1 million records while minimizing database load and maximizing throughput.
+
+=============================================
+6---how to retrieve 100gb of data from db at once
+
+Conclusion:
+Retrieving 100GB of data at once should be done incrementally through pagination, streaming, 
+or parallel querying to avoid memory and performance bottlenecks. Use optimized queries, take advantage of database utilities for bulk export, 
+and consider partitioning or offloading large data retrieval tasks. This approach ensures that you handle large data volumes efficiently.
+
+=====================
+7---Given 2 tables Employee and Department - 
+Count of employee in each Department
+fetch Max salary based for each Department
+
+SELECT 
+    d.department_name,
+    COUNT(e.employee_id) AS employee_count,
+    MAX(e.salary) AS max_salary
+FROM 
+    Department d
+LEFT JOIN 
+    Employee e ON d.department_id = e.department_id
+GROUP BY 
+    d.department_name;
+
+
+Explanation:
+LEFT JOIN: We use a LEFT JOIN to include departments even if they have no employees.
+COUNT(e.employee_id): Counts the number of employees in each department.
+MAX(e.salary): Finds the maximum salary in each department.
+GROUP BY d.department_name: Groups the result by department, so we get counts and max salaries per department.
+Example Output:
+
+==============================================
+8---CompletableFuture
+
+Benefits:
+Improves efficiency by running tasks concurrently.
+Allows clean and readable handling of asynchronous logic.
+Avoids callback hell commonly found in older asynchronous programming models.
+
+Conclusion:
+CompletableFuture is a powerful tool for writing asynchronous code in Java, allowing for easier chaining,
+ exception handling, and non-blocking behavior.
+
+
+
+
+
+
+
+
+
+
+
