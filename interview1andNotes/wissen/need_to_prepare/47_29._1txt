@@ -1,0 +1,54 @@
+													section 1:----
+													
+1:- Stream API to get the list of female employees and convert names to uppercase 
+
+
+public class Test {
+
+	public static void main(String[] args) {
+		List<Employee> emp = Arrays.asList(new Employee("Alice", "Female"), new Employee("Bob", "Male"),
+				new Employee("Charlie", "Male"), new Employee("Diana", "Female"));
+
+		List<String> list = emp.stream().filter(f -> f.getGender().equalsIgnoreCase("Female"))
+				.map(fem -> fem.getName().toUpperCase()).collect(Collectors.toList());
+
+		list.forEach(System.out::println);
+	}
+
+}
+
+===============================
+2:- find the maximum subarray from a given array (i.e., the subarray with the maximum sum)
+
+kadane algorith
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+
+		int currentSum = arr[0];
+
+		int maxSum = arr[0];
+
+		for (int i = 1; i < arr.length; i++) {
+
+			if (currentSum + arr[i] > arr[i]) {
+				currentSum = currentSum + arr[i];
+			} else {
+				currentSum = arr[i];
+			}
+			
+			if(currentSum>maxSum) {
+				maxSum=currentSum;
+			}
+		}
+		
+		System.out.println("maxsum is "+maxSum);
+
+	}
+
+}
+
+========================================================================

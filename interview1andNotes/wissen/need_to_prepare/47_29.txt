@@ -1,0 +1,405 @@
+																Section 1 :-----
+																
+																
+																
+	1:- coding questions (Array---> count of each element of the highest one   Ex: 1,4, 6, 1, 1, 3, 3)
+	
+int[] arr = { 1, 4, 6, 1, 1, 3, 3 };
+
+		Map<Integer, Long> freqMap = Arrays.stream(arr).boxed()
+				.collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+
+		Integer maxKeyValue = freqMap.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue))
+				.map(Map.Entry::getKey).get();
+
+		System.out.println("max key is " + maxKeyValue + "  and max key value  is " + freqMap.get(maxKeyValue));
+		
+====================================================
+
+2:--Find absolute difference between the diagnols
+
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		// Example matrix
+		int[][] matrix = { { 11, 2, 4 }, { 4, 5, 6 }, { 10, 8, -12 } };
+
+		int diff = diagonalDifference(matrix);
+		System.out.println(diff);
+	}
+
+	private static int diagonalDifference(int[][] matrix) {
+
+		int n = matrix.length;
+
+		int primaryDiagonalSum = 0;
+		int secondaryDiagonalSum = 0;
+
+		for (int i = 0; i < n; i++) {
+			primaryDiagonalSum += matrix[i][i];
+			secondaryDiagonalSum += matrix[i][n - 1 - i];
+
+		}
+		return Math.abs(primaryDiagonalSum - secondaryDiagonalSum);
+
+	}
+
+}
+
+====================================================================
+
+3:- Sort student list by name by using comparator
+
+	List<Student> sort = students.stream().sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
+				.collect(Collectors.toList());
+		sort.forEach(System.out::println);
+		
+==================================================================
+
+4:--implement hashcode and equals
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+
+		Student stu = (Student) obj;
+
+		return age == stu.age && Objects.equals(name, stu.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, age);
+	}
+	
+        Student s1 = new Student("alice", 20);
+		Student s2 = new Student("alice", 20);
+
+		System.out.println(s1.equals(s2));
+		System.out.println(s1.hashCode());
+		System.out.println(s2.hashCode());
+		
+=========================================================================
+
+5:---SQL ---> filter date who has more than one value
+
+SELECT date, COUNT(*)
+FROM events
+GROUP BY date
+HAVING COUNT(*) > 1;
+
+
+==================================
+6:--- Two sum (pair of sum of an array target)
+
+public class Test {
+
+	public static void main(String[] args) {
+		// Example array and target
+		int[] nums = { 2, 7, 11, 15, 4, 6, 5, 7 };
+		int target = 11;
+
+		findPair(nums, target);
+	}
+
+	private static void findPair(int[] nums, int target) {
+
+		HashSet<Integer> seen = new HashSet<>();
+
+		HashSet<String> pair = new HashSet<>();
+		for (int val : nums) {
+
+			int complement = target - val;
+
+			if (seen.contains(complement)) {
+
+				pair.add(Math.min(val, complement) + " " + Math.max(val, complement));
+			}
+			seen.add(val);
+		}
+
+		pair.forEach(System.out::println);
+
+	}
+
+}
+
+==========================================================
+
+7:--SQL ---> Table with BookId and Author (Get author having 2 books)
+
+SELECT Author
+FROM Books
+GROUP BY Author
+HAVING COUNT(BookId) = 2;
+
+===========================================
+
+8:---- Find unique values with hashcode and equals (TreeMap Comparator)
+
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.TreeMap;
+
+class Student {
+    private String name;
+    private int age;
+
+    // Constructor
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Getter for age
+    public int getAge() {
+        return age;
+    }
+
+    // Override equals() and hashCode() to ensure uniqueness based on name and age
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Student student = (Student) obj;
+        return age == student.age && Objects.equals(name, student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Comparator to sort by name (natural ordering)
+        Comparator<Student> comparator = Comparator.comparing(Student::getName);
+
+        // TreeMap with Comparator to store unique students
+        TreeMap<Student, Integer> studentMap = new TreeMap<>(comparator);
+
+        // Add students
+        studentMap.put(new Student("Alice", 20), 1);
+        studentMap.put(new Student("Bob", 22), 2);
+        studentMap.put(new Student("Alice", 20), 3); // Duplicate, same name and age as first Alice
+
+        // Print the TreeMap (automatically sorted by name)
+        studentMap.forEach((key, value) -> {
+            System.out.println(key + " with value: " + value);
+        });
+    }
+}
+
+=======================================================================
+
+9:---person having 2nd highest age (without streams or sorting)
+
+class Person {
+    private String name;
+    private int age;
+
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class SecondHighestAge {
+
+    public static Person findSecondHighestAge(Person[] people) {
+        if (people == null || people.length < 2) {
+            return null; // Not enough people to find a second highest age
+        }
+
+        int highestAge = Integer.MIN_VALUE;
+        int secondHighestAge = Integer.MIN_VALUE;
+        Person highestPerson = null;
+        Person secondHighestPerson = null;
+
+        for (Person person : people) {
+            int age = person.getAge();
+
+            if (age > highestAge) {
+                secondHighestAge = highestAge; // Update second highest
+                secondHighestPerson = highestPerson; // Update second highest person
+                highestAge = age;
+                highestPerson = person; // Update highest person
+            } else if (age > secondHighestAge && age < highestAge) {
+                secondHighestAge = age;
+                secondHighestPerson = person;
+            }
+        }
+
+        return secondHighestPerson; // Return the person with the second highest age
+    }
+
+    public static void main(String[] args) {
+        Person[] people = {
+            new Person("Alice", 25),
+            new Person("Bob", 30),
+            new Person("Charlie", 35),
+            new Person("David", 32),
+            new Person("Eve", 28)
+        };
+
+        Person secondHighest = findSecondHighestAge(people);
+
+        if (secondHighest != null) {
+            System.out.println("Person with the second highest age: " + secondHighest);
+        } else {
+            System.out.println("Not enough data to find the second highest.");
+        }
+    }
+}
+
+============================================================
+10:--person having 2nd highest age (without streams or sorting)
+
+class Person {
+    private String name;
+    private int age;
+
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class SecondHighestAge {
+
+    public static Person findSecondHighestAge(Person[] people) {
+        if (people == null || people.length < 2) {
+            return null; // Not enough people to find a second highest age
+        }
+
+        int highestAge = Integer.MIN_VALUE;
+        int secondHighestAge = Integer.MIN_VALUE;
+        Person highestPerson = null;
+        Person secondHighestPerson = null;
+
+        for (Person person : people) {
+            int age = person.getAge();
+
+            if (age > highestAge) {
+                secondHighestAge = highestAge; // Update second highest
+                secondHighestPerson = highestPerson; // Update second highest person
+                highestAge = age;
+                highestPerson = person; // Update highest person
+            } else if (age > secondHighestAge && age < highestAge) {
+                secondHighestAge = age;
+                secondHighestPerson = person;
+            }
+        }
+
+        return secondHighestPerson; // Return the person with the second highest age
+    }
+
+    public static void main(String[] args) {
+        Person[] people = {
+            new Person("Alice", 25),
+            new Person("Bob", 30),
+            new Person("Charlie", 35),
+            new Person("David", 32),
+            new Person("Eve", 28)
+        };
+
+        Person secondHighest = findSecondHighestAge(people);
+
+        if (secondHighest != null) {
+            System.out.println("Person with the second highest age: " + secondHighest);
+        } else {
+            System.out.println("Not enough data to find the second highest.");
+        }
+    }
+}
+
+
+=============================================
+
+11:--SQL ---> printing the date having 2 records
+
+SELECT DateColumn
+FROM TableName
+GROUP BY DateColumn
+HAVING COUNT(*) = 2;
+
+========================================
+
+12:--a1 = a2 using .equals  method
+ 
+a1 = a2 using hashcode  method
+
+Key Differences:
+equals(): Compares the actual content of two objects, i.e., whether their properties are the same.
+hashCode(): Returns an integer representation (hash code) of the object. 
+It’s used primarily for efficient searching in hash-based collections (like HashMap, HashSet, etc.).
+
+
+Why Use Both equals() and hashCode():
+If you override the equals() method in your class, you should also override the hashCode() method to ensure consistency between them.
+ According to the Java contract for hashCode():
+
+If two objects are equal (via the equals() method), they must return the same hashCode().
+
+
+When to Use Each:
+equals(): Use when you need to compare the actual content or state of two objects.
+hashCode(): Use in hash-based collections to quickly compare objects and find them in the collection, 
+though equality must also be verified via equals().
+
+Example Summary:
+equals() is for comparing object content.
+hashCode() is for efficient storage and retrieval in hash-based collections.
+
+======================================
+13
+
+		

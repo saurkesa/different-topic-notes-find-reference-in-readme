@@ -1,0 +1,333 @@
+1:---- spiral matrix==============================
+
+package com;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SpiralMatrix {
+	public static void main(String[] args) {
+
+		int[][] mat = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }
+
+		};
+
+		spiralMatrix(mat);
+	}
+
+	private static void spiralMatrix(int[][] mat) {
+
+		int left = 0;
+		int top = 0;
+		int right = mat[0].length - 1;
+		int bottom = mat.length - 1;
+
+		List<Integer> result = new ArrayList<>();
+		while (left <= right && top <= bottom) {
+
+			for (int i = left; i <= right; i++) {
+				result.add(mat[top][i]);
+			}
+			top++;
+
+			for (int i = top; i <= bottom; i++) {
+				result.add(mat[i][right]);
+			}
+			right--;
+
+			if (top <= bottom) {
+				for (int i = right; i >= left; i--) {
+					result.add(mat[bottom][i]);
+				}
+				bottom--;
+			}
+
+			if (left <= right) {
+				for (int i = bottom; i >= top; i--) {
+					result.add(mat[i][left]);
+				}
+				left++;
+			}
+		}
+		System.out.println(result);
+
+	}
+	
+}
+=====================================================================
+
+2:-- Find the Middle of the linkedList ? both bruteForce and Optimal algorithms
+
+package com;
+
+public class Test {
+
+	static class Node {
+
+		int data;
+		Node next;
+	}
+
+	static class LinkedList {
+
+		Node head;
+		Node tail;
+		int size;
+
+		public void addLast(int val) {
+
+			Node temp = new Node();
+			temp.data = val;
+			temp.next = null;
+
+			if (size == 0) {
+				head = tail = temp;
+			} else {
+				tail.next = temp;
+				tail = temp;
+			}
+			size++;
+		}
+
+		public void display() {
+			Node temp = head;
+			while (temp != null) {
+				System.out.println(temp.data);
+				temp = temp.next;
+			}
+		}
+
+		public int mid() {
+
+			Node slow = head;
+			Node fast = head;
+
+			while (fast != null && fast.next != null) {
+				slow = slow.next;
+				fast = fast.next.next;
+			}
+			return slow.data;
+		}
+
+		public int mid1() {
+
+			Node temp = head;
+			int length = 0;
+
+			while (temp != null) {
+				length++;
+				temp = temp.next;
+			}
+			int mid = length / 2;
+			temp = head;
+			for (int i = 0; i < mid; i++) {
+				temp = temp.next;
+			}
+			return temp.data;
+		}
+		
+			public void reverse() {
+			 Node prev = null;
+			 Node curr= head;
+			 
+			 while(curr!=null) {
+				 
+				 Node next = curr.next;
+				 curr.next=prev;
+				 prev=curr;
+				 curr=next;
+			 }
+			 Node temp=head;
+			 head=tail;
+			 tail=temp;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		LinkedList l1 = new LinkedList();
+		l1.addLast(1);
+		l1.addLast(2);
+		l1.addLast(3);
+		l1.addLast(4);
+		l1.addLast(5);
+		l1.display();
+		System.out.println(l1.mid());
+		System.out.println(l1.mid1());
+
+	}
+}
+
+===========================================================================
+3-- . Git:  suppose i want to edit the commit message of the last 5th commit that i pushed into my branch.
+ what would be the command to do it 
+ 
+ To edit the commit message of the 5th-to-last commit (i.e., the 5th commit from the most recent one),
+ you can use the git rebase command in interactive mode.
+ 
+ git rebase -i HEAD~5
+
+pick <commit-hash> Commit message 1
+pick <commit-hash> Commit message 2
+pick <commit-hash> Commit message 3
+pick <commit-hash> Commit message 4
+pick <commit-hash> Commit message 5
+
+Change pick to reword for the commit whose message you want to edit. For example, to change the 5th commit message, you would do:
+
+pick <commit-hash> Commit message 1
+pick <commit-hash> Commit message 2
+pick <commit-hash> Commit message 3
+pick <commit-hash> Commit message 4
+reword <commit-hash> Commit message 5
+
+git push --force
+
+git rebase --continue
+
+git rebase --abort
+
+
+=======================================
+
+https://www.youtube.com/watch?v=oe_k_smHIZo
+
+4:--- what is database indexing ? how it will Improve Query performace?
+
+----Index is database Object that makes data retrieval faster.
+
+---select statement :-  
+search for particular record in database
+to make search fast we use index;
+
+note : basically we create index on those coloum where we search it on  where condition coloum
+
+index key :--- column on which we create index
+
+types  of index :-  
+
+1:- clustered index
+
+2:- non clustered index
+
+
+=====================
+
+What is Database Indexing?
+Database indexing is a technique used to optimize the speed and efficiency of data retrieval operations in a database.
+ An index is essentially a data structure (often a B-tree or hash table) that provides a fast way to look up records based on 
+ the values of one or more columns. It's similar to the index of a book, which allows you to find a specific topic quickly instead
+ of scanning every page.
+
+Indexes are created on columns that are frequently used in search, join, and filter operations, such as WHERE clauses in SQL queries.
+ Instead of scanning every row of a table (which can be time-consuming), the database engine uses the index to jump directly to the relevant data,
+ drastically improving query performance.
+
+How Does Indexing Improve Query Performance?
+Faster Search Operations:
+
+
+Without an index, the database must perform a full table scan, checking each row to see if it matches the query's conditions. 
+This is especially slow for large tables.
+An index allows the database to narrow down the possible rows more quickly, often reducing the time complexity from linear (O(n)) 
+to logarithmic (O(log n)), making searches much faster.
+
+Efficient Sorting:
+
+Indexes can help speed up queries that require sorting (ORDER BY). If an index is created on the column(s) used for sorting,
+ the database doesn't need to perform an expensive sort operation; it can directly retrieve the data in the required order from the index.
+ 
+Optimized Join Operations:
+
+When joining multiple tables, indexes on the columns involved in the join conditions (typically foreign keys) can speed up the join process.
+ The database engine can quickly locate matching rows in the tables, rather than scanning them fully.
+ 
+Quick Lookups for Filtering (WHERE Clauses):
+
+If the query includes conditions like WHERE column = value, an index on that column can significantly speed up the operation. 
+The database engine can use the index to quickly locate rows matching the condition, without checking every row.
+Improved Aggregate Functions:
+
+For queries involving aggregate functions such as COUNT, AVG, or SUM, indexes can make these operations faster by quickly narrowing down
+ the subset of relevant rows.
+ 
+Reduced I/O Operations:
+
+Because indexes store pointers to the actual data in the table, the number of data pages the database needs to read from disk is reduced.
+
+ This lowers I/O operations, speeding up query processing, especially for large datasets.
+Types of Indexes:
+Single-column Index: An index on a single column. Simple but useful for single-column lookups.
+Composite Index: An index on multiple columns. Useful for queries that filter or sort based on multiple columns.
+Unique Index: Ensures that the values in a column (or combination of columns) are unique.
+Full-text Index: Specialized for searching large text data, allowing for fast text searches.
+
+========================================================================
+
+5:-- will the services with single database is still a valid MicroServices architecture?
+
+Conclusion
+While technically possible, using a single database for multiple services in a microservices architecture undermines many of the 
+benefits of microservices, 
+such as independence, scalability, and fault isolation. It’s generally better to adopt the Database per Service pattern, 
+where each microservice has its own database, allowing for a more flexible, scalable, and autonomous system.
+
+However, there might be edge cases where a shared database makes sense, especially in smaller, less complex systems,
+ but even then, it's essential to carefully manage schema changes and service boundaries to prevent problems in the future.
+
+======================================
+6 factory pattern
+
+package com;
+
+interface shape {
+	void draw();
+}
+
+class Circle implements shape {
+
+	@Override
+	public void draw() {
+		System.out.println("inside circle");
+
+	}
+
+}
+
+class Rectangle implements shape {
+
+	@Override
+	public void draw() {
+		System.out.println("inside Rectangle");
+
+	}
+
+}
+
+class ShapeFactory {
+
+	public shape getShape(String shapeType) {
+		if (shapeType == null) {
+			return null;
+		}
+		if (shapeType.equals("circle")) {
+			return new Circle();
+		}
+		if (shapeType.equals("rectangle")) {
+			return new Rectangle();
+		}
+		return null;
+	}
+}
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		ShapeFactory shapeFactory = new ShapeFactory();
+		shape s = shapeFactory.getShape("circle");
+		s.draw();
+
+	}
+}
+
