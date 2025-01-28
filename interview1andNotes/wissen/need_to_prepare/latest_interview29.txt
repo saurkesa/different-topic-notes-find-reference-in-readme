@@ -1,0 +1,1402 @@
+										Section 1:-----
+										
+1 ---Convert department and it's employee into map,key is department id and values are list of employees 
+
+package com;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+class Employee {
+
+	private int departmentId;
+	private String name;
+
+	public Employee(int departmentId, String name) {
+		this.departmentId = departmentId;
+		this.name = name;
+	}
+
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [departmentId=" + departmentId + ", name=" + name + "]";
+	}
+}
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		List<Employee> list = Arrays.asList(
+
+				new Employee(1, "Alice"), new Employee(1, "Bob"), new Employee(2, "Charlie"), new Employee(2, "David"),
+				new Employee(1, "Ena")
+
+		);
+
+		Map<Integer, List<Employee>> freqMap = list.stream().collect(Collectors.groupingBy(Employee::getDepartmentId));
+
+		freqMap.forEach((depId, listOfEmp) -> {
+
+			System.out.println("department id " + depId);
+
+			listOfEmp.forEach(System.out::println);
+		});
+	}
+
+}
+
+==============================================================================
+
+2--Runnable interface over Thread class
+
+public class Main {
+    public static void main(String[] args) {
+        // Using lambda expression for the Runnable interface
+        Thread thread = new Thread(() -> System.out.println("Task is running in thread: " + Thread.currentThread().getName()));
+        thread.start();
+    }
+}
+
+
+Key Points:
+
+Runnable Interface: It contains just one method run(), which you need to override with the task you want the thread to execute.
+Thread Class: You create a Thread instance by passing a Runnable to its constructor, allowing for separation of the task from the thread execution.
+Lambda: You can use lambda expressions to simplify the creation of the Runnable task, making it very concise.
+
+This approach is better than using Thread directly because:
+
+You can reuse the same Runnable in multiple threads.
+It promotes cleaner code by separating the task logic from the threading mechanism.
+
+=========================================================================
+
+3:-  Employee table : EmployeeId , name , salary , departmentId
+       Department Table: departmentId , departmentName, location 
+Write a query to get max salary for each department for each location 
+
+SELECT 
+    d.departmentName,
+    d.location,
+    MAX(e.salary) AS max_salary
+FROM 
+    Employee e
+JOIN 
+    Department d ON e.departmentId = d.departmentId
+GROUP BY 
+    d.departmentName, 
+    d.location;
+
+====================================================================================
+
+4---- Employee table : EmployeeId , name , salary , managerId
+Write a query to list down all employees followed by their manager name
+
+SELECT 
+    e.name AS employee_name,
+    m.name AS manager_name
+FROM 
+    Employee e
+LEFT JOIN 
+    Employee m ON e.managerId = m.EmployeeId;
+
+===========================================================================
+
+5:---- builder design pattern
+
+The Builder design pattern is a creational design pattern that is used to construct complex objects step by step. 
+It allows the construction of an object to be separated from its representation, meaning you can create different representations
+ of the same type of object using the same construction process.
+
+In other words, the Builder pattern provides a way to construct a complex object, such as an object with many optional parameters,
+ in a controlled and flexible manner without having to deal with constructor overloads or setting properties manually.
+ 
+ When to Use Builder Pattern?
+ 
+When an object requires several steps to be constructed, and you want to isolate the construction logic from the main class.
+When an object has many optional parameters and constructor overloading would become too complex or unwieldy.
+When you need to create different representations of an object.
+When you need to provide a clear and readable API for object construction, especially for classes with multiple fields.
+
+package com;
+
+public class Pizza {
+
+	private String size;
+	private boolean panner;
+	private boolean cheese;
+	private boolean pepper;
+
+	Pizza(PizzaBuilder builder) {
+
+		this.size = builder.size;
+		this.panner = builder.panner;
+		this.cheese = builder.cheese;
+		this.pepper = builder.pepper;
+	}
+
+	static class PizzaBuilder {
+
+		private String size;
+		private boolean panner;
+		private boolean cheese;
+		private boolean pepper;
+
+		public PizzaBuilder(String size) {
+			this.size = size;
+		}
+
+		public PizzaBuilder addPanner(boolean panner) {
+			this.panner = panner;
+			return this;
+		}
+
+		public PizzaBuilder addCheese(boolean cheese) {
+			this.cheese = cheese;
+			return this;
+		}
+
+		public PizzaBuilder addPepper(boolean pepper) {
+			this.pepper = pepper;
+			return this;
+		}
+
+		public Pizza build() {
+			return new Pizza(this);
+		}
+
+	}
+
+	@Override
+	public String toString() {
+		return "Pizza [size=" + size + ", panner=" + panner + ", cheese=" + cheese + ", pepper=" + pepper + "]";
+	}
+
+	public static void main(String[] args) {
+
+		Pizza pepper2 = new Pizza.PizzaBuilder("large").addCheese(false).addPanner(true).addPepper(false).build();
+		System.out.println(pepper2);
+	}
+
+}
+
+========================================================================
+
+6---  reverse in pair
+
+package com;
+
+import com.Node.LinkedList;
+
+class Node {
+
+	int data;
+	Node next;
+
+	static class LinkedList {
+
+		Node head;
+		Node tail;
+		int size;
+
+		public void addLast(int val) {
+
+			Node temp = new Node();
+			temp.data = val;
+			temp.next = null;
+
+			if (size == 0) {
+				head = tail = temp;
+			} else {
+				tail.next = temp;
+				tail = temp;
+			}
+			size++;
+		}
+
+		public void reverse() {
+
+			Node prev = null;
+			Node curr = head;
+
+			while (curr != null) {
+
+				Node temp = curr.next;
+				curr.next = prev;
+				prev = curr;
+				curr = temp;
+			}
+
+			Node temp = head;
+			head = tail;
+			tail = temp;
+
+		}
+
+		public void reverseInPairs() {
+
+			Node prev = null;
+			Node curr = head;
+			head = curr.next;
+
+			while (curr != null && curr.next != null) {
+
+				Node first = curr;
+				Node second = curr.next;
+
+				first.next = second.next;
+				second.next = first;
+
+				if (prev != null) {
+					prev.next = second;
+				}
+				prev = first;
+				curr = first.next;
+			}
+		}
+
+		public void display() {
+
+			Node temp = head;
+
+			while (temp != null) {
+				System.out.println(temp.data);
+				temp = temp.next;
+			}
+		}
+	}
+}
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		LinkedList l1 = new LinkedList();
+
+		l1.addLast(1);
+		l1.addLast(2);
+		l1.addLast(3);
+		l1.addLast(4);
+		l1.addLast(5);
+		l1.display();
+		// l1.reverse();
+		// l1.display();
+		l1.reverseInPairs();
+		l1.display();
+
+	}
+
+}
+=========================================================================================================
+
+									Section 2
+									
+1:
+k1="abc"
+k2 = new string("abc")
+map.put(k1,10)
+map.put(k2,20)
+size of map ?
+
+answer 1
+
+=========================================================
+
+2-----var chm = new ConcurrentHashMap<>();
+thread1
+	if(!chm.containsKey(k1))
+	chm.put(k1,10)
+thread 2
+	if(!chm.containsKey(k1))
+	chm.put(k1,11)
+are above block are thread safe
+
+
+Race Condition Explanation:
+
+Thread 1 checks containsKey(k1), and it returns false (let's say k1 is not in the map yet).
+Thread 2 checks containsKey(k1) at almost the same time and also gets false because k1 still isn't in the map.
+
+Both threads then proceed to put their values (10 and 11, respectively) into the map for the key k1.
+As a result, both threads end up adding k1 with different values (10 and 11), overwriting each other,
+ which is not the intended behavior if you're trying to insert only one value (like 10 or 11), but not both.
+
+Why is this a problem?
+The operations in the code are not atomic. containsKey() and put() are separate operations. 
+This means that there’s a possibility that two threads can both read that the key k1 does not exist and then both attempt to insert it. 
+The result is that one thread's put() will overwrite the other thread's put(), leading to inconsistent behavior.
+
+How to Make it Thread-Safe?
+To avoid the race condition and ensure thread safety, you can use the following approaches:
+
+===
+1. Using computeIfAbsent() (Recommended)
+ConcurrentHashMap provides the method computeIfAbsent(), which is atomic and allows you to check if a key is absent, 
+and if so, insert a value in a single atomic operation.
+
+You can rewrite your code like this:
+
+chm.computeIfAbsent(k1, key -> 11);
+===
+2. Using putIfAbsent() (for setting a value if the key is not already in the map)
+
+chm.putIfAbsent(k1, 10);
+
+This will only insert k1 with the value 10 if k1 is not already in the map. If k1 is already in the map, the value will not be changed.
+However, in your case, since thread 2 wants to insert 11, it would be better to reconsider the design if you need different values.
+===
+3. Using Synchronized Blocks (Less Efficient)
+You can synchronize the code block to make sure that only one thread can execute the check and put operation at a time:
+
+synchronized (chm) {
+    if (!chm.containsKey(k1)) {
+        chm.put(k1, 10);
+    }
+}
+
+However, this approach is less efficient because it will block access to the map for all threads when one thread
+ is executing the check-and-put operation.
+
+Conclusion:
+The code you provided is not thread-safe because of a race condition between the containsKey() and put() operations. 
+To make it thread-safe, you should use atomic methods provided by ConcurrentHashMap, 
+such as computeIfAbsent() or putIfAbsent(), which will ensure that the key-value pair is added atomically.
+
+==========================================================================
+
+3:---syncronization contruct which allow n slot of thread at a time   or implement semaphore
+
+
+In Java, if you want to allow multiple threads (up to n threads) to access a particular resource or execute a section of code simultaneously, 
+you can achieve this using a semaphore. A semaphore is a synchronization construct that controls access to a shared resource by multiple 
+threads in a concurrent system.
+
+Key Concept: Semaphore
+A semaphore allows you to specify the number of "permits" (slots) available for concurrent access. Threads must acquire a permit 
+before proceeding, and once they are done, they release the permit. If no permits are available, threads attempting to acquire 
+a permit will block until a permit is released.
+
+Example:
+To allow up to n threads to access a critical section of the code at the same time, you can use the Semaphore class 
+from the java.util.concurrent package.
+
+Code Example:
+
+import java.util.concurrent.Semaphore;
+
+public class SemaphoreExample {
+
+    // Create a semaphore with n permits (slots)
+    private static final Semaphore semaphore = new Semaphore(3);  // Allow 3 threads at a time
+
+    public static void main(String[] args) {
+
+        // Create multiple threads
+        for (int i = 0; i < 5; i++) {
+            final int threadId = i;
+            new Thread(() -> {
+                try {
+                    // Acquire a permit (slot) before entering the critical section
+                    semaphore.acquire();
+                    System.out.println("Thread " + threadId + " is inside the critical section");
+
+                    // Simulate some work in the critical section
+                    Thread.sleep(2000);
+
+                    System.out.println("Thread " + threadId + " is leaving the critical section");
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    // Release the permit (slot) when done
+                    semaphore.release();
+                }
+            }).start();
+        }
+    }
+}
+
+
+Explanation:
+
+Semaphore Initialization:
+The Semaphore is initialized with a number of permits (3 in this case), 
+meaning it allows up to 3 threads to enter the critical section at the same time.
+
+Acquiring a Permit:
+
+semaphore.acquire() is called by each thread. If the number of active threads holding a permit is less than the number of available permits,
+the thread is allowed to proceed.
+ 
+If all the permits are in use (i.e., 3 threads are already inside the critical section), any additional 
+threads will block until a permit is released.
+
+Critical Section:
+The critical section is the part of the code that only allows a limited number of threads to execute at the same time, 
+controlled by the semaphore.
+
+Releasing a Permit:
+After the thread finishes its task in the critical section, it calls semaphore.release() to release the permit, 
+allowing other threads to acquire it and enter the critical section.
+
+Benefits of Semaphore:
+Control Parallelism: You can control the level of concurrency and allow a certain number of threads to access a resource at the same time.
+Avoid Resource Overload: In scenarios like database connections, network access, or limited resources, using semaphores can prevent 
+overloading by limiting the number of concurrent access points.
+
+Conclusion:
+To allow n threads to execute simultaneously, you can use a semaphore. This synchronization mechanism will control 
+access to a resource by limiting the number of threads that can concurrently enter a critical section or perform a specific task.
+ In the example above,
+ the semaphore allows up to 3 threads to work simultaneously, and any additional threads will block until a permit becomes available.
+ 
+ ================================================================================
+ 
+ 4:-- design centralized logging, tracing,debugginh solutions for microservices
+ 
+ Key Components of the Solution:
+ 
+Centralized Logging: 
+Collect and aggregate logs from all microservices in a single location.
+
+Distributed Tracing: 
+Track requests across multiple microservices to understand how requests flow through the system.
+
+Debugging: 
+Enable easy inspection and diagnostics of issues, often by correlating logs, traces, and metrics.
+
+=======
+Solution Architecture Overview:
+Microservices: 
+Each microservice needs to have a logging framework, tracing capabilities, and health endpoints exposed for monitoring.
+
+Centralized Logging System:
+ A centralized service that collects logs from all microservices. Use ELK/EFK stack to index and store logs and visualize them using Kibana.
+ 
+Distributed Tracing System: 
+Integrate distributed tracing tools like OpenTelemetry, Zipkin, or Jaeger with your microservices to trace requests across services.
+
+Metrics: 
+Use Prometheus with Grafana to monitor microservices and gather metrics such as latency, error rates, and request counts.
+====
+
+1. Centralized Logging Solution
+Logging Framework Integration:
+Use SLF4J with Logback or Log4j in each of your microservices. These frameworks allow flexible logging configurations and
+ integration with various logging appenders.
+
+Logback Example Configuration:
+
+<configuration>
+
+    <!-- Appender to send logs to a centralized log server -->
+    <appender name="Logstash" class="ch.qos.logback.classic.net.SocketAppender">
+        <remoteHost>logstash.example.com</remoteHost>
+        <port>5000</port>
+    </appender>
+
+    <!-- Define log levels for different services -->
+    <logger name="com.myapp" level="DEBUG"/>
+
+    <!-- Root logger configuration -->
+    <root level="INFO">
+        <appender-ref ref="Logstash"/>
+    </root>
+</configuration>
+
+
+You can configure Logstash or Fluentd to listen to the logs from microservices and forward them to Elasticsearch.
+
+ELK/EFK Stack:
+Elasticsearch: Stores logs.
+Logstash (EFK) or Fluentd (EFK): Collects logs from microservices and ships them to Elasticsearch.
+Kibana: Visualizes logs stored in Elasticsearch.
+
+
+2. Distributed Tracing Solution
+To enable tracing, integrate OpenTelemetry, Zipkin, or Jaeger with your microservices. 
+This will help trace requests and show the journey of a request through different services.
+
+OpenTelemetry Integration Example (for Spring Boot):
+Add OpenTelemetry dependencies:
+
+<dependency>
+    <groupId>io.opentelemetry</groupId>
+    <artifactId>opentelemetry-api</artifactId>
+    <version>1.6.0</version>
+</dependency>
+<dependency>
+    <groupId>io.opentelemetry</groupId>
+    <artifactId>opentelemetry-sdk</artifactId>
+    <version>1.6.0</version>
+</dependency>
+<dependency>
+    <groupId>io.opentelemetry</groupId>
+    <artifactId>opentelemetry-exporter-otlp</artifactId>
+    <version>1.6.0</version>
+</dependency>
+
+Configure tracing in your Spring Boot application:
+
+@Bean
+public OpenTelemetry openTelemetry() {
+    SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
+            .addSpanProcessor(SimpleSpanProcessor.create(OtlpGrpcSpanExporter.builder()
+                    .setEndpoint("http://your-jaeger-or-zipkin-endpoint")
+                    .build()))
+            .build();
+
+    return OpenTelemetrySdk.builder().setTracerProvider(tracerProvider).buildAndRegisterGlobal();
+}
+
+
+Use @NewSpan or @WithSpan annotations from OpenTelemetry to automatically capture and correlate traces.
+
+Jaeger or Zipkin for Distributed Tracing:
+Jaeger and Zipkin provide distributed tracing services where you can visualize and analyze traces, track the lifecycle of requests,
+ and pinpoint performance bottlenecks.
+ 
+ 3. Metrics & Monitoring Solution
+ 
+Use Prometheus and Grafana to monitor microservices. Micrometer integrates with Spring Boot applications to provide metrics that 
+Prometheus can scrape.
+
+Micrometer Integration in Spring Boot:
+Add Micrometer and Prometheus dependencies to your Spring Boot project:
+xml
+Copy
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+Expose Prometheus endpoint in your Spring Boot application:
+yaml
+Copy
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
+Configure Prometheus to scrape metrics from the Spring Boot app:
+yaml
+Copy
+scrape_configs:
+  - job_name: 'spring-boot-microservice'
+    static_configs:
+      - targets: ['localhost:8080']
+Use Grafana to visualize metrics by connecting it to the Prometheus data source.
+
+Summary of Tools and Best Practices:
+
+Centralized Logging: Use ELK Stack (Elasticsearch, Logstash/Fluentd, Kibana) for centralized logging and visualization.
+Distributed Tracing: Integrate OpenTelemetry, Zipkin, or Jaeger for distributed tracing.
+Metrics & Monitoring: Use Micrometer, Prometheus, and Grafana for monitoring system metrics and visualization.
+Debugging with Correlation IDs: Use correlation IDs across logs and traces to correlate requests and debug failures.
+
+======================================================================================
+5:--- 2 phase transcation
+
+A 2-phase commit (2PC) is a distributed transaction protocol used to ensure atomicity in a system where multiple participants (e.g., databases or services) are involved in a transaction. It guarantees that either all participants commit the transaction, or none of them do, maintaining consistency across distributed systems.
+
+Phases of 2PC:
+
+1. Prepare Phase (Voting Phase):
+The coordinator (often a central service) sends a prepare request to all participants 
+(e.g., databases or microservices) asking if they can commit the transaction.
+
+Each participant replies with:
+YES (if it can commit and has prepared to do so), or
+NO (if it can't commit due to some failure or conflict).
+
+2. Commit Phase (Decision Phase):
+If all participants responded with YES, the coordinator sends a commit request to all participants, 
+indicating that they should commit the transaction.
+If any participant responded with NO, the coordinator sends a rollback request to all participants,
+ indicating that the transaction should be aborted and no changes should be applied.
+ 
+Example Workflow:
+Coordinator sends prepare to Participants.
+Participants reply YES (if they can commit) or NO (if they can't).
+
+Coordinator:
+If all YES, sends commit.
+If any NO, sends rollback.
+
+Key Points:
+Atomicity: Ensures that all participants either commit or roll back the transaction.
+Blocking: The 2PC protocol is blocking; participants wait for the coordinator's decision.
+Failure Handling: If a participant or coordinator fails during the protocol, the system must rely on mechanisms 
+like timeouts or logs to recover and ensure consistency.
+
+Example Scenario:
+Consider a distributed bank transfer between two services, A and B:
+
+Service A (the coordinator) asks if Service B (the participant) is ready to commit the transfer.
+If Service B replies YES, Service A proceeds to commit the transfer.
+If Service B replies NO (due to an error), Service A aborts the transfer.
+
+Drawbacks:
+Blocking: If the coordinator or a participant crashes after the prepare phase, the transaction may be stuck waiting for a decision.
+Single Point of Failure: The coordinator is critical; its failure could affect the whole transaction
+
+
+
+			Saga Pattern:
+Description: A decentralized approach where a long-running transaction is broken into smaller, isolated sub-transactions.
+Compensation: If any sub-transaction fails, compensation actions (rollbacks) are performed for previously completed steps.
+Advantages: Provides better resilience and avoids blocking, suitable for microservices.
+Challenges: Managing compensating transactions and handling failures.
+
+================================================================================
+
+6:----desing solution tp process concurrently   millions of transcation happening to 1 million accounts with transcation 
+in individual account to be ordered 
+
+
+To design a solution in Java to process millions of transactions concurrently for 1 million accounts,
+ with each transaction for an individual account being ordered, you need to take into account several factors such as:
+
+Concurrency: Handling millions of transactions in parallel.
+Ordering of transactions: Ensuring that transactions for each account are processed in order.
+Scalability: Handling large numbers of accounts and transactions efficiently.
+Fault Tolerance: Ensuring that the system remains consistent even in the case of failure.
+
+Key Requirements:
+Concurrency: The system needs to process transactions for different accounts concurrently (i.e., parallel processing).
+Ordering: Each account's transactions need to be ordered, meaning that for any given account, transaction T1 must be processed before T2.
+Efficient Resource Management: Managing resources like threads and memory effectively.
+
+Solution Design:
+To achieve this, we can use a combination of Executor Service (for concurrency) and locks (to ensure ordering of transactions per account).
+ We can also leverage ConcurrentHashMap for thread-safe management of accounts and ReentrantLock for fine-grained control over individual 
+ account transaction processing.
+
+
+Design Overview:
+
+Use a ConcurrentHashMap to hold all accounts. This ensures that account access is thread-safe.
+Use ReentrantLock to lock each account individually. This ensures that only one thread can process transactions for a given account at a time.
+ExecutorService will be used to process transactions concurrently for different accounts.
+Transaction Queue for each account to process transactions in order (using locking or thread-safe queues).
+Transaction Processor: Each transaction will be processed by a separate thread, but we’ll ensure the ordering of transactions 
+for individual accounts.
+
+=======================================================================================================
+
+7---------can consumer group/consumer process message from multiple partitions at a time or on after other batch of messages
+
+Summary:
+Yes, a consumer group can process messages from multiple partitions concurrently, as long as there are enough consumers 
+in the group to consume from those partitions.
+If there are more consumers than partitions, some consumers will remain idle.
+A single consumer can only consume messages from one partition at a time, but can consume messages from multiple partitions sequentially.
+
+=========================================================================================
+8 ----------You have an array containing continuos number but misses a number in between, write a code to find the number and array is
+ not in sorted form.
+
+import java.util.Arrays;
+
+public class MissingNumber {
+
+    // Function to find the missing number
+    public static int findMissingNumber(int[] arr) {
+        // Step 1: Find the maximum number in the array
+        int max = Integer.MIN_VALUE;
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+        }
+
+        // Step 2: Calculate the expected sum of the first 'max' numbers
+        int expectedSum = (max * (max + 1)) / 2;
+
+        // Step 3: Calculate the actual sum of the array
+        int actualSum = 0;
+        for (int num : arr) {
+            actualSum += num;
+        }
+
+        // Step 4: The missing number is the difference between expected sum and actual sum
+        return expectedSum - actualSum;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {3, 7, 1, 2, 8, 4, 5};  // Array with a missing number
+        System.out.println("The missing number is: " + findMissingNumber(arr));
+    }
+}
+
+=======================================================================================
+
+9-----------We have 100 doors and 100 people.
+Every room is closed initially, and every person comes one by one and opens the door if it's closed and closes if it's opened. 
+How many doors will be opened at last.
+
+The perfect squares between 1 and 100 are:
+1, 4, 9, 16, 25, 36, 49, 64, 81, 100.
+Thus, 10 doors will remain open.
+
+==========================================================================================================
+
+										Section 3
+
+Question 1:)  How the Trace id and Span Id will get generated.Which service will generate traceID?
+
+Trace ID: 
+A unique identifier for a complete request across multiple services. It is generated by the first service 
+(e.g., API Gateway or initial microservice) when the request is received.
+
+Span ID: 
+A unique identifier for an individual operation or service call within a trace. 
+It is generated by each service as it processes a part of the request.
+
+Generation:
+
+Trace ID: Created by the first service (often a random 128-bit value) and passed along with the request to other services.
+Span ID: Generated by each service (often a random 64-bit value) to represent individual operations within the trace.
+Both IDs are typically passed in HTTP headers (e.g., X-B3-TraceId, X-B3-SpanId) to track the request across services.
+
+========================================================
+
+Question 2---------There is a shared Resource example :DB Connection Class.
+I wanted to limit the threads to access the resource to 5 threads. Write the code to implement the same.
+
+
+To limit the number of threads accessing a shared resource (like a database connection) to a maximum of 5, you can use a Semaphore in Java.
+ A Semaphore controls access to a shared resource by allowing only a limited number of threads to access it at the same time.
+
+Here’s a simple example to limit access to a shared resource (a DB connection) to 5 threads using a Semaphore:
+
+import java.util.concurrent.Semaphore;
+
+public class DBConnection {
+
+    // Semaphore with 5 permits, allowing up to 5 threads to access the resource
+    private static final Semaphore semaphore = new Semaphore(5);
+
+    public void connectToDatabase(String threadName) {
+        try {
+            // Acquire a permit to access the resource
+            semaphore.acquire();
+            System.out.println(threadName + " has connected to the DB.");
+
+            // Simulate DB connection usage
+            Thread.sleep(2000); // Simulating some DB operation
+
+            System.out.println(threadName + " has finished using the DB.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            // Release the permit once the thread is done with the resource
+            semaphore.release();
+        }
+    }
+
+    public static void main(String[] args) {
+        DBConnection dbConnection = new DBConnection();
+
+        // Create and start 10 threads that try to access the DB
+        for (int i = 1; i <= 10; i++) {
+            final int threadId = i;
+            new Thread(() -> dbConnection.connectToDatabase("Thread " + threadId)).start();
+        }
+    }
+}
+
+
+Explanation:
+Semaphore:
+
+We initialize a Semaphore with a permit count of 5, meaning only 5 threads can access the database at the same time.
+semaphore.acquire() is called by a thread before it accesses the shared resource (DB connection). If no permits are available 
+(i.e., 5 threads are already accessing the resource), the thread will wait.
+semaphore.release() is called after the thread is done using the resource, allowing another waiting thread to acquire a permit.
+
+Thread Execution:
+
+We simulate 10 threads trying to access the DB. Only 5 threads can access the resource concurrently. 
+The other threads will wait for a permit to be released.
+
+=========================================================
+
+Question 3: How do you implement Cache with required search fields.-------------------simple approach
+ 
+How to make search option faster using Cache
+
+
+A simpler approach to implementing a cache in Java with specific search fields can be done using just a single HashMap
+ where the key is an identifier (e.g., the id of an object) and the value is the cached object. 
+ You can then use additional helper methods to perform searches based on other fields (e.g., name or category).
+
+Simple Cache Implementation:
+
+Cache Structure: We will store the objects in a HashMap, with the id as the key for fast lookups.
+Search Method: For each search field (e.g., name, category), we can loop through the cached data and filter the results.
+ This is less efficient than using indexes, but it's simpler.
+ 
+ Example:
+1. Define the Cached Object (Product):
+
+public class Product {
+    private int id;
+    private String name;
+    private String category;
+    private double price;
+
+    public Product(int id, String name, String category, double price) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.price = price;
+    }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getCategory() { return category; }
+    public double getPrice() { return price; }
+
+    @Override
+    public String toString() {
+        return "Product{id=" + id + ", name='" + name + "', category='" + category + "', price=" + price + '}';
+    }
+}
+
+2. Create the Simple Cache Class:
+
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class SimpleProductCache {
+
+    // Main cache to store products by their ID
+    private Map<Integer, Product> cache = new HashMap<>();
+
+    // Add a product to the cache
+    public void addProduct(Product product) {
+        cache.put(product.getId(), product);
+    }
+
+    // Get product by ID
+    public Product getProductById(int id) {
+        return cache.get(id);
+    }
+
+    // Search for products by name
+    public List<Product> getProductsByName(String name) {
+        List<Product> result = new ArrayList<>();
+        for (Product product : cache.values()) {
+            if (product.getName().equalsIgnoreCase(name)) {
+                result.add(product);
+            }
+        }
+        return result;
+    }
+
+    // Search for products by category
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> result = new ArrayList<>();
+        for (Product product : cache.values()) {
+            if (product.getCategory().equalsIgnoreCase(category)) {
+                result.add(product);
+            }
+        }
+        return result;
+    }
+
+    // Remove product from the cache
+    public void removeProduct(int id) {
+        cache.remove(id);
+    }
+
+    // Clear the cache
+    public void clearCache() {
+        cache.clear();
+    }
+}
+
+3. Example Usage:
+
+public class CacheExample {
+    public static void main(String[] args) {
+        SimpleProductCache cache = new SimpleProductCache();
+
+        // Add products to cache
+        cache.addProduct(new Product(1, "Apple", "Fruit", 1.2));
+        cache.addProduct(new Product(2, "Banana", "Fruit", 0.8));
+        cache.addProduct(new Product(3, "Carrot", "Vegetable", 1.1));
+        cache.addProduct(new Product(4, "Cucumber", "Vegetable", 1.3));
+        cache.addProduct(new Product(5, "Apple", "Fruit", 1.4));
+
+        // Retrieve product by ID
+        System.out.println("Product with ID 1: " + cache.getProductById(1));
+
+        // Retrieve products by name
+        System.out.println("Products with name 'Apple': " + cache.getProductsByName("Apple"));
+
+        // Retrieve products by category
+        System.out.println("Products in 'Fruit' category: " + cache.getProductsByCategory("Fruit"));
+
+        // Remove product by ID
+        cache.removeProduct(2);
+        System.out.println("After removal, product with ID 2: " + cache.getProductById(2));
+    }
+}
+
+Explanation:
+Cache: The cache stores products in a HashMap with the product id as the key and the Product object as the value.
+Search Methods: We implemented basic search methods for searching by name and category. 
+These methods iterate over all the cached products and filter them by the respective field. 
+This is not the most efficient method for large caches, but it's simple and works well for small-scale caches.
+Add, Remove, Clear: We provide basic methods for adding, removing, and clearing products in the cache.
+
+Key Points:
+Simple Design: This approach is simple and uses basic Java collections (HashMap and ArrayList).
+Search Efficiency: Searching is linear (O(n)), meaning it iterates through the cached objects, 
+which is fine for small datasets but may become inefficient for large datasets.
+
+Flexibility: You can easily extend the cache to support searches on additional fields or 
+add more cache management features (e.g., time-to-live, evictions) if needed.
+This is a basic but simple way to implement a cache with search capabilities in Java.
+
+========================================================
+
+Question 4  Does Redis support Multiple Indexes?
+
+Manual Indexing: You can create multiple indexes in Redis by manually managing additional data structures (e.g., sets or sorted sets)
+ for each field you want to index.
+ 
+No Native Indexes: Redis does not support multiple indexes natively because it is designed as a fast, simple key-value store, a
+nd adding indexing would add complexity and performance overhead.
+
+Tradeoff: While Redis doesn't support multiple indexes directly, its simplicity and performance benefits are maintained, 
+and custom indexing can be implemented as needed.
+
+Conclusion:
+Redis doesn't natively support multiple indexes due to its design as a high-performance, key-value store focused on simplicity and speed. 
+However, by using Redis data structures like sets and sorted sets, you can manually implement custom indexes to suit your search requirements.
+ This provides flexibility at the cost of additional complexity in managing your data.
+				
+=========================================================================
+
+Question 5:- What is a singleton class and how do you exactly implement it in the framework or your project?
+
+
+What is a Singleton Class?
+A Singleton class is a design pattern that ensures a class has only one instance and provides a global point of access to that instance. 
+The Singleton pattern is useful when you want to control access to a shared resource, such as a database connection, configuration settings,
+ or logging service, in your application.
+
+Key Characteristics of a Singleton Class:
+Single Instance: Only one instance of the class is created, no matter how many times the class is requested.
+Global Access: The instance is accessible globally through a static method.
+Lazy Initialization: The instance is created when it's first needed (lazy initialization) or at the time of class loading (eager initialization).
+
+Why Use Singleton?
+Resource Sharing: To limit the use of shared resources (e.g., database connections).
+Consistent State: Ensures that the class has a consistent state across the application since only one instance exists.
+Global Access: You want to make sure that there is a global point of access to the instance, for example, for configuration settings.
+
+===========================================================================
+Question 6  How can we compare two XML files?
+
+Dom4j is a Java library used to work with XML documents. It provides an API for parsing, creating, manipulating,
+ and querying XML data in a tree-based model, which is similar to the Document Object Model (DOM) used by many other
+ XML processing tools. However, Dom4j offers additional features and improvements over the standard DOM API, making it more efficient and flexible.
+
+Key Features of Dom4j:
+XML Parsing: It supports both SAX (event-based) and DOM (tree-based) parsing styles. 
+This allows you to choose between memory-efficient and fully loaded document approaches.
+
+Manipulation of XML: 
+You can easily modify the XML structure (add/remove elements or attributes), read/write XML data, and traverse the document.
+
+XPath Support:
+ Dom4j supports XPath, which allows you to query XML documents in a concise way using path expressions.
+
+Efficient Memory Usage: 
+While still using a tree-based model like DOM, Dom4j is designed to be more efficient in terms of
+ memory usage and performance compared to other XML libraries.
+
+Streaming and Document-Level Operations: It allows both streaming (for large files) and document-level (for in-memory processing) operations.
+
+How Dom4j Works:
+Dom4j allows you to parse XML documents into a Document object, which is the root of the XML tree. 
+You can then work with Elements (nodes in the XML tree), Attributes (key-value pairs in nodes), and navigate or manipulate the XML tree structure.
+
+Example Usage of Dom4j:
+Adding a Dependency (for Maven):
+
+<dependency>
+    <groupId>org.dom4j</groupId>
+    <artifactId>dom4j</artifactId>
+    <version>2.1.3</version>
+</dependency>
+
+Basic Operations (Reading, Writing, Manipulating XML):
+
+import org.dom4j.*;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
+import org.dom4j.io.OutputFormat;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Dom4jExample {
+
+    public static void main(String[] args) throws DocumentException, IOException {
+        // Parsing XML
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(new File("example.xml"));
+
+        // Accessing root element and child elements
+        Element root = document.getRootElement();
+        System.out.println("Root Element: " + root.getName());
+
+        // Iterating over child elements
+        for (Iterator<Element> iter = root.elementIterator(); iter.hasNext(); ) {
+            Element element = iter.next();
+            System.out.println("Element Name: " + element.getName() + ", Value: " + element.getText());
+        }
+
+        // Writing changes to XML
+        root.addElement("newElement").setText("New value");
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        XMLWriter writer = new XMLWriter(new FileWriter("output.xml"), format);
+        writer.write(document);
+        writer.close();
+    }
+}
+
+
+Explanation:
+SAXReader: Used to read the XML file and parse it into a Document object.
+Elements: You can access elements via methods like getRootElement() and elementIterator().
+Modifying XML: You can add new elements using addElement() and set text content.
+XMLWriter: Writes the document back to a file using XMLWriter.
+
+Why Use Dom4j?
+Ease of Use: Dom4j provides a clean and simple API that is easy to use for most XML operations.
+Performance: Compared to standard DOM, Dom4j is optimized for better memory usage and performance in certain use cases.
+XPath: Native support for XPath queries makes it easier to extract or manipulate specific parts of an XML document.
+
+Conclusion:
+Dom4j is a versatile and powerful XML processing library in Java that supports parsing, creation, manipulation, and querying of XML documents.
+ It is a good choice if you're working with large XML documents, need better performance, or want to use XPath for querying XML data.
+ 
+=======================================================
+Question 7  When would you choose a linked list? Under what circumstances?
+
+You would choose a Linked List over other data structures like arrays or ArrayLists in the following circumstances:
+
+1. Frequent Insertions and Deletions:
+When you need to frequently insert or delete elements, especially from the beginning or middle of the list. 
+Linked lists allow for O(1) insertions and deletions when you have a reference to the node, unlike arrays or
+ ArrayLists which might require shifting elements (O(n)).
+ 
+2. Dynamic Size:
+When the number of elements is unknown or changes frequently, and you want dynamic memory allocation.
+ Linked lists grow and shrink as needed, without the need for resizing, unlike arrays.
+ 
+3. No Random Access Needed:
+When you don’t need fast random access to elements (i.e., you don’t need to access elements by index).
+ Linked lists have O(n) access time for retrieving elements, so they are not ideal for use cases that require frequent random access.
+ 
+4. Memory Efficiency (in some cases):
+When you expect to store a large number of elements and want to avoid the overhead of resizing an array. 
+Since linked lists don’t require contiguous memory, they can be more efficient in terms of memory allocation in some cases.
+
+5. Queue or Stack Implementations:
+Linked lists are ideal for implementing data structures like queues and stacks because they efficiently allow operations
+ at both ends (head and tail).
+ 
+Example Use Cases:
+Implementing a queue or stack (using LinkedList in Java).
+Implementing dynamic memory allocation where elements are added and removed frequently.
+When NOT to Use Linked Lists:
+When random access to elements is required (e.g., array access or ArrayList is better).
+When memory overhead of storing pointers (in addition to data) is a concern.
+
+Conclusion:
+A Linked List is ideal when you need efficient insertions and deletions at arbitrary positions,
+ dynamic sizing, and don't require fast random access to elements.
+ 
+ =====================================
+ Question 8 How do you access the values of a HashMap?
+ 
+ Use get(key) for accessing a value by key.
+Use forEach, entrySet(), keySet(), or values() for iterating over all key-value pairs or values.
+
+===============================
+Question 9:-  Can HashMap have a null key?
+
+In Summary:
+Calling hashCode() on a null key does not happen in a HashMap.
+The null key is treated as a special case and is stored in the bucket corresponding to hash code 0.
+===============================================
+
+Question 10  
+ How would you handle replacing a student with ID 102 in the HashMap and replacing them with another student?
+ 
+ 
+ Question Explanation:
+In this scenario, you are asked to replace a student with a specific ID (in this case, ID 102) in a HashMap where student 
+IDs are used as keys and the student details (such as name, age, etc.) are the values. You need to update the HashMap 
+by replacing the student with ID 102 with another student (new details).
+
+In Java, the HashMap provides the replace(key, value) method, which is used to replace the value associated with a particular key 
+if the key exists in the map.
+
+Solution Code:
+
+import java.util.HashMap;
+
+class Student {
+    String name;
+    int age;
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class HashMapReplaceExample {
+    public static void main(String[] args) {
+        // Creating a HashMap with student ID as key and Student as value
+        HashMap<Integer, Student> studentMap = new HashMap<>();
+        studentMap.put(101, new Student("Alice", 20));
+        studentMap.put(102, new Student("Bob", 22));  // Student to be replaced
+        studentMap.put(103, new Student("Charlie", 23));
+
+        // Before replacement
+        System.out.println("Before Replacement:");
+        studentMap.forEach((id, student) -> System.out.println(id + " -> " + student));
+
+        // Replacing student with ID 102
+        studentMap.replace(102, new Student("David", 24));  // Replace Bob with David
+
+        // After replacement
+        System.out.println("\nAfter Replacement:");
+        studentMap.forEach((id, student) -> System.out.println(id + " -> " + student));
+    }
+}
+
+
+Alternative:
+If you want to only replace the student if the key exists (not perform the replacement if the key is absent), 
+you can use the method containsKey(key) to check if the key is present:
+
+if (studentMap.containsKey(102)) {
+    studentMap.put(102, new Student("David", 24)); // Replace value manually
+}
+
+This ensures that no replacement is done if the key is not found.
+
+=====================================================================
+
+Question 11 How do you compare two lists and provide a Boolean result as true or false if the lists match or do not match?
+
+
+To compare two lists in Java and return a Boolean result indicating whether they are equal (i.e., match exactly), 
+you can use the equals() method provided by the List interface. 
+This method checks if the lists contain the same elements in the same order.
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class ListCompareExample {
+    public static void main(String[] args) {
+        List<Integer> list1 = new ArrayList<>();
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+
+        // Comparing two lists
+        boolean areEqual = list1.equals(list2);
+        System.out.println("Are the lists equal? " + areEqual);  // Output: true
+    }
+}
+
+============================================================
+
+Question 12 What would be your approach if the items from both the lists are missing and you need to print the missing items?
+
+To print the missing items between two lists in Java, you can approach the problem by checking which elements are present in one list
+ but not in the other. This can be efficiently done using a set or by iterating through the lists.
+
+Approach:
+Convert both lists to sets to eliminate duplicates and facilitate fast lookups.
+Use removeAll() or forEach() to find and print the missing elements in each list.
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class ListCompareMissingItems {
+    public static void main(String[] args) {
+        List<Integer> list1 = new ArrayList<>();
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+        list1.add(4);
+
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(3);
+        list2.add(4);
+        list2.add(5);
+        list2.add(6);
+
+        // Convert lists to sets for faster lookups
+        Set<Integer> set1 = new HashSet<>(list1);
+        Set<Integer> set2 = new HashSet<>(list2);
+
+        // Find missing elements in list1 (present in list2 but not in list1)
+        Set<Integer> missingInList1 = new HashSet<>(set2);
+        missingInList1.removeAll(set1);  // Removes elements from set2 that are in set1
+        System.out.println("Missing in list1: " + missingInList1);
+
+        // Find missing elements in list2 (present in list1 but not in list2)
+        Set<Integer> missingInList2 = new HashSet<>(set1);
+        missingInList2.removeAll(set2);  // Removes elements from set1 that are in set2
+        System.out.println("Missing in list2: " + missingInList2);
+    }
+}
+
+Explanation:
+Convert lists to sets: By converting the lists to HashSet, we get efficient operations for determining the difference.
+removeAll() method: This method is used to find the elements that are in one set but not the other. In this case, 
+we find the missing elements in both directions.
+
+Output: It prints the elements that are missing in each list.
+
+Alternative Approach:
+If you want to keep the order of the lists or need more flexibility, you can iterate through the lists and check for 
+missing elements manually without converting them to sets. However, using sets provides a more efficient solution for this particular case.
+
+Conclusion:
+Use HashSet and removeAll() to efficiently find and print missing items between two lists.
+This approach ensures that the elements missing from both lists are printed in a concise and efficient manner.
+
+==========================================================
+Question 13: What is your understanding of version control and documentation? Can you elaborate on how Git and GitHub were handled in your team?
+
+Version Control:
+Version control is a system that helps manage changes to source code or documents over time. 
+It allows multiple developers to collaborate on a project by tracking modifications, reverting to previous versions, and resolving conflicts in code.
+
+Advantages:
+
+Keeps a history of changes.
+Enables collaboration without overwriting each other’s work.
+Allows easy rollback to a stable state.
+
+Documentation:
+Documentation refers to creating and maintaining records
+ (e.g., README files, code comments, wikis) that describe how the code works, setup instructions, 
+ and how to contribute. It helps new developers understand the project and serves as a reference for existing team members.
+
+Git and GitHub in Teams:
+
+Git:
+ A distributed version control system used locally by each developer. It tracks changes, creates branches, and allows commits.
+
+Common Commands:
+git clone (clone the repository)
+git pull (fetch updates)
+git commit (record changes)
+git push (upload changes)
+git branch (create and manage branches)
+git merge (merge branches)
+
+GitHub: 
+A cloud-based platform for hosting Git repositories. It provides features for collaboration like pull requests, issues, and project boards.
+
+Workflow:
+Fork: Create a personal copy of the repo.
+Branch: Work on a feature or fix in a separate branch.
+Pull Request (PR): Submit changes for review and merging into the main branch.
+Review: Team members review the PR, ensuring quality before merging.
+Merge: Once approved, the changes are merged into the main branch.
+How It Was Handled in My Team:
+
+Branching Strategy: 
+We followed a feature-branch workflow where each developer worked on their own branch. Once a feature or fix was complete,
+ a pull request was made to merge changes into the main branch.
+ 
+Code Reviews: Every pull request went through a code review process where team members left comments, suggestions, and approvals.
+
+Commit Practices: We maintained small, focused commits with clear messages (e.g., “Fixed bug in login form”).
+
+Documentation: We maintained a README.md file with setup instructions, and each module had inline comments explaining logic. 
+
+GitHub's wiki was used for larger project documentation.
+This workflow ensured clean code management, effective collaboration, and smooth integration.
+
+=========================================
+Question 14 If you need to add a change to GitHub, what are the steps and prerequisites involved in doing so
+
+Clone repo → Create branch → Make changes → Stage → Commit → Push → Pull request.
+
+============================================
+Question 15:--- How do you generate comprehensive reports in Excel and PDF format
+
+Excel Reports: Use Apache POI (poi-ooxml).
+PDF Reports: Use iText (itext7-core).
+
+=============================================================================================================================================
+
+																Section 4:
+																
+	1:-  String creation
+	
+String literals: Efficient and stored in the string pool.
+new String(): Creates a new string object outside the pool.
+StringBuilder: Used for creating and modifying strings efficiently (mutable).
+
+======================================
+2:-Unit test cases
+
+@Test: Marks test methods.
+@BeforeEach, @AfterEach: Setup and cleanup per test.
+@BeforeAll, @AfterAll: Setup and cleanup once per test class.
+Assertions: Verify expected outcomes.
+
+=====================================================
+
+3:-  
