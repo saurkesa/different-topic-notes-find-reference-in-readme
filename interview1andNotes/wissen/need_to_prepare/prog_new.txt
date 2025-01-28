@@ -1,0 +1,533 @@
+ question 1:---Write a code to find the sum of the two numbers is k and return all the pairs.
+int[] arr={1,4,2,3,1,5,7,9,2,9,5};
+
+public class Test {
+
+	public static void main(String[] args) {
+		int[] arr = { 1, 4, 2, 3, 1, 5, 7, 9, 2, 9, 5 };
+		int k = 10; // Target sum
+
+		findPairWithSum(arr, k);
+
+	}
+
+	private static void findPairWithSum(int[] arr, int k) {
+
+		Set<Integer> seen = new HashSet<>();
+		Set<String> pairs = new HashSet<>();
+
+		for (int num : arr) {
+			int complement = k - num;
+
+			if (seen.contains(complement)) {
+
+				String pair = Math.min(num, complement) + " " + Math.max(num, complement);
+				pairs.add(pair);
+
+			}
+			seen.add(num);
+		}
+
+		// Print all pairs found
+		if (pairs.isEmpty()) {
+			System.out.println("No pairs found with the sum " + k);
+		} else {
+			System.out.println("Pairs with the sum " + k + ":");
+			for (String pair : pairs) {
+				System.out.println(pair);
+			}
+		}
+	}
+}
+
+Approach:
+Traverse the array.
+For each element, calculate its complement (i.e., k - current number).
+Check if the complement is already in the set.
+If it exists, return the pair. If not, add the current element to the set and continue.
+
+=====================================================================================================================
+
+ question 2- One class based coding questions to create a class and find the maximum profit from an array.
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		int[] prices = { 7, 1, 5, 3, 6, 4 }; // Example stock prices
+
+		int result = maxProfit(prices);
+		System.out.println(result);
+
+	}
+
+	private static int maxProfit(int[] prices) {
+
+		if (prices == null || prices.length < 2) {
+			return 0;
+		}
+		int minPrice = prices[0];
+		int maxProfit = 0;
+
+		for (int i = 1; i < prices.length; i++) {
+			int profit = prices[i] - minPrice;
+
+			maxProfit = Math.max(maxProfit, profit);
+			minPrice = Math.min(minPrice, prices[i]);
+		}
+		return maxProfit;
+	}
+
+}
+// output  :-  5
+
+==================================================================
+Question 3 :- Out of two list find the numbers which are not common in both the list
+
+public class Test {
+
+	public static void main(String[] args) {
+
+		   List<Integer> list1 = new ArrayList<>();
+	        list1.add(1);
+	        list1.add(2);
+	        list1.add(3);
+	        list1.add(4);
+
+	        List<Integer> list2 = new ArrayList<>();
+	        list2.add(3);
+	        list2.add(4);
+	        list2.add(5);
+	        list2.add(6);
+	        
+	        List<Integer> result = new ArrayList<>();
+	        
+	        for(int num :list1) {
+	        	if(!list2.contains(num)) {
+	        		result.add(num);
+	        	}
+	        }
+	        
+	        for(int num :list2) {
+	        	if(!list1.contains(num)) {
+	        		result.add(num);
+	        	}
+	        }
+	        
+	        System.out.println(result);
+
+	}
+}
+
+============================================================================
+
+Question 4:-  two-numbers-with-sum-closest-to-zero
+
+public class Test {
+
+	public static void main(String[] args) {
+		int[] arr = { -1, 2, 1, -4, 3 };
+
+		Arrays.sort(arr);
+
+		int num1 = 0;
+		int num2 = 0;
+
+		int left = 0;
+		int right = arr.length - 1;
+
+		int closestSum = Integer.MAX_VALUE;
+
+		while (left < right) {
+
+			int sum = arr[left] + arr[right];
+
+			if (Math.abs(sum) < Math.abs(closestSum)) {
+
+				closestSum = sum;
+				num1 = arr[left];
+				num2 = arr[right];
+			}
+			if (sum < 0) {
+				left++;
+			} else {
+				right--;
+			}
+		}
+
+		System.out.println("The two numbers with sum closest to zero are: " + num1 + " and " + num2);
+
+	}
+}
+
+========================================================================
+Question 5 :- check  expression balanced
+
+
+import java.util.Stack;
+
+public class Test {
+
+	public static void main(String[] args) {
+		String expression = "{[()]}";
+
+		System.out.println(checkBalanced(expression));
+	}
+
+	private static boolean checkBalanced(String expression) {
+
+		Stack<Character> st = new Stack();
+
+		for (int i = 0; i < expression.length(); i++) {
+			char ch = expression.charAt(i);
+
+			if (ch == '{' || ch == '[' || ch == '(') {
+				st.push(ch);
+			} else if (ch == '}' || ch == ']' || ch == ')') {
+				if (st.isEmpty()) {
+					return false;
+				}
+				char top = st.pop();
+				if (ch == '}' && top != '{') {
+					return false;
+				}
+				if (ch == ']' && top != '[') {
+					return false;
+				}
+				if (ch == ')' && top != '(') {
+					return false;
+				}
+
+			}
+		}
+
+		return true;
+
+	}
+}
+==============================================================
+Question 6--Longest substring without repeating characters in a string
+
+public class Test {
+
+	public static void main(String[] args) {
+		String s = "abcdabcbb";
+
+		int start = 0;
+		int maxlength = 0;
+		HashSet<Character> set = new HashSet<>();
+
+		for (int end = 0; end < s.length(); end++) {
+			char currentChar = s.charAt(end);
+
+			while (set.contains(currentChar)) {
+				set.remove(s.charAt(start));
+				start++;
+
+			}
+			set.add(currentChar);
+			maxlength = Math.max(maxlength, end - start + 1);
+		}
+		System.out.println(maxlength);
+
+	}
+}
+
+==========================================================================
+
+question 7:- kth largest element 
+
+public class Test {
+
+	public static void main(String[] args) {
+		int[] arr = { 1, 4, 5, 6, 7, 8, 4, 2, 9 };
+
+		int k = 3;
+
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (i < k) {
+				pq.add(arr[i]);
+			} else if (arr[i] > pq.peek()) {
+				pq.remove();
+				pq.add(arr[i]);
+			}
+
+		}
+
+		while (pq.size() > 0) {
+			System.out.println(pq.remove());
+		}
+	}
+}
+
+========================================================================
+
+question 8 :- rain trapping water
+
+public class RainWaterTrapping {
+
+    public static int trap(int[] height) {
+        if (height == null || height.length == 0) {
+            return 0;
+        }
+
+        int left = 0, right = height.length - 1;
+        int leftMax = 0, rightMax = 0;
+        int waterTrapped = 0;
+
+        // Use two pointers, one from the left and one from the right
+        while (left <= right) {
+            if (height[left] <= height[right]) {
+                // If current left is smaller or equal, calculate water trapped for left
+                if (height[left] >= leftMax) {
+                    leftMax = height[left]; // Update leftMax
+                } else {
+                    waterTrapped += leftMax - height[left]; // Calculate trapped water
+                }
+                left++;
+            } else {
+                // If current right is smaller, calculate water trapped for right
+                if (height[right] >= rightMax) {
+                    rightMax = height[right]; // Update rightMax
+                } else {
+                    waterTrapped += rightMax - height[right]; // Calculate trapped water
+                }
+                right--;
+            }
+        }
+
+        return waterTrapped;
+    }
+
+    public static void main(String[] args) {
+        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        System.out.println("Amount of water trapped: " + trap(height)); // Output: 6
+    }
+}
+
+=====================================================
+Question 9:- implement semaphore
+
+Here's a concise implementation of a Semaphore in Java, which allows up to n threads to access a critical section at the same time.
+
+import java.util.concurrent.Semaphore;
+
+public class SemaphoreExample {
+
+    // Create a Semaphore with 3 permits, allowing 3 threads at a time
+    private static final Semaphore semaphore = new Semaphore(3);
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Task(i)).start();
+        }
+    }
+
+    static class Task implements Runnable {
+        private final int threadId;
+
+        public Task(int threadId) {
+            this.threadId = threadId;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // Acquire a permit before accessing the critical section
+                semaphore.acquire();
+                System.out.println("Thread " + threadId + " is executing.");
+
+                // Simulate work by sleeping
+                Thread.sleep(2000);
+
+                System.out.println("Thread " + threadId + " is done.");
+
+                // Release the permit after the task is finished
+                semaphore.release();
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+}
+===============================================================
+
+Question 10 : Immutable class
+
+public final class ImmutableClassWithMutableObject1 {
+
+	private final String name;
+	private final int age;
+	private final List<String> mutableList;
+
+	public ImmutableClassWithMutableObject1(String name, int age, List<String> mutableList) {
+
+		this.name = name;
+		this.age = age;
+		this.mutableList = new ArrayList<>(mutableList);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public List<String> getMutableList() {
+		return Collections.unmodifiableList(mutableList);
+	}
+
+	public static void main(String[] args) {
+
+		List<String> ls = new ArrayList<>();
+		ls.add("item1");
+		ls.add("item2");
+
+		ImmutableClassWithMutableObject mb = new ImmutableClassWithMutableObject("saurabh", 37, ls);
+
+		System.out.println(mb.getMutableList());
+		System.out.println(mb.getMutableList().add("item3")); // Exception in thread "main" java.lang.UnsupportedOperationException
+
+	}
+}
+
+					using map
+					
+package com;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public final class ImmutableClassWithMutableObject1 {
+
+	private final String name;
+	private final int age;
+	private final Map<String, Integer> map;
+
+	public ImmutableClassWithMutableObject1(String name, int age, Map<String, Integer> map) {
+
+		this.name = name;
+		this.age = age;
+		this.map = new HashMap<>(map);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public Map<String, Integer> getMutableMap() {
+		return Collections.unmodifiableMap(map);
+	}
+
+	public static void main(String[] args) {
+
+		Map<String, Integer> hm = new HashMap<>();
+		hm.put("a", 1);
+		hm.put("b", 2);
+
+		ImmutableClassWithMutableObject1 mb = new ImmutableClassWithMutableObject1("saurabh", 37, hm);
+
+		System.out.println(mb.getMutableMap());
+		System.out.println(mb.getMutableMap().put("c", 3)); // Exception in thread "main"
+															// java.lang.UnsupportedOperationException
+
+	}
+}
+
+
+================================================================
+Question 11: - producer consumer problem
+
+package com;
+
+public class ProducerConsumerProblem {
+
+	private static final Object lock = new Object();
+	private static int data = 0;
+	private static boolean dataAvailable = false;
+
+	class Producer implements Runnable {
+
+		@Override
+		public void run() {
+
+			try {
+				for (int i = 1; i < 10; i++) {
+					synchronized (lock) {
+						while (dataAvailable) {
+
+							lock.wait();
+						}
+
+						data = i;
+						System.out.println("produced " + data);
+						dataAvailable = true;
+						lock.notify();
+					}
+
+					Thread.sleep(1000);
+
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+	class Consumer implements Runnable {
+
+		public void run() {
+
+			try {
+				for (int i = 0; i < 10; i++) {
+					synchronized (lock) {
+						while (!dataAvailable) {
+
+							lock.wait();
+						}
+
+						System.out.println("consumed " + data);
+						dataAvailable = false;
+						lock.notify();
+					}
+
+					Thread.sleep(1000);
+				}
+
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public static void main(String[] args) {
+
+		ProducerConsumerProblem pcb = new ProducerConsumerProblem();
+		Thread producer = new Thread(pcb.new Producer());
+		Thread consumer = new Thread(pcb.new Consumer());
+
+		producer.start();
+		consumer.start();
+	}
+
+}
+
+============================================================
