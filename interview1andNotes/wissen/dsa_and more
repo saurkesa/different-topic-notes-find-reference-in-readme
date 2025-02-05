@@ -1,0 +1,202 @@
+dsa
+
+Sliding Window Problems: Given an array, find the maximum sum of any contiguous subarray of a fixed size k. Discuss the sliding window technique and its time complexity.
+Two-pointer Technique: Write a function to find if a given array has two elements whose sum is equal to a target value. Can you implement this in O(n log n) or O(n)?
+Substring Matching: Implement a function to find the longest substring without repeating characters. How would you optimize it for time efficiency?
+Merge k Sorted Linked Lists: Merge k sorted linked lists and return it as one sorted list. Discuss time and space complexity.
+Cycle Detection: How would you detect a cycle in a linked list? Once detected, how do you find the starting point of the cycle?
+Reversing Nodes in Groups: Reverse nodes of a linked list k at a time and return the modified list. What’s the complexity, and can it be optimized?
+Implement Min Stack: Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Queue using Stacks: Implement a queue using two stacks. Explain the time complexity of enqueue and dequeue operations.
+Expression Evaluation: Write a program to evaluate a postfix expression using a stack. How would you handle large expressions efficiently?
+Binary Search Tree Validation: Given a binary tree, determine if it is a valid binary search tree. What traversal techniques and conditions are needed for efficiency?
+Graph Traversal: Implement both DFS and BFS for a directed graph. How would you use these for topological sorting in a dependency graph?
+Lowest Common Ancestor: Find the lowest common ancestor of two nodes in a binary tree without storing additional parent pointers.
+Binary Tree Zigzag Level Order Traversal: Perform a level order traversal of a binary tree in a zigzag pattern. Discuss how to manage time complexity.
+Kth Largest Element in an Array: Find the k th largest element in an unsorted array. Discuss the different ways to do this and their time complexities.
+Binary Search Variants: How would you implement a rotated sorted array search? Can you optimize it beyond O(log n) ?
+Heap Sort and Quick Select: Discuss scenarios where heap sort and quick select are advantageous. Implement both with a focus on time and space complexity.
+Subarray Sum Equals K: Given an integer array, find the total number of continuous subarrays whose sum equals to k. How would you use a hashmap to achieve O(n) complexity?
+Longest Consecutive Sequence: Given an unsorted array of integers, find the length of the longest consecutive elements sequence. Can you do this in O(n) time using a hash set?
+First Repeating Character: In a stream of characters, find the first character that repeats. How would you optimize it with a hash set or map?
+Classic Two Sum: Given an array and a target sum, find two numbers that add up to the target. Explain the hash map approach to achieve O(n) complexity.
+Three Sum: Find all unique triplets in an array that sum to zero. This problem requires handling duplicates, so discuss an efficient approach using sorting and two-pointer techniques, achieving O(n^2) complexity.
+Four Sum: Given an array, find all unique quadruplets that sum to a target. Explain how sorting combined with a two-pointer approach within nested loops can yield a O(n^3) solution, along with methods to avoid duplicate quadruplets.
+Product of Array Except Self: Given an array, return an array where each element is the product of all elements except itself. Explain how you can do this without division in O(n) time by using prefix and suffix arrays to avoid recomputation.
+Container with Most Water: Given an array of heights, find two lines that together with the x-axis form a container, such that the container holds the most water. This problem uses a two-pointer approach to achieve O(n) time complexity.
+Given a string and an integer k, find the length of the longest substring that contains at most k distinct characters. Discuss the sliding window approach and how to maintain a hash map to track the distinct characters in O(n)
+Minimum Window Substring: Given two strings s and t, find the minimum window in s which contains all characters of t. Use a sliding window approach combined with a hash map to track counts, aiming for O(n) complexity.
+Trapping Rain water: Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water can be trapped after a rain.
+
+dsa1
+
+Two Sum
+Best Time to Buy and Sell Stock
+Contains Duplicate
+Product of Array Except Self
+Maximum Subarray
+Maximum Product Subarray
+Find Minimum in Rotated Sorted Array
+Search in Rotated Sorted Array
+3 Sum
+Container With Most Water
+https://www.geeksforgeeks.org/longest-palindromic-substring/
+https://www.geeksforgeeks.org/check-if-all-elements-of-the-array-are-palindrome-or-not/
+https://www.geeksforgeeks.org/print-characters-frequencies-order-occurrence/
+https://leetcode.com/problems/trapping-rain-water
+https://leetcode.com/problems/search-in-rotated-sorted-array
+https://leetcode.com/problems/reverse-words-in-a-string/description/?envType=study-plan-v2&envId=top-interview-150
+https://www.geeksforgeeks.org/find-if-there-is-a-path-between-two-vertices-in-an-undirected-graph/
+https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+Check if an array represents Inorder of Binary Search tree or not - GeeksforGeeks
+https://javaconceptoftheday.com/java-8-interview-sample-coding-questions/
+Balanced Binary Tree - LeetCode
+Merge Sort - Data Structure and Algorithms Tutorials - GeeksforGeeks
+https://www.geeksforgeeks.org/decimal-equivalent-of-binary-linked-list/
+https://www.geeksforgeeks.org/java-fibonacci-series/?ref=lbp
+https://leetcode.com/problems/design-hashmap/description/
+https://leetcode.com/problems/subarray-sum-equals-k
+https://leetcode.com/problems/reverse-linked-list
+https://leetcode.com/problems/min-stack
+https://leetcode.com/problems/maximum-depth-of-binary-tree
+https://leetcode.com/problems/valid-parentheses
+https://www.geeksforgeeks.org/given-a-string-find-its-first-non-repeating-character/
+https://leetcode.com/problems/valid-anagram/description/
+https://leetcode.com/problems/reverse-string
+https://leetcode.com/proble
+
+ms/delete-node-in-a-linked-list
+https://leetcode.com/problems/move-zeroes/description/
+https://www.geeksforgeeks.org/find-subarray-with-given-sum/
+Find the Missing Number - GeeksforGeeks
+Find first non-repeating element in a given Array of integers - GeeksforGeeks
+https://www.geeksforgeeks.org/maximum-product-subarray/
+Largest value in each level of Binary Tree - GeeksforGeeks
+https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
+https://www.geeksforgeeks.org/iterative-preorder-traversal/
+https://www.geeksforgeeks.org/iterative-postorder-traversal-using-stack/
+https://www.geeksforgeeks.org/print-ancestors-of-a-given-node-in-binary-tree/
+https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
+https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+Depth First Search or DFS for a Graph - GeeksforGeeks
+https://leetcode.com/problems/lfu-cache
+https://www.geeksforgeeks.org/longest-common-prefix-using-sorting/
+Program to find Smallest and Largest Word in a String - GeeksforGeeks
+Find Kth distinct character from start of given String - GeeksforGeeks
+
+3--------------------
+
+https://stackoverflow.com/questions/8698285/when-to-use-volatile-vs-synchronization-in-multithreading-in-java?rq=3
+https://medium.com/javarevisited/demystifying-the-volatile-keyword-in-java-managing-thread-visibility-and-ordering-472050704391
+https://javarevisited.blogspot.in/2011/04/synchronization-in-java-synchronized.html
+https://javahungry.blogspot.com/2015/10/how-treeset-works-internally-in-java-interview-questions.html
+https://stackoverflow.com/questions/56860/what-is-the-liskov-substitution-principle
+https://www.programcreek.com/2013/03/hashmap-vs-treemap-vs-hashtable-vs-linkedhashmap/
+https://stackoverflow.com/questions/10828863/what-the-use-of-custom-class-loader
+https://javahungry.blogspot.com/p/threads.html
+https://en.m.wikipedia.org/wiki/Creational_pattern
+https://www.geeksforgeeks.org/java-collections-interview-questions/?ref=lbp
+https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)
+https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design
+https://stackoverflow.com/questions/11011291/treeset-internally-uses-treemap-so-is-it-required-to-implement-hashcode-method
+https://stackoverflow.com/questions/106591/what-is-the-volatile-keyword-useful-for
+https://stackoverflow.com/questions/27325997/how-does-countdownlatch-works-in-java
+https://stackoverflow.com/questions/10901752/what-is-the-significance-of-load-factor-in-hashmap
+https://stackoverflow.com/questions/13855013/understanding-java-memory-management
+https://www.geeksforgeeks.org/oops-interview-questions/?ref=lbp
+https://stackoverflow.com/questions/3519664/difference-between-volatile-and-synchronized-in-java
+https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html
+https://www.geeksforgeeks.org/java-multithreading-interview-questions-and-answers/?ref=lbp
+https://javahungry.blogspot.com/2014/06/how-treemap-works-ten-treemap-java-interview-questions.html
+https://javahungry.blogspot.com/2013/08/hashing-how-hash-map-works-in-java-or.html
+https://www.geeksforgeeks.org/top-100-data-structure-and-algorithms-dsa-interview-questions-topic-wise/?ref=lbp
+https://in.indeed.com/career-advice/interviewing/java-multithreading-interview-questions
+https://tutorials.jenkov.com/java-util-concurrent/cyclicbarrier.html
+https://stackoverflow.com/questions/683518/java-class-that-implements-map-and-keeps-insertion-order/683524#683524
+https://stackoverflow.com/questions/2889777/difference-between-hashmap-linkedhashmap-and-treemap/17708526#17708526
+https://sl.bing.net/hWMJ0D84WEC
+https://www.educative.io/courses/java-multithreading-for-senior-engineering-interviews/introduction
+https://www.baeldung.com/java-generics-interview-questions
+https://www.baeldung.com/java-interview-questions
+https://stackoverflow.com/questions/2779484/why-must-wait-always-be-in-synchronized-block
+https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html
+https://stackoverflow.com/questions/61335109/what-is-the-difference-between-azul-openjdk-zulu-openjdk-and-openjdk
+https://www.geeksforgeeks.org/java-interview-questions/
+https://lostechies.com/derickbailey/2009/02/11/solid-development-principles-in-motivational-pictures/
+https://javarevisited.blogspot.in/2011/06/volatile-keyword-java-example-tutorial.html
+https://tutorials.jenkov.com/java-concurrency/synchronized.html
+https://www.geeksforgeeks.org/linux-interview-questions/?ref=lbp
+https://stackoverflow.com/questions/43911369/hashmap-java-8-implementation
+https://www.geeksforgeeks.org/java-multithreading-interview-questions-and-answers/
+https://stackoverflow.com/questions/8161896/example-code-to-show-how-java-synchronized-block-works
+https://docs.oracle.com/cd/E13150_01/jrockit_jvm/jrockit/geninfo/diagnos/garbage_collect.html
+https://stackoverflow.com/questions/2087469/sort-a-file-with-huge-volume-of-data-given-memory-constraint
+https://stackoverflow.com/questions/137975/what-is-so-bad-about-singletons
+https://www.dynatrace.com/en/javabook/how-garbage-collection-works.html
+https://www.geeksforgeeks.org/essential-linuxunix-commands/
+https://www.sanfoundry.com/java-questions-answers-freshers-experienced/
+https://stackoverflow.com/questions/6550700/inversion-of-control-vs-dependency-injection
+https://stackoverflow.com/questions/3058/what-is-inversion-of-control
+https://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns-in-javas-core-libraries
+https://www.geeksforgeeks.org/software-design-patterns/
+https://chatgpt.com/share/c74f96f5-47e4-486c-bea1-110e763dabc9
+https://sl.bing.net/hEg9kyWx2Cy
+https://www.geeksforgeeks.org/software-design-patterns/?ref=shm
+
+=============================================================================
+
+4-----
+
+https://www.geeksforgeeks.org/difference-between-map-and-flatmap-in-java-stream/
+https://www.geeksforgeeks.org/program-to-convert-a-map-to-a-stream-in-java/?ref=lbp
+https://www.geeksforgeeks.org/difference-between-wait-and-notify-in-java/
+https://stackoverflow.com/questions/71429246/dealing-with-multiple-application-instances
+https://www.geeksforgeeks.org/java-string-is-immutable-what-exactly-is-the-meaning/?ref=lbp
+https://www.geeksforgeeks.org/java-arithmetic-operators-with-examples/?ref=lbp
+enum in Java - GeeksforGeeks
+final Keyword in Java - GeeksforGeeks
+https://www.geeksforgeeks.org/difference-between-wait-and-notify-in-java/
+https://www.geeksforgeeks.org/g-fact-24-finalfinally-and-finalize-in-java/?ref=lbp
+https://www.geeksforgeeks.org/public-vs-protected-vs-package-vs-private-access-modifier-in-java/?ref=lbp
+https://www.geeksforgeeks.org/string-vs-stringbuilder-vs-stringbuffer-in-java/?ref=lbp
+https://www.geeksforgeeks.org/producer-consumer-solution-using-threads-java/
+https://www.geeksforgeeks.org/what-are-the-advantages-and-disadvantages-of-microservices-architecture/
+https://www.geeksforgeeks.org/microservice-architecture-introduction-challenges-best-practices/
+https://www.geeksforgeeks.org/java-program-to-demonstrate-the-double-check-locking-for-singleton-class/
+https://www.geeksforgeeks.org/what-is-oauth-open-authorization/
+Exception Handling in Spring Boot - GeeksforGeeks
+Exceptions in Java - GeeksforGeeks
+https://www.geeksforgeeks.org/exception-handling-in-spring-boot/
+https://www.geeksforgeeks.org/spring-dependency-injection-with-example/
+https://www.geeksforgeeks.org/spring-understanding-inversion-of-control-with-example/?ref=lbp
+https://www.geeksforgeeks.org/lambda-expressions-java-8/
+String vs StringBuilder vs StringBuffer in Java - GeeksforGeeks
+https://www.geeksforgeeks.org/hibernate-annotations/
+https://www.geeksforgeeks.org/equals-hashcode-methods-java/
+https://www.geeksforgeeks.org/arraylist-vs-linkedlist-java/
+https://www.geeksforgeeks.org/string-constant-pool-in-java/
+https://www.geeksforgeeks.org/java-threads/
+https://www.geeksforgeeks.org/internal-working-of-hashmap-java/
+https://medium.com/javarevisited/frequently-asked-java-concept-programs-part3-hashmap-internal-working-563bb13bf8d0
+https://www.geeksforgeeks.org/difference-between-streams-and-collections-in-java/?ref=lbp
+https://stackoverflow.com/questions/21105403/mocking-static-methods-with-mo
+https://www.geeksforgeeks.org/functional-interfaces-java/?ref=lbp
+https://www.geeksforgeeks.org/how-to-create-thread-using-lambda-expressions-in-java/?ref=lbp
+https://www.geeksforgeeks.org/understanding-outofmemoryerror-exception-java
+https://www.geeksforgeeks.org/aggregate-functions-in-sql/
+https://www.geeksforgeeks.org/sql-join-set-1-inner-left-right-and-full-joins/
+https://www.geeksforgeeks.org/diamond-problem-in-java/
+Top REST API Interview Questions and Answers (2024) - InterviewBit
+https://www.geeksforgeeks.org/spring-boot-pathvariable-and-requestparam-annotations/
+https://www.geeksforgeeks.org/difference-between-spring-and-spring-boot/
+https://www.geeksforgeeks.org/how-to-work-with-databases-using-spring-boot/
+https://www.geeksforgeeks.org/comparable-vs-comparator-in-java/
+https://www.geeksforgeeks.org/java-8-stream-tutorial/
+https://www.geeksforgeeks.org/spring-boot-annotations/?ref=lbp
+https://www.geeksforgeeks.org/sql-transactions/
+https://www.geeksforgeeks.org/acid-properties-in-dbms/
+https://www.geeksforgeeks.org/synchronization-in-java/
+https://www.geeksforgeeks.org/method-references-in-java-with-examples/?ref=lbp
+Comparable vs Comparator in Java - GeeksforGeeks
+
+
