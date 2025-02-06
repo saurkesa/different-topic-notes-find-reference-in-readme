@@ -1,0 +1,478 @@
+
+																section 1:
+
+=====================================================================================================================																
+1:- Introduction to stack and its usage:-
+
+addition and removal  and get of element occur from top in stack.
+
+add :-- push
+remove :-- pop
+get:-- peek or top
+push, pop, peek, size
+
+import java.util.Stack;
+ /*
+ [10]->10 1
+[10, 20]->20 2
+[10, 20, 30]->30 3
+[10, 20]->20 2
+[10]->10 1
+[]->0
+
+  */
+public class Stack_demo {
+
+	public static void main(String[] args) {
+
+		Stack<Integer> st = new Stack<>();
+
+		st.push(10);
+		System.out.println(st + "->" + st.peek() + " " + st.size());
+		st.push(20);
+		System.out.println(st + "->" + st.peek() + " " + st.size());
+		st.push(30);
+		System.out.println(st + "->" + st.peek() + " " + st.size());
+		st.pop();
+		System.out.println(st + "->" + st.peek() + " " + st.size());
+		st.pop();
+		System.out.println(st + "->" + st.peek() + " " + st.size());
+		st.pop();
+		System.out.println(st + "->"  + st.size());
+		
+	}
+
+}
+===============================================================================
+
+2:- Duplicate brackets
+
+/*
+ * 
+ * 1. You are given a string exp representing an expression.
+2. Assume that the expression is balanced  i.e. the opening and closing
+ brackets match with each other.
+3. But, some of the pair of brackets maybe extra/needless. 
+4. You are required to print true if you detect extra brackets and false otherwise.
+
+e.g.'
+((a + b) + (c + d)) -> false
+(a + b) + ((c + d)) -> true
+
+logic 
+
+for opening brackets :--- push it into stack
+for closing bracket :--- pop it until it get opening bracket and pop opening bracket also.
+if directly getting opening bracket at peek means it nothing to pop and that means bracket is extra.
+
+public class DuplicateBracket {
+
+	public static void main(String[] args) {
+
+		Scanner s1 = new Scanner(System.in);
+		String str = s1.nextLine();
+		Stack<Character> st = new Stack<>();
+
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+
+			if (ch == ')') {
+				if (st.peek() == '(') {
+					System.out.println(true);
+					return;
+				} else {
+					while (st.peek() != '(') {
+						st.pop();
+					}
+					st.pop();
+				}
+
+			} else {
+				st.push(ch);
+			}
+		}
+
+		System.out.println(false);
+	}
+
+}
+
+-=====================================================================
+
+3:----balanced bracket
+
+logic : (include all corner cases)
+
+opening backet :--- push
+closing bracket :-- if top is opening bracket then pop it , if it not matching return false.
+stack is empty, if closing bracket come then false
+if stack size is more than zero it means opening bracket is more.
+when closing bracket come check stack size is there, if stack size is not there means closing bracket is more.
+
+
+note :-
+opening bracket :--- push
+closing :- check size is there , if mismatch then also return false
+st.size()>0 means opening bracket is more
+
+chatgpt -----------logic
+
+To check for balanced parentheses or expressions using a stack in Java, the basic idea is:
+
+Push an opening bracket (e.g., (, {, [) onto the stack.
+
+For each closing bracket (e.g., ), }, ]), 
+check if the stack is not empty and 
+if the top of the stack is the matching opening bracket. If so, pop the stack.
+If at the end, the stack is empty, then the expression is balanced. If not, it’s unbalanced.
+
+Here’s a Java implementation that checks for balanced expressions using a stack:
+
+import java.util.Stack;
+
+public class BalancedExpression {
+    public static boolean isBalanced(String expression) {
+        // Create a stack to store opening brackets
+        Stack<Character> stack = new Stack<>();
+        
+        // Iterate over each character in the expression
+        for (int i = 0; i < expression.length(); i++) {
+            char ch = expression.charAt(i);
+
+            // If the character is an opening bracket, push it onto the stack
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            }
+            // If the character is a closing bracket
+            else if (ch == ')' || ch == '}' || ch == ']') {
+                // Check if the stack is empty (no matching opening bracket)
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                
+                // Pop the top of the stack and check if it matches the closing bracket
+                char top = stack.pop();
+                if ((ch == ')' && top != '(') || 
+                    (ch == '}' && top != '{') || 
+                    (ch == ']' && top != '[')) {
+                    return false;
+                }
+            }
+        }
+
+        // If the stack is empty, the expression is balanced
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        // Test with some expressions
+        String expression1 = "{[()]}";  // balanced
+        String expression2 = "{[(])}"; // unbalanced
+        String expression3 = "((()))";  // balanced
+        String expression4 = "({[)}";   // unbalanced
+        
+        System.out.println(isBalanced(expression1)); // true
+        System.out.println(isBalanced(expression2)); // false
+        System.out.println(isBalanced(expression3)); // true
+        System.out.println(isBalanced(expression4)); // false
+    }
+}
+
+==============================================================================================
+
+4:---- next greater element to right
+
+logic :- start from right
+
+each element will do :--
+
+- --------pop     ( it will pop all element which is smaller than current element in stack)
+a ------- answer   (  it answer will become top of stack)
++ ------- push
+
+if stack become empty answer will become -1
+
+
+public class StackTest {
+
+	public static void main(String[] args) {
+
+		int[] arr = { 2, 5, 9, 3, 1, 12, 6, 8, 7 };
+
+		int[] nextGreaterElement = nextGreaterElement(arr);
+
+		for (int nge : nextGreaterElement) {
+			System.out.print(nge + " ");
+		}
+	}
+
+	private static int[] nextGreaterElement(int[] arr) {
+
+		int[] nge = new int[arr.length];
+
+		Stack<Integer> st = new Stack();
+
+		st.push(arr[arr.length - 1]);
+		nge[arr.length - 1] = -1;
+
+		for (int i = arr.length - 2; i >= 0; i--) {
+
+			while (st.size() > 0 && arr[i] >= st.peek()) {
+				st.pop();
+			}
+
+			if (st.size() == 0) {
+				nge[i] = -1;
+			} else {
+				nge[i] = st.peek();
+			}
+			st.push(arr[i]);
+		}
+
+		return nge;
+	}
+
+}
+
+// output 5 9 12 12 12 -1 8 -1 -1 
+
+=============================================================================
+
+5:---- build normal stack
+
+package stackDemo;
+
+public class StackTest {
+
+	int[] data;
+	int tos;
+
+	public StackTest(int n) {
+		data = new int[n];
+		tos = -1;
+	}
+
+	void display() {
+
+		for (int i = tos; i >= 0; i--) {
+			System.out.print(data[i] + " ");
+		}
+		System.out.println();
+	}
+
+	int size() {
+
+		return tos + 1;
+	}
+
+	int pop() {
+
+		if (tos == -1) {
+			System.out.println("stack underflow");
+			return -1;
+		} else {
+			int val = data[tos];
+			tos--;
+			return val;
+		}
+	}
+
+	int top() {
+		if (tos == -1) {
+			System.out.println("stack underflow");
+			return -1;
+		} else {
+
+			return data[tos];
+		}
+
+	}
+
+	void push(int val) {
+
+		if (tos == data.length - 1) {
+			System.out.println("stack overflow");
+		} else {
+			tos++;
+			data[tos] = val;
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		StackTest st = new StackTest(5);
+		st.push(1);
+		st.push(2);
+		st.push(3);
+		st.push(4);
+		st.display();
+		st.pop();
+		st.display();
+
+	}
+}
+
+===============================================================================
+
+6:-- dynamic stack
+
+	void push(int val) {
+
+		if (tos == data.length - 1) {
+			int[] ndata = new int[2 * data.length];
+
+			for (int i = 0; i < data.length; i++) {
+				ndata[i] = data[i];
+			}
+			data = ndata;
+			tos++;
+			data[tos] = val;
+		} else {
+			tos++;
+			data[tos] = val;
+		}
+	}
+
+=================================================================
+7:--- Queue introduction and usage
+
+stack :-- lifo
+add---push    ------------add(enqueue)
+remove ---pop------------- rmeove(deque)
+get--- top--------------------peek
+
+queue :----  ( fifo -:---- first in first out)
+add element at end
+remove and peek give element of front
+
+Note:- Queue : is an interface
+
+remove:---- remove element from queue and return also.
+peek :------ return element but not remove it.
+
+
+import java.util.ArrayDeque;
+import java.util.Queue;
+/*
+ * output
+ * [10]
+[10, 20]
+[10, 20, 30]
+10
+10
+[20, 30]
+ */
+public class QueueUsage {
+
+	public static void main(String[] args) {
+		
+		Queue<Integer> que = new ArrayDeque<>();
+		que.add(10);
+		System.out.println(que);
+		que.add(20);
+		System.out.println(que);
+		que.add(30);
+		System.out.println(que);
+		System.out.println(que.peek());
+		System.out.println(que.remove());
+		System.out.println(que);
+
+	}
+
+}
+===============================================================
+8 :--- build normal queue
+
+add: ---- at the end
+remove : ---- at the front
+peek :  ---- at the front
+display :--- from front to end
+
+we need two variable front and rear. but we can find out rear using front and size.
+
+public class QueueDemo {
+
+	int[] data;
+	int front;
+	int size;
+
+	public QueueDemo(int cap) {
+		data = new int[cap];
+		front = 0;
+		size = 0;
+	}
+
+	int size() {
+		return size;
+	}
+
+	void add(int val) {
+
+		if (size == data.length) {
+			System.out.println("queue is overflow");
+		} else {
+			int rear = (front + size) % data.length;
+			data[rear] = val;
+			size++;
+		}
+	}
+
+	void display() {
+
+		for (int i = 0; i < size; i++) {
+			int idx = (front + i) % data.length;
+			System.out.print(data[idx] + " ");
+		}
+		System.out.println();
+	}
+
+	int remove() {
+		if (size == 0) {
+			System.out.println("queue underflow");
+			return -1;
+		} else {
+			int val = data[front];
+			front = (front + 1) % data.length;
+			size--;
+			return val;
+		}
+
+	}
+
+	int peek() {
+
+		if (size == 0) {
+			System.out.println("queue underflow");
+			return -1;
+		} else {
+			return data[front];
+		}
+	}
+
+	public static void main(String[] args) {
+		QueueDemo q1 = new QueueDemo(5);
+		q1.add(1);
+		q1.add(2);
+		q1.add(3);
+		q1.add(4);
+		q1.add(5);
+		q1.display();
+		q1.remove();
+		q1.display();
+		System.out.println(q1.peek());
+		q1.display();
+
+	}
+
+}
+
+// output 
+
+1 2 3 4 5 
+2 3 4 5 
+2
+2 3 4 5 
+
+========================================
+
+9:---- build dynamic queue
